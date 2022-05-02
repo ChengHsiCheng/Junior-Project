@@ -5,26 +5,33 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region 變數
     float dashDuration = 0.2f;//衝刺時間
-    float dashTime;//衝刺經過的時間
-    float dashSpeed = 1;
-    bool isDash;//是否在衝刺
-    bool isAttack = false;
+    float dashTime = 0;//衝刺的時間
+    float dashSpeed = 0.5f;//衝刺速度
+    float dashCD = 0.5f;//衝刺的冷卻時間
+    float dashElapsedTime = 0;//衝刺後經過的時間
+    bool isDash = false;//是否在衝刺
+    bool isAttack = false;//是否在攻擊
     CharacterController controller;
     Animator animator;
-    float speed = 5;
-    public int attackCount = 0;
-    string attackAnimaCount ="";
+    float speed = 5;//移動速度
+    public int attackCount = 0;//儲存攻擊段數
+    public int attackHit = 0;//目前攻擊段數
+    bool isPressLeftMouse = false;//是否觸發滑鼠左鍵
+    public GameObject weaponCollision;//攻擊判定框
+    public GameObject attackEffect;//攻擊特效
+    public GameObject FireBall;//火球
+    #endregion
     void Start()
     {
         controller=GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         dashTime = dashDuration;
-        StartCoroutine(AttackLogic());
     }
     void Update()
     {
-        if(isAttack)
+        if(isAttack)//是否可以移動、衝刺
         {
             animator.SetBool("run",false);
         }else if(!isAttack)
@@ -33,10 +40,11 @@ public class Player : MonoBehaviour
             Dash();
         }
         Attack();
+        AttackTrigger();
+        UseSkills();
     }
-    void Move()
+    void Move()//移動
     {
-        //移動
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 dir = new Vector3(h, 0, v);
@@ -51,24 +59,35 @@ public class Player : MonoBehaviour
         }
 
         //面相移動方向
-        if(dir.magnitude > 0.1f)
-        {
-            float faceAngle = Mathf.Atan2(h, v) * Mathf.Rad2Deg;
-            Quaternion targetRotation = Quaternion.Euler(0, faceAngle, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
-        }
+        // if(dir.magnitude > 0.1f)
+        // {
+        //     float faceAngle = Mathf.Atan2(h, v) * Mathf.Rad2Deg;
+        //     Quaternion targetRotation = Quaternion.Euler(0, faceAngle, 0);
+        //     transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
+        // }
+        //面對鼠標
+        var dir_r = Input.mousePosition-Camera.main.WorldToScreenPoint(transform.position);
+        var angle = Mathf.Atan2(dir_r.x,dir_r.y)*Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(0, angle, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
 
         controller.Move( dir * speed * Time.deltaTime );
     }
-    void Dash()
+    void Dash()//衝刺
     {
-        //衝刺
         animator.SetBool("dash",isDash);
         if(!isDash)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(dashElapsedTime >= dashCD)
             {
-                isDash = true;
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+                    isDash = true;
+                    dashElapsedTime = 0;
+                }
+            }else
+            {
+                dashElapsedTime += Time.deltaTime;
             }
         }
         else
@@ -80,16 +99,15 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Debug.Log("A");
                 dashTime -= Time.deltaTime;
                 controller.Move(transform.forward * dashTime * dashSpeed);
             }
         }
     }
-    void Attack()
+    void Attack()//攻擊控制器
     {
         AnimatorStateInfo stateInfo = this.animator.GetCurrentAnimatorStateInfo(0);
-        if (stateInfo.IsName("Idle") || stateInfo.IsName("run") || stateInfo.IsName("Dash"))
+        if (stateInfo.IsName("Idle") || stateInfo.IsName("run") || stateInfo.IsName("Dash"))//判斷是否在攻擊狀態
         {
             isAttack = false;
         }else
@@ -117,21 +135,37 @@ public class Player : MonoBehaviour
 
         if (stateInfo.IsName("Attack3") && (stateInfo.normalizedTime >= 0.2f) && (stateInfo.normalizedTime <= 0.4f))
         {
+            //攻擊第3段時往前移動
             controller.Move(transform.forward * Time.deltaTime * 10);
         }
 
         if (stateInfo.IsName("Attack1"))
         {
-            attackAnimaCount = "Attack1";
+            attackHit = 1;
+        }else if(stateInfo.IsName("Attack2"))
+        {
+            attackHit = 2;
+        }else if(stateInfo.IsName("Attack3"))
+        {
+            attackHit = 3;
+        }else
+        {
+            attackHit = 0;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            // 監聽用戶輸入（假設左鍵爲攻擊鍵）
+            isPressLeftMouse = true;
+        }else if(Input.GetMouseButtonUp(0))
+        {
+            isPressLeftMouse = false;
+        }
+        if(isPressLeftMouse)
+        {
             AttackButton();
         }
     }
-    void AttackButton()
+    void AttackButton()//監聽用戶輸入
     {
         AnimatorStateInfo stateInfo = this.animator.GetCurrentAnimatorStateInfo(0);
         if (stateInfo.IsName("Idle") || stateInfo.IsName("run"))
@@ -142,26 +176,40 @@ public class Player : MonoBehaviour
         }
         else if (stateInfo.IsName("Attack1") && (stateInfo.normalizedTime > 0.4f))
         {
-            // 在攻擊1狀態下，按下攻擊鍵，記錄連擊數爲2（切換狀態在Update()中
+            // 在攻擊1狀態下，按下攻擊鍵，記錄連擊數爲2
             attackCount = 2;
         }
         else if (stateInfo.IsName("Attack2") && (stateInfo.normalizedTime > 0.4f))
         {
-            // 在攻擊2狀態下，按下攻擊鍵，記錄連擊數爲3（切換狀態在Update()中）
+            // 在攻擊2狀態下，按下攻擊鍵，記錄連擊數爲3
             attackCount = 3;
         }
     }
-    IEnumerator AttackLogic()
+    void AttackTrigger()//設定攻擊判定
     {
         AnimatorStateInfo stateInfo = this.animator.GetCurrentAnimatorStateInfo(0);
-        while(true)
+        if(stateInfo.IsName("Attack1")  || stateInfo.IsName("Attack2") || stateInfo.IsName("Attack3"))
         {
-            while(attackAnimaCount == "Attack1")
+            if(stateInfo.normalizedTime >= 0.2 && stateInfo.normalizedTime <= 0.8)
             {
-                Debug.Log("A");
-                yield return null;
+                weaponCollision.SetActive(true);
             }
-            yield return null;
+            else
+            {
+                weaponCollision.SetActive(false);
+            }
+        }
+        else
+        {
+            weaponCollision.SetActive(false);
+        }
+
+    }
+    void UseSkills()
+    {
+        if(Input.GetMouseButtonDown(1))
+        {
+            Instantiate(FireBall,transform.position,transform.rotation);
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class hpbar : MonoBehaviour
 {
-    public Enemy TargetEnemy;
+    public Enemy01 TargetEnemy;
     public Image Bar;
     public GameObject canvas;
 
@@ -37,7 +37,7 @@ public class hpbar : MonoBehaviour
 
     // 更新血條長度
     void UpdateBarWidth() {
-        float hpScale = TargetEnemy.Hp * 0.01f;
+        float hpScale = TargetEnemy.Hp  * 0.01f;
         Bar.rectTransform.localScale = new Vector3
         (
             hpScale,

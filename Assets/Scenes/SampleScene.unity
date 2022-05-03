@@ -429,8 +429,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hp: 100
   player: {fileID: 0}
+  attackCollision: {fileID: 1644257593}
   state: 0
   hitTime: 0
+  attackCD: 1
+  attackTime: 0
 --- !u!195 &677671992
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1256,6 +1259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1644257594}
   - component: {fileID: 1644257595}
+  - component: {fileID: 1644257596}
   m_Layer: 7
   m_Name: AttackTrigger
   m_TagString: Untagged
@@ -1290,6 +1294,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.80532813, y: 0.5752421, z: 0.5594102}
   m_Center: {x: 0.0055037737, y: -0.21237895, z: -0.22029491}
+--- !u!114 &1644257596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644257593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0863f02c4ca197949a6eb139ab1c81b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &543450653231506665 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3967637945716481164, guid: 04e3761c3efb5cf43a136d6b099312b1, type: 3}

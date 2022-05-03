@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     float dashElapsedTime = 0;//衝刺後經過的時間
     bool isDash = false;//是否在衝刺
     bool isAttack = false;//是否在攻擊
+    public float playerHp = 100;
     CharacterController controller;
     Animator animator;
     float speed = 5;//移動速度
@@ -211,5 +212,11 @@ public class Player : MonoBehaviour
         {
             Instantiate(FireBall,transform.position,transform.rotation);
         }
+    }
+
+    public void Damege(float damege)
+    {
+        playerHp -= damege;
+        Debug.Log(playerHp);
     }
 }

@@ -17,11 +17,10 @@ public class Player : MonoBehaviour
     CharacterController controller;
     Animator animator;
     float speed = 5;//移動速度
-    public int attackCount = 0;//儲存攻擊段數
+    int attackCount = 0;//儲存攻擊段數
     public int attackHit = 0;//目前攻擊段數
     bool isPressLeftMouse = false;//是否觸發滑鼠左鍵
     public GameObject weaponCollision;//攻擊判定框
-    public GameObject attackEffect;//攻擊特效
     public GameObject FireBall;//火球
     #endregion
     void Start()
@@ -42,7 +41,6 @@ public class Player : MonoBehaviour
         }
         Attack();
         AttackTrigger();
-        UseSkills();
     }
     void Move()//移動
     {
@@ -205,13 +203,6 @@ public class Player : MonoBehaviour
             weaponCollision.SetActive(false);
         }
 
-    }
-    void UseSkills()
-    {
-        if(Input.GetMouseButtonDown(1))
-        {
-            Instantiate(FireBall,transform.position,transform.rotation);
-        }
     }
 
     public void Damege(float damege)

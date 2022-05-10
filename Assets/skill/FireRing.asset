@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deae9b0f9e05158488a82df8ab10d22d, type: 3}
+  m_Name: FireRing
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 5704660082640262600, guid: 2f33aee8ec4c52941bf65acc33671b13, type: 3}
+  SkillSprite: {fileID: 0}
+  CD: 2
+  description: 

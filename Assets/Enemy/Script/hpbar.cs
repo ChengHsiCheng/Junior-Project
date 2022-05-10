@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class hpbar : MonoBehaviour
 {
-    public Enemy01 TargetEnemy;
+    public EnemyStatusInfo TargetEnemy;
     public Image Bar;
     public GameObject canvas;
 

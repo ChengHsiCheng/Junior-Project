@@ -19423,6 +19423,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 8012151804817160915}
+  fireBallSkill: {fileID: 7507987526745128322, guid: 39ea4df4d809e8540aa3421924601124, type: 3}
+  chargeTime: 0
   desiredLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: deae9b0f9e05158488a82df8ab10d22d
+guid: 9814e3844f8843d4a96fcc3fb8651b6a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - Prefab: {instanceID: 0}
-  - SkillSprite: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

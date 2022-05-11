@@ -24,6 +24,5 @@ public class EnemyStatusInfo : MonoBehaviour
         {
             state = 2;
         }
-        Debug.Log(state);
     }
 }

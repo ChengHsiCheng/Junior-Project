@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class SkillInventoryObject : MonoBehaviour
 {
+    public SkillController skill;
     public List<SkillController> Container = new List<SkillController>();
 
     void OnTriggerEnter(Collider other) 
     {
         if(other.tag == "Player")
         {
-            other.GetComponent<SkillManager>().skill_01 = Container[0];
+            if(!skill)
+            {
+                skill = Instantiate<SkillController>(Container[0]);
+            }
+            other.GetComponent<SkillManager>().skill_01 = skill;
         }
     }
 }

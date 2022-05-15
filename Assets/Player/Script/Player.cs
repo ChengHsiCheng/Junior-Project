@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System.Net;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,32 +22,53 @@ public class Player : MonoBehaviour
     public int attackHit = 0;//目前攻擊段數
     bool isPressLeftMouse = false;//是否觸發滑鼠左鍵
     public GameObject weaponCollision;//攻擊判定框
-    public GameObject FireBall;//火球
+    bool replaceColor = false;
+    public float replaceColorTime = 0;
+
+    public List<Material>materials = new List<Material>{};
     #endregion
     void Start()
     {
         controller=GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         dashTime = dashDuration;
+
+        for(int i = 0; i<materials.Count; i++)
+        {
+            materials[i].color = Color.white;
+        }
     }
     void Update()
     {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        Vector3 dir = new Vector3(h, 0, v);
+
+
         if(isAttack)//是否可以移動、衝刺
         {
             animator.SetBool("run",false);
         }else if(!isAttack)
         {
-            Move();
-            Dash();
+            Dash(dir);
+        }if(!isAttack && !isDash)
+        {
+            Move(dir);
         }
         Attack();
         AttackTrigger();
+
+        if(replaceColor)//是否變換顏色
+        {
+            MaterialsColor();
+        }
+
+
+
     }
-    void Move()//移動
+    void Move(Vector3 dir)//移動
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        Vector3 dir = new Vector3(h, 0, v);
+        
 
         if(dir.magnitude > 0.1f)
         {
@@ -72,7 +94,7 @@ public class Player : MonoBehaviour
 
         controller.Move( dir * speed * Time.deltaTime );
     }
-    void Dash()//衝刺
+    void Dash(Vector3 dir)//衝刺
     {
         animator.SetBool("dash",isDash);
         if(!isDash)
@@ -99,7 +121,7 @@ public class Player : MonoBehaviour
             else
             {
                 dashTime -= Time.deltaTime;
-                controller.Move(transform.forward * dashTime * dashSpeed);
+                controller.Move(dir * dashTime * dashSpeed);
             }
         }
     }
@@ -205,9 +227,34 @@ public class Player : MonoBehaviour
 
     }
 
-    public void Damege(float damege)
+    public void Damege(float damege)//計算傷害
     {
+
         playerHp -= damege;
+        replaceColor = true;
         Debug.Log(playerHp);
     }
+
+    void MaterialsColor()//被攻擊時切換顏色
+    {
+        if(replaceColorTime == 0)
+        {
+            for(int i = 0; i<materials.Count; i++)
+            {
+                materials[i].color = Color.red;
+            }
+        }
+        replaceColorTime += Time.deltaTime;
+        
+        if(replaceColorTime >= 0.3)
+        {
+            for(int i = 0; i<materials.Count; i++)
+            {
+                materials[i].color = Color.white;
+            }
+            replaceColorTime = 0;
+            replaceColor = false;
+        }
+    }
+
 }

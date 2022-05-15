@@ -1,14 +1,18 @@
+using System.Net.Mime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class SkillController : MonoBehaviour
 {
     public float CD = 0;
-    public delegate void SkillCDEventArgs(object sender);
-    public SkillCDEventArgs OnStartCountCD;
+    public float skillElapsedTime = 0;
+    public Image image;
+    // public delegate void SkillCDEventArgs(SkillController sender);
+    // public SkillCDEventArgs OnStartCountCD;
 
-    public abstract void Use();
+    public abstract void SkillStart();
 
     public virtual void SkillUpdate(){}
 

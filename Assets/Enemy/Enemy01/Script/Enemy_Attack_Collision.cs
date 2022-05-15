@@ -5,13 +5,13 @@ using UnityEngine;
 public class Enemy_Attack_Collision : MonoBehaviour
 {
     Player TargetPlayer;
-    float damege = 10;
+    public EnemyStatusInfo enemy;
     private void OnTriggerEnter(Collider other) 
     {
         if(other.tag == "Player")
         {
             TargetPlayer = other.GetComponent<Player>();
-            TargetPlayer.Damege(damege);
+            TargetPlayer.Damege(enemy.damege);
         }
     }
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Attack_Collision : MonoBehaviour
 {
-    EnemyStatusInfo TargetEnemy;
+    public EnemyStatusInfo TargetEnemy;
     public Player player;
     float damege;
+
     void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Enemy")
@@ -20,7 +21,7 @@ public class Attack_Collision : MonoBehaviour
             {
                 damege = 30;
             }
-            TargetEnemy.Damege(damege);
+            TargetEnemy.Damege(damege,true);
         }
     }
 }

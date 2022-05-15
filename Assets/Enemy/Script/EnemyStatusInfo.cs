@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyStatusInfo : MonoBehaviour
 {
     public float Hp;
+    public float damege;
     public int state = 0;//0 = 追逐 , 1 = 攻擊 , 2 = 受擊
 
     public void Face(GameObject player)//面相玩家
@@ -14,7 +15,7 @@ public class EnemyStatusInfo : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
     }
 
-    public void Damege(float damege)//計算傷害
+    public void Damege(float damege ,bool isRepulse)//計算傷害
     {
         Hp -= damege;
         if(Hp <= 0)
@@ -22,7 +23,10 @@ public class EnemyStatusInfo : MonoBehaviour
             state = 3;
         }else
         {
-            state = 2;
+            if(isRepulse)
+            {
+                state = 2;
+            }
         }
     }
 }

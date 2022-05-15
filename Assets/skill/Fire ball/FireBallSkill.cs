@@ -7,34 +7,39 @@ using UnityEngine;
 public class FireBallSkill : SkillController
 {
     public Fireball fireBallSource;
-    public Fireball fireBall = null;
-    public float chargeTime = 0;//蓄力時間
-    public bool IsShoot = false;//是否發射了
+    public bool isFireBallCharging = false;
 
     public FireBallSkill()
     {
         CD = 1;
+        skillElapsedTime = 0;
     }
 
-
-    public override void Use()
+    public override void SkillStart()
     {
-        IsShoot = false;
-        // 複製產生出來的物件
-        fireBall = Instantiate<Fireball>(fireBallSource, transform.position, fireBallSource.transform.rotation);
-    }
-
-
-    public override void SkillUpdate()
-    {
-        if(fireBall)
+        if(skillElapsedTime <= 0)
         {
-           if(Input.GetMouseButtonUp(1))
-           {
-               IsShoot = true;
-               OnStartCountCD(this);
-           }
+            isFireBallCharging = true;
+            skillElapsedTime = CD;
+            // 複製產生出來的物件
+            Fireball fireBall = Instantiate<Fireball>(fireBallSource, transform.position, fireBallSource.transform.rotation);
+            //註冊事件:發射火球
+            fireBall.OnFireBallShooted += FireBallShooted;
         }
     }
 
+    public override void SkillUpdate()
+    {
+        //計算CD
+        if(!isFireBallCharging && skillElapsedTime >= 0)
+        {
+            skillElapsedTime -= Time.deltaTime;
+        }
+    }
+
+    //承接委派:火球發射出去
+    void FireBallShooted()
+    {
+        isFireBallCharging = false;
+    }
 }

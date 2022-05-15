@@ -564,6 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b792d12781c854d8217776e118036f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TargetEnemy: {fileID: 0}
   player: {fileID: 3496298326022248974}
 --- !u!1 &3496298327433987805
 GameObject:
@@ -803,10 +804,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf4dda660f442144817517d4f15fbc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCount: 0
+  playerHp: 100
   attackHit: 0
   weaponCollision: {fileID: 3496298325967013706}
-  attackEffect: {fileID: 0}
   FireBall: {fileID: 8012151805265444536, guid: d044c6d7395060a41ac9c70f76d433f0, type: 3}
 --- !u!1 &4568561766114599279
 GameObject:

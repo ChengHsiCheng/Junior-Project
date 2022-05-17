@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     #region 變數
     float dashDuration = 0.2f;//衝刺時間
     float dashTime = 0;//衝刺的時間
-    float dashSpeed = 0.5f;//衝刺速度
+    float dashSpeed = 100f;//衝刺速度
     float dashCD = 0.5f;//衝刺的冷卻時間
     float dashElapsedTime = 0;//衝刺後經過的時間
     bool isDash = false;//是否在衝刺
@@ -96,6 +96,8 @@ public class Player : MonoBehaviour
     }
     void Dash(Vector3 dir)//衝刺
     {
+        Vector3 dashDir = new Vector3(Mathf.Round(dir.x),Mathf.Round(dir.y),Mathf.Round(dir.z));
+        
         animator.SetBool("dash",isDash);
         if(!isDash)
         {
@@ -121,7 +123,14 @@ public class Player : MonoBehaviour
             else
             {
                 dashTime -= Time.deltaTime;
-                controller.Move(dir * dashTime * dashSpeed);
+                if(dir != Vector3.zero)
+                {
+                    controller.Move(dashDir * dashTime * dashSpeed * Time.deltaTime);
+                }else
+                {
+                    controller.Move(this.transform.forward * dashTime * dashSpeed * Time.deltaTime);
+                }
+
             }
         }
     }
@@ -257,4 +266,26 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void PlayerHeal(float heal)
+    { 
+        if(playerHp < 100)  
+        {
+            playerHp += heal;
+        }
+    }
+
+    public void Die()
+    {
+        playerHp = 100;
+        this.transform.position = new Vector3 (0,transform.position.y,-2f);
+
+        //刪除所有敵人
+        GameObject[] enemy;
+        enemy = GameObject.FindGameObjectsWithTag("Enemy");
+        for(int i = 0; i < enemy.Length ; i++)
+        {
+            enemy[i].GetComponent<EnemyStatusInfo>().Damege(100,false);
+        }
+    }
 }
+

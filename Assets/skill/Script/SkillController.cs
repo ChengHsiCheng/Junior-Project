@@ -8,6 +8,8 @@ public abstract class SkillController : MonoBehaviour
 {
     public float CD = 0;
     public float skillElapsedTime = 0;
+    public string SkillName;
+    public string skillIntroduce;
     public Image image;
     // public delegate void SkillCDEventArgs(SkillController sender);
     // public SkillCDEventArgs OnStartCountCD;

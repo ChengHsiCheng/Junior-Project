@@ -17,21 +17,14 @@ public class PlayerHpBar : MonoBehaviour
 
     void Update()
     {
-        UpdatePosition();
         UpdateBarWidth();
-        // if(player.playerHp <= 0)
-        // {
-        //     Destroy(gameObject);
-        // }
+        if(player.playerHp <= 0)
+        {
+            player.Die();
+        }
     }
 
     // 更新血條座標
-    void UpdatePosition()
-    {
-        Vector3 enemyScreenPos = Camera.main.WorldToScreenPoint(player.transform.position);//目標位置
-        Vector3 offset = new Vector3(0, 50, 0);//血條相對目標位置
-        rectTrans.position = enemyScreenPos + offset;
-    }
 
     // 更新血條長度
     void UpdateBarWidth() {

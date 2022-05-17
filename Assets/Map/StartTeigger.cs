@@ -10,6 +10,14 @@ public class StartTeigger : MonoBehaviour
         {
             mapController.RandomInt();
             mapController.SwapMaps();
+
+            //刪除場上所有掉落物
+            GameObject[] FlopItem;
+            FlopItem = GameObject.FindGameObjectsWithTag("FlopItem");
+            for(int i = 0; i < FlopItem.Length ; i++)
+            {
+                Destroy(FlopItem[i].gameObject);
+            }
         }
     }
 }

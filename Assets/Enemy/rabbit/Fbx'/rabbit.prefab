@@ -50,6 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hp: 0
   damege: 0
+  heal: {fileID: 3762199942778728264, guid: d4a7e9985965e474cac76e0f9480092d, type: 3}
+  mapController: {fileID: 0}
   state: 0
   player: {fileID: 0}
   rabbit: {fileID: 2650237860300704267}

@@ -18,6 +18,7 @@ public class Rabbit : EnemyStatusInfo
         animator = rabbit.GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         player = GameObject.Find("Player");
+        mapController = GameObject.Find("Maps").GetComponent<MapController>();
         Hp = 100;
         damege = 10;
     }
@@ -101,9 +102,16 @@ public class Rabbit : EnemyStatusInfo
 
     void Die()//死亡
     {
+        dieTime += Time.deltaTime;
         agent.speed = 0f;
         animator.SetBool("die",true);
-        Destroy(gameObject,0.7f);
+        if(dieTime >= 0.7f)
+        {
+            Instantiate (heal, this.transform.position, Quaternion.identity);
+            mapController.EnemyCount();
+            Destroy(gameObject);
+        }
+        
     }
 
     void AttackController()//攻擊時的移動、碰撞

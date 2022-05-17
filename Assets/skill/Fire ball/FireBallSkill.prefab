@@ -43,8 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e834de7043e2fa44aa8be697c4a068e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CD: 1
+  CD: 2
   skillElapsedTime: 0
+  SkillName: FireBall
+  skillIntroduce: "\u6309\u4F4F\u53F3\u9375\u53EF\u4EE5\u96C6\u6C23\uFF0C\u6642\u9593\u8D8A\u4E45\u50B7\u5BB3\u8D8A\u9AD8"
   image: {fileID: 0}
   fireBallSource: {fileID: 7166687374998061203, guid: d044c6d7395060a41ac9c70f76d433f0, type: 3}
   isFireBallCharging: 0

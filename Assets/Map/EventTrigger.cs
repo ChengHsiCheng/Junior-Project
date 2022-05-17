@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class EventTrigger : MonoBehaviour
 {
-    public GameObject enemy;
+    public List<EnemyStatusInfo>Enemy = new List<EnemyStatusInfo>{};
     public List<GameObject>GeneratePos = new List<GameObject>{};
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player")
         {
             this.gameObject.SetActive(false);
+            Debug.Log(GeneratePos.Count);
             for(int i =0;i < GeneratePos.Count;i++)
             {
-            Instantiate(enemy,GeneratePos[i].transform.position,Quaternion.Euler(0,0,0));
+                Instantiate(Enemy[Random.Range(0,Enemy.Count)],GeneratePos[i].transform.position,Quaternion.Euler(0,0,0));
             }
         }
     }

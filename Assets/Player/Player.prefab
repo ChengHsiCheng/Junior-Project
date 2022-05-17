@@ -575,7 +575,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3496298327433987804}
-  - component: {fileID: 3496298327433987807}
   m_Layer: 0
   m_Name: skill
   m_TagString: Untagged
@@ -597,18 +596,6 @@ Transform:
   m_Father: {fileID: 3967637945716481164}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3496298327433987807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3496298327433987805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94177190b6b6a534f9d54d21acd1be6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3714827309279165074
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,7 +758,7 @@ CharacterController:
   m_SlopeLimit: 0
   m_StepOffset: 0
   m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &3496298326022248975
 Animator:
@@ -807,7 +794,8 @@ MonoBehaviour:
   playerHp: 100
   attackHit: 0
   weaponCollision: {fileID: 3496298325967013706}
-  FireBall: {fileID: 8012151805265444536, guid: d044c6d7395060a41ac9c70f76d433f0, type: 3}
+  replaceColorTime: 0
+  materials: []
 --- !u!1 &4568561766114599279
 GameObject:
   m_ObjectHideFlags: 0

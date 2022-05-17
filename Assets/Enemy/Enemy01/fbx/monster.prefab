@@ -1005,7 +1005,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.09
-  m_Radius: 0.3
+  m_Radius: 0.27
   m_SlopeLimit: 45
   m_StepOffset: 0
   m_SkinWidth: 0.08
@@ -1044,6 +1044,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hp: 100
   damege: 0
+  heal: {fileID: 3762199942778728264, guid: d4a7e9985965e474cac76e0f9480092d, type: 3}
+  mapController: {fileID: 0}
+  dieTime: 0
   state: 0
   player: {fileID: 0}
   attackCollision: {fileID: 6005345301946935949}

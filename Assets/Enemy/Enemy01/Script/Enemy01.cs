@@ -22,6 +22,7 @@ public class Enemy01 : EnemyStatusInfo
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         player = GameObject.FindWithTag("Player");
+        mapController = GameObject.Find("Maps").GetComponent<MapController>();
         Hp = 100;
         damege = 10;
     }
@@ -124,10 +125,16 @@ public class Enemy01 : EnemyStatusInfo
 
     void Die()
     {
+        dieTime += Time.deltaTime;
         agent.speed = 0f;
         animator.SetBool("die",true);
         controller.Move(-transform.forward * Time.deltaTime);
-        Destroy(gameObject,0.7f);
+        if(dieTime >= 0.7f)
+        {
+            Instantiate (heal, this.transform.position, Quaternion.identity);
+            mapController.EnemyCount();
+            Destroy(gameObject);
+        }
     }
 
 }

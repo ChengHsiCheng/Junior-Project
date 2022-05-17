@@ -13,6 +13,8 @@ public class FireBallSkill : SkillController
     {
         CD = 1;
         skillElapsedTime = 0;
+        skillIntroduce = "按住右鍵可以集氣，時間越久傷害越高";
+        SkillName = "FireBall";
     }
 
     public override void SkillStart()

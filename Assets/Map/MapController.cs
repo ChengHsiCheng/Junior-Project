@@ -7,9 +7,7 @@ public class MapController : MonoBehaviour
     public List<GameObject> Maps = new List<GameObject>{};//儲存地圖
     int[] randomint;//洗牌用陣列
     int nowMaps = 0;
-    public GameObject outSetTrigger;
-    public GameObject endTrigger;
-    public EventTrigger eventTrigger;
+    public float enemyCount = 0;
     public Player player;
     void Start()
     {
@@ -70,34 +68,39 @@ public class MapController : MonoBehaviour
 
         Vector3 outSetPos = Maps[randomint[nowMaps]].GetComponent<Map>().outSetObj.transform.position;//起始點位置
         Vector3 endPos = Maps[randomint[nowMaps]].GetComponent<Map>().endObj.transform.position;//終點位置
-        for(int i = 0 ; i < randomint.Length ; i++)
-        {
-            // 顯示隨機到的地圖
-            if(i == nowMaps)
-            {
-                Maps[randomint[i]].gameObject.SetActive(true);
-            }else
-            {
-                Maps[randomint[i]].gameObject.SetActive(false);
-            }
-        }
-        //設定終點位置
-        endTrigger.transform.position = new Vector3 (endPos.x,endTrigger.transform.position.y,endPos.z);
-
-        //設定起點位置
-        outSetTrigger.transform.position = new Vector3 (outSetPos.x,outSetTrigger.transform.position.y,outSetPos.z);
+        // for(int i = 0 ; i < randomint.Length ; i++)
+        // {
+        //     // 顯示隨機到的地圖
+        //     if(i == nowMaps)
+        //     {
+        //         Maps[randomint[i]].gameObject.SetActive(true);
+        //     }else
+        //     {
+        //         Maps[randomint[i]].gameObject.SetActive(false);
+        //     }
+        // }
 
         //設定玩家的位置
         player.transform.position = new Vector3(outSetPos.x,player.transform.position.y,outSetPos.z);
 
+        Maps[randomint[nowMaps]].GetComponent<Map>().endObj.SetActive(false);
+
+        enemyCount =  Maps[randomint[nowMaps]].GetComponent<Map>().EnemyPos.Count;
         
-        eventTrigger.gameObject.SetActive(true);
+        Maps[randomint[nowMaps]].GetComponent<Map>().eventTrigger.gameObject.SetActive(true);
         //複製要生成敵人的位置給eventTrigger
-        eventTrigger.CopyList(Maps[randomint[nowMaps]].GetComponent<Map>());
+        Maps[randomint[nowMaps]].GetComponent<Map>().eventTrigger.GetComponent<EventTrigger>().CopyList(Maps[randomint[nowMaps]].GetComponent<Map>());
+        Debug.Log(Maps[randomint[nowMaps]]);
     }
 
-    void ChooseMaps()//切換地圖
+    public void EnemyCount()
     {
-        
+        enemyCount--;
+        Debug.Log(enemyCount);
+        if(enemyCount == 0)
+        {
+            Maps[randomint[nowMaps]].GetComponent<Map>().endObj.SetActive(true);
+        }
+
     }
 }

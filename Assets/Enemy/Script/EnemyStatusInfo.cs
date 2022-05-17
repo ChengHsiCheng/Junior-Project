@@ -6,6 +6,9 @@ public class EnemyStatusInfo : MonoBehaviour
 {
     public float Hp;
     public float damege;
+    public GameObject heal;
+    public MapController mapController;
+    public float dieTime = 0;
     public int state = 0;//0 = 追逐 , 1 = 攻擊 , 2 = 受擊
 
     public void Face(GameObject player)//面相玩家
@@ -21,6 +24,7 @@ public class EnemyStatusInfo : MonoBehaviour
         if(Hp <= 0)
         {
             state = 3;
+            
         }else
         {
             if(isRepulse)

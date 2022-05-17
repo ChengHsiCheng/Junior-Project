@@ -7,4 +7,5 @@ public class Map : MonoBehaviour
     public List<GameObject>EnemyPos = new List<GameObject>{};
     public GameObject outSetObj;
     public GameObject endObj;
+    public GameObject eventTrigger;
 }

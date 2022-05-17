@@ -12,6 +12,8 @@ public class FireRingSkill : SkillController
     {
         CD = 1;
         skillElapsedTime = 0;
+        SkillName = "FireRing";
+        skillIntroduce = "會傷害範圍內的所有敵人";
         isUsing = false;
     }
     public override void SkillStart()

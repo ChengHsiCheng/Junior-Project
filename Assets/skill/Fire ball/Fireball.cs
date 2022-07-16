@@ -62,8 +62,9 @@ public class Fireball : MonoBehaviour
         if(other.tag == "Enemy")
         {//計算傷害
             TargetEnemy = other.GetComponent<EnemyStatusInfo>();
-            damege = chargeTime * 10;
+            damege = chargeTime * 100;
             TargetEnemy.Damege(damege,true);
+            Destroy(ball.gameObject);
             Destroy(gameObject,0.5f);
         }
     }

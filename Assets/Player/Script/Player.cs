@@ -17,13 +17,15 @@ public class Player : MonoBehaviour
     public float playerHp = 100;
     CharacterController controller;
     Animator animator;
-    float speed = 5;//移動速度
+    float speed = 3;//移動速度
     int attackCount = 0;//儲存攻擊段數
     public int attackHit = 0;//目前攻擊段數
     bool isPressLeftMouse = false;//是否觸發滑鼠左鍵
     public GameObject weaponCollision;//攻擊判定框
     bool replaceColor = false;
     public float replaceColorTime = 0;
+    
+    
 
     public List<Material>materials = new List<Material>{};
     #endregion
@@ -43,15 +45,13 @@ public class Player : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 dir = new Vector3(h, 0, v);
-
-
         if(isAttack)//是否可以移動、衝刺
         {
             animator.SetBool("run",false);
         }else if(!isAttack)
         {
             Dash(dir);
-        }if(!isAttack && !isDash)
+        }if(!isAttack && !isDash && !isPressLeftMouse)
         {
             Move(dir);
         }
@@ -62,8 +62,6 @@ public class Player : MonoBehaviour
         {
             MaterialsColor();
         }
-
-
 
     }
     void Move(Vector3 dir)//移動
@@ -80,17 +78,17 @@ public class Player : MonoBehaviour
         }
 
         //面相移動方向
-        // if(dir.magnitude > 0.1f)
-        // {
-        //     float faceAngle = Mathf.Atan2(h, v) * Mathf.Rad2Deg;
-        //     Quaternion targetRotation = Quaternion.Euler(0, faceAngle, 0);
-        //     transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
-        // }
+        if(dir.magnitude > 0.1f)
+        {
+            float faceAngle = Mathf.Atan2(dir.x,dir.z) * Mathf.Rad2Deg;
+            Quaternion targetRotation = Quaternion.Euler(0, faceAngle, 0);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
+        }
         //面對鼠標
-        var dir_r = Input.mousePosition-Camera.main.WorldToScreenPoint(transform.position);
-        var angle = Mathf.Atan2(dir_r.x,dir_r.y)*Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(0, angle, 0);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
+        // var dir_r = Input.mousePosition-Camera.main.WorldToScreenPoint(transform.position);
+        // var angle = Mathf.Atan2(dir_r.x,dir_r.y)*Mathf.Rad2Deg;
+        // Quaternion targetRotation = Quaternion.Euler(0, angle, 0);
+        // transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
 
         controller.Move( dir * speed * Time.deltaTime );
     }
@@ -107,6 +105,7 @@ public class Player : MonoBehaviour
                 {
                     isDash = true;
                     dashElapsedTime = 0;
+                    
                 }
             }else
             {
@@ -186,16 +185,22 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             isPressLeftMouse = true;
-        }else if(Input.GetMouseButtonUp(0))
+            
+            //面對鼠標
+            var dir_r = Input.mousePosition-Camera.main.WorldToScreenPoint(transform.position);
+            var angle = Mathf.Atan2(dir_r.x,dir_r.y)*Mathf.Rad2Deg;
+            Quaternion targetRotation = Quaternion.Euler(0, angle, 0);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 1f);
+        }if(Input.GetMouseButtonUp(0))
         {
             isPressLeftMouse = false;
         }
         if(isPressLeftMouse)
         {
-            AttackButton();
+            AttackrController();
         }
     }
-    void AttackButton()//監聽用戶輸入
+    void AttackrController()//監聽用戶輸入
     {
         AnimatorStateInfo stateInfo = this.animator.GetCurrentAnimatorStateInfo(0);
         if (stateInfo.IsName("Idle") || stateInfo.IsName("run"))

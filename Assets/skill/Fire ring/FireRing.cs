@@ -34,7 +34,7 @@ public class FireRing : MonoBehaviour
         if(other.tag == "Enemy")
         {//計算傷害
             TargetEnemy = other.GetComponent<EnemyStatusInfo>();
-            TargetEnemy.Damege(damege, false);
+            TargetEnemy.Damege(damege, true);
         }
     }
 }

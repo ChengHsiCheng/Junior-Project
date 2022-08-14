@@ -18,14 +18,7 @@ public class PlayerHpBar : MonoBehaviour
     void Update()
     {
         UpdateBarWidth();
-        if(player.playerHp <= 0)
-        {
-            player.Die();
-        }
     }
-
-    // 更新血條座標
-
     // 更新血條長度
     void UpdateBarWidth() {
         float hpScale = player.playerHp  * 0.01f;

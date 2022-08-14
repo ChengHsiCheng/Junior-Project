@@ -11,7 +11,7 @@ public class Enemy_Attack_Collision : MonoBehaviour
         if(other.tag == "Player")
         {
             TargetPlayer = other.GetComponent<Player>();
-            TargetPlayer.Damege(enemy.damege);
+            TargetPlayer.PlayerHit(enemy.damege);
         }
     }
 }

@@ -13,13 +13,14 @@ public class Attack_Collision : MonoBehaviour
         if(other.tag == "Enemy")
         {
             TargetEnemy = other.GetComponent<EnemyStatusInfo>();
-            if(player.attackHit != 3)
+            if(player.comboStep != 3)
             {
                 damege = 10;
             }
-            if(player.attackHit == 3)
+            if(player.comboStep == 3)
             {
                 damege = 30;
+                
             }
             TargetEnemy.Damege(damege,true);
         }

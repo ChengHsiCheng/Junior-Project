@@ -26,29 +26,30 @@ public class Player : MonoBehaviour
         public AudioClip attackAudio02;
         public AudioClip attackAudio03;
         #endregion
+        #region 材質
+        bool isChangePlayerMaterials = false; // 是否切換材質
+        float changeColorTimer = 0; //切換材質時間計時
+        float changeColorMaxTime = 0.1f; // 切換材質時間
+        #endregion
+        #region 實例
+        Material[] materials;
+        Animator animator;
+        CharacterController controller;
+        AudioSource audioSource;
+        #endregion
     public float playerHp = 100;
     bool isPressLeftMouse = false;//是否按下滑鼠左鍵
-    // bool ischangeColor = false;
-    // float changeColorTime = 0;
     public float speed = 3;//移動速度
-    public List<Material>materials = new List<Material>{};//角色材質
-    Animator animator;
-    CharacterController controller;
-    AudioSource audioSource;
-
     #endregion
     void Start()
     {
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
+        materials = GetComponent<MeshRenderer>().sharedMaterials;
 
-        for(int i = 0; i<materials.Count; i++)
-        {//重製材質
-            materials[i].color = Color.white;
-        }
+        ResetPlayerMaterials();
     }
-
     void Update()
     {
         UpdateAttack();
@@ -64,10 +65,10 @@ public class Player : MonoBehaviour
             isPressLeftMouse = false;
         }
 
-        // if(ischangeColor)
-        // {
-        //     ChangePlayerMaterials();
-        // }
+        if(isChangePlayerMaterials)
+        {
+            ChangePlayerMaterials();
+        }
     }
     void Move()//移動
     {
@@ -219,34 +220,36 @@ public class Player : MonoBehaviour
     public void PlayerHit(float damege)//被攻擊時計算傷害
     {
         playerHp -= damege;
-        // ischangeColor = true;
+        isChangePlayerMaterials = true;
+        animator.SetTrigger("Hit");
+
+        for(int i = 0; i < materials.Length; i++) // 重置材質
+        {
+             materials[i].SetColor("_Color",Color.red);
+        }
+
         if(playerHp <= 0)
         {
             PlayerDie();
         }
-        Debug.Log(playerHp);
     }
-    // void ChangePlayerMaterials()
-    // {
-    //     if(changeColorTime == 0)
-    //     {
-    //         for(int i = 0; i<materials.Count; i++)
-    //         {
-    //             materials[i].color = Color.red;
-    //         }
-    //     }
-    //     changeColorTime += Time.deltaTime;
-        
-    //     if(changeColorTime >= 0.3)
-    //     {
-    //         for(int i = 0; i<materials.Count; i++)
-    //         {
-    //             materials[i].color = Color.white;
-    //         }
-    //         changeColorTime = 0;
-    //         ischangeColor = false;
-    //     }
-    // }
+    void ChangePlayerMaterials()
+    {
+        changeColorTimer += Time.deltaTime;
+        if(changeColorTimer >= changeColorMaxTime)
+        {
+            ResetPlayerMaterials();
+            isChangePlayerMaterials = false;
+            changeColorTimer = 0;
+        }
+    }
+    void ResetPlayerMaterials() // 重製材質
+    {
+        for(int i = 0; i < materials.Length; i++) // 重置材質
+        {
+             materials[i].SetColor("_Color",Color.white);
+        }
+    }
     void PlayerDie()//角色死亡
     {
         playerHp = 100;

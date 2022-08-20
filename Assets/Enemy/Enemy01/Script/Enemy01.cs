@@ -24,7 +24,7 @@ public class Enemy01 : EnemyStatusInfo
         player = GameObject.FindWithTag("Player");
         mapController = GameObject.Find("Maps").GetComponent<MapController>();
         Hp = 100;
-        damege = 10;
+        _damege = 10;
     }
 
     // Update is called once per frame

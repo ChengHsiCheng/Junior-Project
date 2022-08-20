@@ -119,6 +119,7 @@ Material:
     m_Colors:
     - Color_32af28f8fb5b439e8e8d48fc949f5f4d: {r: 0, g: 0, b: 0, a: 0}
     - Color_5ecc5b5c013945e48886fc8497dfaaf8: {r: 0, g: 0, b: 0, a: 0}
+    - Color_cf003f5b24af4315b2b0f54a8cfa8f54: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

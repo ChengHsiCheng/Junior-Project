@@ -5,7 +5,11 @@ using UnityEngine;
 public class EnemyStatusInfo : MonoBehaviour
 {
     public float Hp;
-    public float damege;
+    protected float _damege;
+    public float damege
+    {
+        get => _damege;
+    }
     public GameObject heal;
     public MapController mapController;
     public float dieTime = 0;

@@ -221,7 +221,7 @@ public class Player : MonoBehaviour
     {
         playerHp -= damege;
         isChangePlayerMaterials = true;
-        animator.SetTrigger("Hit");
+        // animator.SetTrigger("Hit");
 
         for(int i = 0; i < materials.Length; i++) // 重置材質
         {

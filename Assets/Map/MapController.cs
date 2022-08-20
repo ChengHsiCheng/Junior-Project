@@ -20,19 +20,6 @@ public class MapController : MonoBehaviour
         randomint = new int[Maps.Count];//設定洗牌陣列大小
     }
 
-    void Update() 
-    {
-        if(Input.GetKeyDown(KeyCode.Tab))
-        {
-            RandomInt();
-        }
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            SwapMaps();
-        }
-
-    }
-
     public void RandomInt()//將地圖洗牌
     {
         for (int i = 0; i < randomint.Length; i++)

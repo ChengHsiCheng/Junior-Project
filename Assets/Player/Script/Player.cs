@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
         float interval = 0.5f;//攻擊間隔
         float attackTimer = 0;//攻擊間隔計算
         bool isAtteck = false;//是否在攻擊
+        bool attackMove;
         public ParticleSystem attackEffects01;
         public ParticleSystem attackEffects02;
         public ParticleSystem attackEffects03_1;
@@ -34,26 +35,29 @@ public class Player : MonoBehaviour
         #region 實例
         Material[] materials;
         Animator animator;
-        CharacterController controller;
+        Rigidbody rb;
         AudioSource audioSource;
+        public GameObject hitEffecis;
+        bool isBoxCollision;
         #endregion
     public float playerHp = 100;
     bool isPressLeftMouse = false;//是否按下滑鼠左鍵
     public float speed = 3;//移動速度
     #endregion
+
     void Start()
     {
         animator = GetComponent<Animator>();
-        controller = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
         materials = GetComponent<MeshRenderer>().sharedMaterials;
+        rb = GetComponent<Rigidbody>();
 
         ResetPlayerMaterials();
     }
+
     void Update()
     {
         UpdateAttack();
-        Move();
         Dash();
 
         if(Input.GetMouseButtonDown(0))
@@ -70,29 +74,58 @@ public class Player : MonoBehaviour
             ChangePlayerMaterials();
         }
     }
-    void Move()//移動
+
+    private void FixedUpdate()
     {
-        if(isAtteck && comboStep == 3)
+        Move();
+        
+        if(isDash)
+        {
+            if(dashTime <= 0)
+            {
+                isDash = false;
+                rb.velocity = Vector3.zero;
+                dashTime = dashDuration;
+            }
+            else
+            {
+                dashTime -= Time.deltaTime;
+
+                if(!isBoxCollision)
+                {
+                    transform.position += transform.forward * dashTime * dashSpeed * Time.deltaTime;
+                }
+            }
+        }
+    }
+
+    // 玩家移動
+    void Move()
+    {
+        if(isAtteck && attackMove)
         {
             //攻擊時向前移動
-            controller.Move(transform.forward * Time.deltaTime * 1);
+            transform.position += transform.forward * speed * Time.deltaTime;
         }if(!isAtteck && attackTimer == 0 && !isDash)
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
             Vector3 dir = new Vector3(h, 0, v);
+            dir = Quaternion.Euler(0, -45, 0) * dir;
             if(dir.magnitude > 0.1f)
             {
                 //面向移動方向
-                float faceAngle = Mathf.Atan2(dir.x,dir.z) * Mathf.Rad2Deg;
+                float faceAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
                 Quaternion targetRotation = Quaternion.Euler(0, faceAngle, 0);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
             }
             animator.SetFloat("dir",dir.magnitude);
-            controller.Move( dir * speed * Time.deltaTime );
+            transform.position += dir * speed * Time.deltaTime;
         }
     }
-    void UpdateAttack()//攻擊輸入
+
+    // 攻擊輸入
+    void UpdateAttack()
     {
         if(Input.GetMouseButtonDown(0) && !isAtteck)
         {
@@ -111,7 +144,9 @@ public class Player : MonoBehaviour
         }
 
     }
-    void Attack()//攻擊
+
+    // 攻擊
+    void Attack()
     {
         isAtteck = true;
         comboStep++;
@@ -124,12 +159,14 @@ public class Player : MonoBehaviour
         animator.SetFloat("dir",0);
 
         //面向鼠標
-        var dir_r = Input.mousePosition-Camera.main.WorldToScreenPoint(transform.position);
-        var angle = Mathf.Atan2(dir_r.x,dir_r.y)*Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(0, angle, 0);
+        var dir_r = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        var angle = Mathf.Atan2(dir_r.x, dir_r.y) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(0, angle - 45, 0);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 1f);
     }
-    void AttaclOver()//結束攻擊狀態
+
+    // 結束攻擊狀態
+    void AttaclOver()
     {
         if(!isPressLeftMouse)
             isAtteck = false;
@@ -139,12 +176,13 @@ public class Player : MonoBehaviour
 
         }
     }
-    void Dash()//衝刺
+
+    // 衝刺
+    void Dash()
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 dir = new Vector3(h, 0, v);
-        Vector3 dashDir = new Vector3(Mathf.Round(dir.x),Mathf.Round(dir.y),Mathf.Round(dir.z));
         
         if(!isAtteck)
         {
@@ -152,7 +190,7 @@ public class Player : MonoBehaviour
             {
                 if(dashElapsedTime >= dashCD)
                 {
-                    //CD結束
+                    // CD結束
                     if(Input.GetKeyDown(KeyCode.Space))
                     {
                         isDash = true;
@@ -161,37 +199,15 @@ public class Player : MonoBehaviour
                     }
                 }else
                 {
-                    //計算CD
+                    // 計算CD
                     dashElapsedTime += Time.deltaTime;
-                }
-            }
-            else
-            {
-                if(dashTime <= 0)
-                {
-                    isDash = false;
-                    dashTime = dashDuration;
-                }
-                else
-                {
-                    dashTime -= Time.deltaTime;
-
-                    controller.Move(this.transform.forward * dashTime * dashSpeed * Time.deltaTime);
-                    // if(dir != Vector3.zero)//是否有方向輸入
-                    // {
-                    //     //朝輸入方向衝刺
-                    //     controller.Move(dashDir * dashTime * dashSpeed * Time.deltaTime);
-                    // }else
-                    // {
-                    //     //朝面相方向衝刺
-                    //     controller.Move(this.transform.forward * dashTime * dashSpeed * Time.deltaTime);
-                    // }
-
                 }
             }
         }
     }
-    void AttackEffectsPlay(string count)//攻擊特效
+
+    // 攻擊特效
+    void AttackEffectsPlay(string count)
     {
         if(count == "1")
             attackEffects01.Play();
@@ -202,7 +218,9 @@ public class Player : MonoBehaviour
         if(count == "3-2")
             attackEffects03_2.Play();
     }
-    void AttackAudioPlay(string count)//攻擊音效
+
+    // 攻擊音效
+    void AttackAudioPlay(string count)
     {
         if(count == "1")
         {
@@ -217,25 +235,34 @@ public class Player : MonoBehaviour
             audioSource.PlayOneShot(attackAudio03);
         }
     }
-    public void PlayerHit(float damege)//被攻擊時計算傷害
+
+    // 被攻擊時計算傷害
+    public void PlayerBeAttack(float damege)
     {
         playerHp -= damege;
         isChangePlayerMaterials = true;
-        // animator.SetTrigger("Hit");
 
-        for(int i = 0; i < materials.Length; i++) // 重置材質
-        {
-             materials[i].SetColor("_Color",Color.red);
-        }
 
         if(playerHp <= 0)
         {
             PlayerDie();
         }
     }
+
+    // 被攻擊時切換材質
     void ChangePlayerMaterials()
     {
+        // 切換材質
+        if(changeColorTimer == 0)
+        { 
+            for(int i = 0; i < materials.Length; i++) 
+            {
+                materials[i].SetColor("_Color",Color.red);
+            }
+        }
+
         changeColorTimer += Time.deltaTime;
+
         if(changeColorTimer >= changeColorMaxTime)
         {
             ResetPlayerMaterials();
@@ -243,14 +270,18 @@ public class Player : MonoBehaviour
             changeColorTimer = 0;
         }
     }
-    void ResetPlayerMaterials() // 重製材質
+
+    // 重製材質
+    void ResetPlayerMaterials() 
     {
-        for(int i = 0; i < materials.Length; i++) // 重置材質
+        for(int i = 0; i < materials.Length; i++)
         {
              materials[i].SetColor("_Color",Color.white);
         }
     }
-    void PlayerDie()//角色死亡
+
+    // 角色死亡
+    void PlayerDie()
     {
         playerHp = 100;
         this.transform.position = new Vector3 (0,transform.position.y,-2f);
@@ -260,14 +291,44 @@ public class Player : MonoBehaviour
         enemy = GameObject.FindGameObjectsWithTag("Enemy");
         for(int i = 0; i < enemy.Length ; i++)
         {
-            enemy[i].GetComponent<EnemyStatusInfo>().Damege(100,false);
+            // enemy[i].GetComponent<EnemyStatusInfo>().Damege(100,false);
         }
     }
-    public void PlayerHeal(float heal)//角色回血
+
+    // 角色回血
+    public void PlayerHeal(float heal)
     { 
         if(playerHp < 100)  
         {
             playerHp += heal;
+        }
+    }
+
+    public void AttrackMoveOn()
+    {
+        attackMove = true;
+    }
+    public void AttrackMoveOff()
+    {
+        attackMove = false;
+        rb.velocity = Vector3.zero;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag != "Enemy" && other.gameObject.tag != "EnemyAttackTrigger")
+        {
+            isBoxCollision = true;
+            Debug.Log(isBoxCollision);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag != "Enemy")
+        {
+            isBoxCollision = false;
+            Debug.Log(isBoxCollision);
         }
     }
 }

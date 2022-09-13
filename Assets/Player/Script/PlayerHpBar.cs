@@ -19,6 +19,7 @@ public class PlayerHpBar : MonoBehaviour
     {
         UpdateBarWidth();
     }
+    
     // 更新血條長度
     void UpdateBarWidth() {
         float hpScale = player.playerHp  * 0.01f;

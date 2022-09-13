@@ -13,16 +13,19 @@ public class Attack_Collision : MonoBehaviour
         if(other.tag == "Enemy")
         {
             TargetEnemy = other.GetComponent<EnemyStatusInfo>();
+
+            Instantiate(player.hitEffecis, other.transform.position, Quaternion.identity);
+
             if(player.comboStep != 3)
             {
-                damege = 10;
+                damege = 1;
             }
             if(player.comboStep == 3)
             {
-                damege = 30;
+                damege = 3;
                 
             }
-            TargetEnemy.Damege(damege,true);
+            TargetEnemy.BeAttacked(damege);
         }
     }
 }

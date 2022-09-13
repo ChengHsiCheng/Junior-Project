@@ -17,14 +17,15 @@ public class MapController : MonoBehaviour
             GameObject gameObject = this.gameObject.transform.GetChild(i).gameObject;
             Maps.Add(gameObject);
         }
-        randomint = new int[Maps.Count];//設定洗牌陣列大小
+        // 設定洗牌陣列大小
+        randomint = new int[Maps.Count];
     }
 
-    public void RandomInt()//將地圖洗牌
+    public void RandomInt()// 將地圖洗牌
     {
         for (int i = 0; i < randomint.Length; i++)
         {
-            //初始化陣列
+            // 初始化陣列
             randomint[i] = i;
         }
         int temp, rndTemp;
@@ -55,19 +56,8 @@ public class MapController : MonoBehaviour
 
         Vector3 outSetPos = Maps[randomint[nowMaps]].GetComponent<Map>().outSetObj.transform.position;//起始點位置
         Vector3 endPos = Maps[randomint[nowMaps]].GetComponent<Map>().endObj.transform.position;//終點位置
-        // for(int i = 0 ; i < randomint.Length ; i++)
-        // {
-        //     // 顯示隨機到的地圖
-        //     if(i == nowMaps)
-        //     {
-        //         Maps[randomint[i]].gameObject.SetActive(true);
-        //     }else
-        //     {
-        //         Maps[randomint[i]].gameObject.SetActive(false);
-        //     }
-        // }
 
-        //設定玩家的位置
+        // 設定玩家的位置
         player.transform.position = new Vector3(outSetPos.x,player.transform.position.y,outSetPos.z);
 
         Maps[randomint[nowMaps]].GetComponent<Map>().endObj.SetActive(false);
@@ -75,7 +65,8 @@ public class MapController : MonoBehaviour
         enemyCount =  Maps[randomint[nowMaps]].GetComponent<Map>().EnemyPos.Count;
         
         Maps[randomint[nowMaps]].GetComponent<Map>().eventTrigger.gameObject.SetActive(true);
-        //複製要生成敵人的位置給eventTrigger
+
+        // 複製要生成敵人的位置給eventTrigger
         Maps[randomint[nowMaps]].GetComponent<Map>().eventTrigger.GetComponent<EventTrigger>().CopyList(Maps[randomint[nowMaps]].GetComponent<Map>());
         Debug.Log(Maps[randomint[nowMaps]]);
     }

@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
         public AudioClip attackAudio01;
         public AudioClip attackAudio02;
         public AudioClip attackAudio03;
+        public AudioClip beAttackAudio;
         #endregion
         #region 材質
         bool isChangePlayerMaterials = false; // 是否切換材質
@@ -38,7 +39,7 @@ public class Player : MonoBehaviour
         Rigidbody rb;
         AudioSource audioSource;
         public GameObject hitEffecis;
-        bool isBoxCollision;
+        public DashCollider dashCollider;
         #endregion
     public float playerHp = 100;
     bool isPressLeftMouse = false;//是否按下滑鼠左鍵
@@ -91,7 +92,7 @@ public class Player : MonoBehaviour
             {
                 dashTime -= Time.deltaTime;
 
-                if(!isBoxCollision)
+                if(!dashCollider.isCollision)
                 {
                     transform.position += transform.forward * dashTime * dashSpeed * Time.deltaTime;
                 }
@@ -242,6 +243,7 @@ public class Player : MonoBehaviour
         playerHp -= damege;
         isChangePlayerMaterials = true;
 
+        audioSource.PlayOneShot(beAttackAudio);
 
         if(playerHp <= 0)
         {
@@ -314,21 +316,5 @@ public class Player : MonoBehaviour
         rb.velocity = Vector3.zero;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag != "Enemy" && other.gameObject.tag != "EnemyAttackTrigger")
-        {
-            isBoxCollision = true;
-            Debug.Log(isBoxCollision);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject.tag != "Enemy")
-        {
-            isBoxCollision = false;
-            Debug.Log(isBoxCollision);
-        }
-    }
+    
 }

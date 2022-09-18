@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - FlopItem
   - EnemyAttackTrigger
+  - DashCollider
   layers:
   - Default
   - TransparentFX

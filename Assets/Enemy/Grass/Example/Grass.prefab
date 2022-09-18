@@ -665,7 +665,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4657755000668234386
 Transform:
   m_ObjectHideFlags: 0
@@ -738,8 +738,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a329f1f6ca14f4ebe53cf62ab7c147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heal: {fileID: 0}
-  mapController: {fileID: 0}
   materials:
   - {fileID: 2100000, guid: 394d9d482a4a49b478bbb6ffec316beb, type: 2}
   - {fileID: 2100000, guid: 14a56104e02d49549ac613df5864f1e8, type: 2}

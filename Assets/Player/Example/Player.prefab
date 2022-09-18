@@ -739,7 +739,6 @@ GameObject:
   - component: {fileID: 7686036957135484435}
   - component: {fileID: 7894429268128211919}
   - component: {fileID: 6841161904024319935}
-  - component: {fileID: 5178968030822160559}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -954,7 +953,9 @@ MonoBehaviour:
   attackAudio01: {fileID: 8300000, guid: c8b8871e0e01fea4b84353abcc727012, type: 3}
   attackAudio02: {fileID: 8300000, guid: 8283643148f2c4243abb87cbc58f0399, type: 3}
   attackAudio03: {fileID: 8300000, guid: 5481e158007b8cc46814741db2c2387b, type: 3}
+  beAttackAudio: {fileID: 8300000, guid: f2f71158cce174144bf5b66167397a97, type: 3}
   hitEffecis: {fileID: 57560158243955042, guid: fa44e12e44a2a2441bf8a93943c4de9d, type: 3}
+  dashCollider: {fileID: 0}
   playerHp: 100
   speed: 3
 --- !u!114 &7686036957135484435
@@ -1003,19 +1004,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &5178968030822160559
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7380027813574249290}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.84666073, z: 0.30833697}
-  m_Center: {x: 0, y: 0.018339455, z: 0.12960756}
 --- !u!1 &7611829866884986862
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,11 +18,11 @@ public class Attack_Collision : MonoBehaviour
 
             if(player.comboStep != 3)
             {
-                damege = 1;
+                damege = 10;
             }
             if(player.comboStep == 3)
             {
-                damege = 3;
+                damege = 30;
                 
             }
             TargetEnemy.BeAttacked(damege);

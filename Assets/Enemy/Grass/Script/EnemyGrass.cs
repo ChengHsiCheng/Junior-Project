@@ -114,7 +114,7 @@ public class EnemyGrass : EnemyStatusInfo
         // 被攻擊時移動
         if(beAttackMove)
         {
-            transform.position += -transform.forward *attackMoveSpeed * Time.deltaTime;
+            transform.position += -transform.forward * attackMoveSpeed * Time.deltaTime;
         }
 
     }

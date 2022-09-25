@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 4199292483728384539}
   - component: {fileID: 5452767669435419682}
   m_Layer: 7
-  m_Name: rabbit
+  m_Name: Rabbit
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,11 +235,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d191c4ddefbbadc4289ef1fd4d85c9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHp: 100
   materials:
   - {fileID: 2100000, guid: 9a6d150c16c155b4596a2c6b4749ac14, type: 2}
   - {fileID: 2100000, guid: dc1c1d5df6b982f4ab0f65356447fc00, type: 2}
   player: {fileID: 0}
-  rabbit: {fileID: 4519982799960922946}
+  enemy: {fileID: 4519982799960922946}
 --- !u!1 &4519982799840140259
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +316,7 @@ Animator:
   m_GameObject: {fileID: 4519982799960922946}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7823bf06fb9ecfa459101c8782f0f905, type: 2}
+  m_Controller: {fileID: 9100000, guid: d637f8159ca243d4eb7ccbce9bf89b8e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

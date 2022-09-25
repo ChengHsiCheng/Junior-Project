@@ -5,26 +5,19 @@ using UnityEngine.AI;
 
 public class EnemyGrass : EnemyStatusInfo
 {
-    // idle:待機, hound:追逐, attack:攻擊, Died:死亡
-    enum EnemyState
-    {
-        idle, hound, attack, Died 
-    }
     EnemyState enemyState;
     NavMeshAgent agent;
     Animator animator;
+    public GameObject player;
     AudioSource audioSource;
     public Material[] materials; // 儲存材質
-    public GameObject player; // 玩家 
+
     float attackTimer; // 攻擊計時器
     float attackCD = 2f; // 攻擊間隔
     float attackMoveSpeed = 2; // 攻擊移動速度
     bool attackMove; // 是否需要移動(攻擊)
     bool beAttackMove; // 是否需要移動(被攻擊)
-    bool isChangeColor; // 是否需要切換材質顏色
-    bool isFace; // 是否要面對玩家
-    float changeColorMaxTime = 0.1f; // 切換材質顏色時間
-    float changeColorTimer = 0; // 切換材質顏色計時器
+   
     public AudioClip attackAudio_01;
     public AudioClip attackAudio_02;
 
@@ -32,16 +25,15 @@ public class EnemyGrass : EnemyStatusInfo
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
         player = GameObject.FindWithTag("Player");
 
-        // 重製材質
-        ResetMaterials(); 
+        audioSource = GetComponent<AudioSource>();
+
         attackTimer = attackCD;
 
         //設定參數
         _damege = 10;
-        _hp = 100;
+        _hp = maxHp;
     }
 
     void Update()
@@ -95,11 +87,6 @@ public class EnemyGrass : EnemyStatusInfo
             attackTimer += Time.deltaTime;
         }
 
-        if(isChangeColor)
-        {
-            BeAttackChangeColor();
-        }
-
         if(isFace)
         {
             Face(player);
@@ -108,7 +95,7 @@ public class EnemyGrass : EnemyStatusInfo
         // 攻擊時移動
         if(attackMove)
         {
-            transform.position += transform.forward *attackMoveSpeed * Time.deltaTime;
+            transform.position += transform.forward * attackMoveSpeed * Time.deltaTime;
         }
 
         // 被攻擊時移動
@@ -175,8 +162,6 @@ public class EnemyGrass : EnemyStatusInfo
         // 扣除血量
         _hp -= damege;
 
-        isChangeColor = true;
-
         // 若不在攻擊動畫就撥放被攻擊動畫
         if(!stateinfo.IsName("Attack"))
         {
@@ -187,38 +172,6 @@ public class EnemyGrass : EnemyStatusInfo
         {
             enemyState = EnemyState.Died;
             animator.SetTrigger("Die");
-        }
-    }
-
-    // 重製材質
-    void ResetMaterials() 
-    {
-        for(int i = 0; i < materials.Length; i++)
-        {
-            materials[i].color = Color.white;
-        }
-    }
-
-    // 被攻擊時切換材質顏色
-    public void BeAttackChangeColor()
-    {
-        // 切換材質
-        if(changeColorTimer == 0)
-        { 
-            for(int i = 0; i < materials.Length; i++) 
-            {
-                materials[i].color = Color.red;
-            }
-        }
-        
-        changeColorTimer += Time.deltaTime;
-
-        // 重製材質顏色
-        if(changeColorTimer >= changeColorMaxTime)
-        {
-            ResetMaterials();
-            isChangeColor = false;
-            changeColorTimer = 0;
         }
     }
 

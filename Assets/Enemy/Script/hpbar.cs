@@ -36,7 +36,7 @@ public class hpbar : MonoBehaviour
 
     void UpdateBarWidth() // 更新血條長度
     {
-        float hpScale = TargetEnemy.hp  * 0.01f;
+        float hpScale = TargetEnemy.hp / TargetEnemy.maxHp;
         Bar.rectTransform.localScale = new Vector3
         (
             hpScale,

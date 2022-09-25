@@ -19,10 +19,10 @@ public class Player : MonoBehaviour
         float attackTimer = 0;//攻擊間隔計算
         bool isAtteck = false;//是否在攻擊
         bool attackMove;
-        public ParticleSystem attackEffects01;
-        public ParticleSystem attackEffects02;
+        public GameObject attackEffects01;
+        public GameObject attackEffects02;
         public ParticleSystem attackEffects03_1;
-        public ParticleSystem attackEffects03_2;
+        public GameObject attackEffects03_2;
         public AudioClip attackAudio01;
         public AudioClip attackAudio02;
         public AudioClip attackAudio03;
@@ -211,13 +211,13 @@ public class Player : MonoBehaviour
     void AttackEffectsPlay(string count)
     {
         if(count == "1")
-            attackEffects01.Play();
+            Instantiate(attackEffects01, transform.position, transform.rotation);
         if(count == "2")
-            attackEffects02.Play();
+            Instantiate(attackEffects02, transform.position, transform.rotation);
         if(count == "3-1")
             attackEffects03_1.Play();
         if(count == "3-2")
-            attackEffects03_2.Play();
+            Instantiate(attackEffects03_2, transform.position, transform.rotation).transform.parent = transform;
     }
 
     // 攻擊音效

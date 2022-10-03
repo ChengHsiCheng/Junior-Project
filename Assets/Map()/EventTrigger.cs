@@ -19,6 +19,6 @@ public class EventTrigger : MonoBehaviour
     }
     public void CopyList(Map map)
     {
-        GeneratePos = new List<GameObject>(map.EnemyPos);
+        // GeneratePos = new List<GameObject>(map.EnemyPos);
     }
 }

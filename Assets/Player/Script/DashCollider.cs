@@ -7,7 +7,7 @@ public class DashCollider : MonoBehaviour
     public bool isCollision;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag != "Enemy" && other.gameObject.tag != "EnemyAttackTrigger")
+        if(other.gameObject.tag != "Enemy" && other.gameObject.tag != "EnemyAttackTrigger" && other.gameObject.tag != "Trigger")
         {
             isCollision = true;
         }

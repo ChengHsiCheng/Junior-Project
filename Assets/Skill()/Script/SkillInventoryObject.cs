@@ -29,7 +29,7 @@ public class SkillInventoryObject : MonoBehaviour
                 skill = Instantiate<SkillController>(Container[0]);
                 Debug.Log(skill);
             }
-            other.GetComponent<SkillManager>().skill_01 = skill;
+            //other.GetComponent<SkillManager>().skill_01 = skill;
 
             skillName.gameObject.SetActive(false);
         }

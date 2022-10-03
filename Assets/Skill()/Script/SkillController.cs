@@ -4,17 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class SkillController : MonoBehaviour
+public class SkillController : MonoBehaviour
 {
-    public float CD = 0;
-    public float skillElapsedTime = 0;
+    public GameObject skillPos;
+    public float skillCD = 0;
+    public float skillTimer;
+    public float damege;
+    public GameObject skill;
     public string SkillName;
     public string skillIntroduce;
     public Image image;
     // public delegate void SkillCDEventArgs(SkillController sender);
     // public SkillCDEventArgs OnStartCountCD;
 
-    public abstract void SkillStart();
+    void Start()
+    {
+        skillPos = GameObject.Find("SkillPos");
+
+        skillTimer = skillCD;
+    }
+
+    public virtual void SkillStart(){}
 
     public virtual void SkillUpdate(){}
 

@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour
 {
-    public List<GameObject> Maps = new List<GameObject>{};//儲存地圖
+    public GameObject map;
+    public List<GameObject> Maps = new List<GameObject>{}; // 儲存地圖
     int[] randomint;//洗牌用陣列
     int nowMaps = 0;
     public float enemyCount = 0;
     public Player player;
     void Start()
     {
-        for(int i = 0; i < this.transform.childCount; i++)
+        for(int i = 0; i < map.transform.childCount; i++)
         {
             //把地圖放進陣列中
-            GameObject gameObject = this.gameObject.transform.GetChild(i).gameObject;
+            GameObject gameObject = map.gameObject.transform.GetChild(i).gameObject;
             Maps.Add(gameObject);
         }
         // 設定洗牌陣列大小
@@ -44,7 +45,7 @@ public class MapController : MonoBehaviour
         }
     }
 
-    public void SwapMaps()//紀錄切換地圖
+    public void SwapMaps() // 紀錄切換地圖
     {
         if(nowMaps < (randomint.Length - 1))
         {
@@ -54,8 +55,12 @@ public class MapController : MonoBehaviour
             nowMaps = 0;
         }
 
-        Vector3 outSetPos = Maps[randomint[nowMaps]].GetComponent<Map>().outSetObj.transform.position;//起始點位置
-        Vector3 endPos = Maps[randomint[nowMaps]].GetComponent<Map>().endObj.transform.position;//終點位置
+        // 起始點位置
+        Vector3 outSetPos = Maps[randomint[nowMaps]].GetComponent<Map>().outSetObj.transform.position;
+        // 終點位置
+        Vector3 endPos = Maps[randomint[nowMaps]].GetComponent<Map>().endObj.transform.position;
+
+        Debug.Log(Maps[randomint[nowMaps]].GetComponent<Map>().outSetObj.transform.position);
 
         // 設定玩家的位置
         player.transform.position = new Vector3(outSetPos.x,player.transform.position.y,outSetPos.z);

@@ -6,6 +6,7 @@ public class StartTeigger : MonoBehaviour
 {
     public MapController mapController;
     private void OnTriggerEnter(Collider other) {
+        Debug.Log(other.gameObject.name);
         if(other.tag == "Player")
         {
             mapController.RandomInt();

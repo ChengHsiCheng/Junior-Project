@@ -8,6 +8,7 @@ public class hpbar : MonoBehaviour
     public EnemyStatusInfo TargetEnemy;
     public Image Bar;
     public GameObject canvas;
+    public float high;
 
     private RectTransform rectTrans;
 
@@ -30,7 +31,7 @@ public class hpbar : MonoBehaviour
     void UpdatePosition() // 更新血條座標
     {
         Vector3 enemyScreenPos = Camera.main.WorldToScreenPoint(TargetEnemy.transform.position);//目標位置
-        Vector3 offset = new Vector3(0, 50, 0);//血條相對目標位置
+        Vector3 offset = new Vector3(0, high, 0);//血條相對目標位置
         rectTrans.position = enemyScreenPos + offset;
     }
 

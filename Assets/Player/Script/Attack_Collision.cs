@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack_Collision : MonoBehaviour
 {
-    public EnemyStatusInfo TargetEnemy;
+    public Enemy TargetEnemy;
     public Player player;
     float damege;
 
@@ -12,8 +12,8 @@ public class Attack_Collision : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
-            TargetEnemy = other.GetComponent<EnemyStatusInfo>();
-
+            TargetEnemy = other.GetComponent<Enemy>();
+            
             Instantiate(player.hitEffecis, other.transform.position, Quaternion.identity);
 
             if(player.comboStep != 3)
@@ -23,7 +23,6 @@ public class Attack_Collision : MonoBehaviour
             if(player.comboStep == 3)
             {
                 damege = 30;
-                
             }
             TargetEnemy.BeAttacked(damege);
         }

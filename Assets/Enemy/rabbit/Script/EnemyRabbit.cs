@@ -9,7 +9,6 @@ public class EnemyRabbit : EnemyStatusInfo
     NavMeshAgent agent;
     Animator animator;
     BoxCollider boxCollider;
-    public Material[] materials; // 儲存材質
     public GameObject player; // 玩家 
     public GameObject enemy;
     float attackTimer; // 攻擊計時器
@@ -18,6 +17,7 @@ public class EnemyRabbit : EnemyStatusInfo
     float beAttackMoveSpeed = 2; // 攻擊移動速度
     bool attackMove; // 是否需要移動(攻擊)
     bool beAttackMove; // 是否需要移動(攻擊)
+    bool isFace; // 是否要面對玩家
 
     void Start()
     {
@@ -28,8 +28,8 @@ public class EnemyRabbit : EnemyStatusInfo
 
         attackTimer = attackCD;
 
-        _hp = 100;
-        _damege = 10;
+        hp = 100;
+        damege = 10;
     }
 
     // Update is called once per frame
@@ -150,21 +150,17 @@ public class EnemyRabbit : EnemyStatusInfo
         isFace = false;
     }
 
-    public override void BeAttacked(float damege)
+    public void BeAttacked(float damege)
     {   
         // 取得動畫狀態
         AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
 
         // 扣除血量
-        _hp -= damege;
+        hp -= damege;
 
-        // 若不在攻擊動畫就撥放被攻擊動畫
-        if(!stateinfo.IsName("Attack"))
-        {
-            animator.SetTrigger("Hit");
-        }
+        animator.SetTrigger("Hit");
 
-        if(_hp <= 0)
+        if(hp <= 0)
         {
             enemyState = EnemyState.Died;
             animator.SetTrigger("Die");
@@ -196,5 +192,12 @@ public class EnemyRabbit : EnemyStatusInfo
     public void Destroy()
     {
         Destroy(gameObject);
+    }
+
+    public void Face(GameObject player) 
+    {
+        float faceAngle = Mathf.Atan2(player.transform.position.x - transform.position.x , player.transform.position.z - transform.position.z) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(0, faceAngle, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
     }
 }

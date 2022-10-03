@@ -21260,7 +21260,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.43333334
-    functionName: PlayAttackAudio_01
+    functionName: PlayerAttackAudio
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -21281,11 +21281,11 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.96666664
-    functionName: PlayAttackAudio_02
+    functionName: PlayerAttackAudio
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0
   - time: 1.2
     functionName: AttackMoveOff

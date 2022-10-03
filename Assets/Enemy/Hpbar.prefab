@@ -203,3 +203,4 @@ MonoBehaviour:
   TargetEnemy: {fileID: 0}
   Bar: {fileID: 3333827173653114373}
   canvas: {fileID: 0}
+  high: 100

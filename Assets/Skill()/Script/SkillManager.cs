@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    public SkillController skill_01;
-    public SkillController skill_02;
-    public SkillController skill_03;
-    public SkillController skill_04;
+    public SkillController skill;
+    //public SkillController skill_01;
+    // public SkillController skill_02;
+    // public SkillController skill_03;
+    // public SkillController skill_04;
 
     void Start()
     {
@@ -15,14 +16,23 @@ public class SkillManager : MonoBehaviour
 
     void Update()
     {
-        if(skill_01)
+        // if(skill_01)
+        // {
+        //     // skill_01.OnStartCountCD += OnStartCountCD;
+        //     if(Input.GetMouseButtonDown(1))
+        //     {
+        //         skill_01.SkillStart();
+        //     }
+        //     skill_01.SkillUpdate();
+        // }
+        if(skill)
         {
-            // skill_01.OnStartCountCD += OnStartCountCD;
             if(Input.GetMouseButtonDown(1))
             {
-                skill_01.SkillStart();
+                skill.SkillStart();
             }
-            skill_01.SkillUpdate();
+
+            skill.SkillUpdate();
         }
     }
 
@@ -33,8 +43,8 @@ public class SkillManager : MonoBehaviour
     //     }
     // }
 
-    public void SetSKill_01(SkillController skill)
-    {
-        skill_01 = skill;
-    }
+    // public void SetSKill_01(SkillController skill)
+    // {
+    //     skill_01 = skill;
+    // }
 }

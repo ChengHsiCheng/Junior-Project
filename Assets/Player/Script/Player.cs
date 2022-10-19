@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum LevelReward
+{
+    Gold, Crystal, SKillUp
+}
+
 public class Player : MonoBehaviour
 {
     #region 宣告
+        
         #region Dash
         float dashDuration = 0.2f;//衝刺時間
         float dashTime = 0.2f;//衝刺的時間
-        float dashSpeed = 100f;//衝刺速度
+        float dashSpeed = 200f;//衝刺速度
         float dashCD = 0.5f;//衝刺的冷卻時間
         float dashElapsedTime = 0;//衝刺後經過的時間
         bool isDash = false;//是否在衝刺
@@ -44,6 +50,9 @@ public class Player : MonoBehaviour
     public float playerHp = 100;
     bool isPressLeftMouse = false;//是否按下滑鼠左鍵
     public float speed = 3;//移動速度
+
+    public float goldQuantity = 0;
+    LevelReward levelReward;
     #endregion
 
     void Start()

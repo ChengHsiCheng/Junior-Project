@@ -12,19 +12,29 @@ public class Enemy : MonoBehaviour
     protected AudioSource audioSource;
     GameObject player; // 玩家 
     float attackTimer; // 攻擊計時器
+    public float speed;
     public float idleToHoundDis;
     public float houndToAttackDis;
     public float attackCD; // 攻擊間隔
     public float attackMoveSpeed; // 攻擊移動速度
+    
     bool attackMove; // 是否需要移動(攻擊)
     bool beAttackMove; // 是否需要移動(被攻擊)
     bool isFace; // 是否要面對玩家
+    Hashtable debuffTable;
+
+    public delegate void EnemuDieEventArgs();
+    public EnemuDieEventArgs OnEnemyDie;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         player = GameObject.FindWithTag("Player");
+
+        debuffTable = new Hashtable();
+        debuffTable.Add(EnemyDebuffType.Burning, null);
+        debuffTable.Add(EnemyDebuffType.Frozen, null);
 
         attackTimer = attackCD;
 
@@ -99,6 +109,28 @@ public class Enemy : MonoBehaviour
         {
             transform.position += -transform.forward * attackMoveSpeed * Time.deltaTime;
         }
+
+        if(debuffTable[EnemyDebuffType.Frozen] != null)
+        {
+            speed = 0.5f;
+        }else
+        {
+            speed = 1;
+        }
+
+        if(debuffTable[EnemyDebuffType.Burning] != null)
+        {
+            if(Time.time - (float)debuffTable[EnemyDebuffType.Burning] > 5)
+            {
+                RemoveDebuff(EnemyDebuffType.Burning);
+            }else
+            {
+                if(info.hp > 0)
+                    BeAttacked(0.1f, false);
+            }
+        }
+
+        animator.SetFloat("Speed", speed);
     }
 
     void StateIdle()
@@ -112,7 +144,7 @@ public class Enemy : MonoBehaviour
     void StateHound()
     {
         // 開始追蹤
-        agent.speed = 1f;
+        agent.speed = speed * info.speedAddition;
         agent.SetDestination(player.transform.position);
         animator.SetBool("Hount", true);
         isFace = true;
@@ -157,7 +189,7 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
     }
 
-    public void BeAttacked(float damege)
+    public void BeAttacked(float damege, bool isDriveOff)
     {   
         // 取得動畫狀態
         AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
@@ -165,8 +197,11 @@ public class Enemy : MonoBehaviour
         // 扣除血量
         info.hp -= damege;
 
-        animator.SetTrigger("Hit");
-
+        if(isDriveOff)
+        {
+            animator.SetTrigger("Hit");
+        }
+        
         if(info.hp <= 0)
         {
             enemyState = EnemyState.Died;
@@ -198,6 +233,22 @@ public class Enemy : MonoBehaviour
 
     public void Destroy()
     {
+        gameObject.SetActive(false);
         Destroy(gameObject);
+        OnEnemyDie();
     }
+
+    public void AddDebuff(EnemyDebuffType type)
+    {
+        if(debuffTable[type] == null)
+        {
+            debuffTable[type] = Time.time;
+        }
+    }
+
+    public void RemoveDebuff(EnemyDebuffType type)
+    {
+        debuffTable[type] = null;
+    }
+    
 }

@@ -24,7 +24,7 @@ public class Attack_Collision : MonoBehaviour
             {
                 damege = 30;
             }
-            TargetEnemy.BeAttacked(damege);
+            TargetEnemy.BeAttacked(damege, true);
         }
     }
 }

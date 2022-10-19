@@ -10,6 +10,12 @@ public class MapController : MonoBehaviour
     int nowMaps = 0;
     public float enemyCount = 0;
     public Player player;
+    public EndTrigger endTrigger01;
+    public EndTrigger endTrigger02;
+
+    float enemyHpAddition;
+    float enemyDamegeAddition;
+    float enemySpeedAddition;
     void Start()
     {
         for(int i = 0; i < map.transform.childCount; i++)
@@ -20,6 +26,8 @@ public class MapController : MonoBehaviour
         }
         // 設定洗牌陣列大小
         randomint = new int[Maps.Count];
+
+        
     }
 
     public void RandomInt()// 將地圖洗牌
@@ -45,8 +53,9 @@ public class MapController : MonoBehaviour
         }
     }
 
-    public void SwapMaps() // 紀錄切換地圖
+    public void SwapMaps(int i, EnemyParmType ranParmType, float ranParmValue) // 紀錄切換地圖
     {
+        Map nowMap = Maps[randomint[nowMaps]].GetComponent<Map>();
         if(nowMaps < (randomint.Length - 1))
         {
             nowMaps++;
@@ -56,34 +65,69 @@ public class MapController : MonoBehaviour
         }
 
         // 起始點位置
-        Vector3 outSetPos = Maps[randomint[nowMaps]].GetComponent<Map>().outSetObj.transform.position;
+        Vector3 outSetPos = nowMap.outSetObj.transform.position;
         // 終點位置
-        Vector3 endPos = Maps[randomint[nowMaps]].GetComponent<Map>().endObj.transform.position;
+        Vector3 endPos01 = nowMap.endObj01.transform.position;
+        Vector3 endPos02 = nowMap.endObj02.transform.position;
 
-        Debug.Log(Maps[randomint[nowMaps]].GetComponent<Map>().outSetObj.transform.position);
+        nowMap.enemyObj.gameObject.SetActive(true);
+
+        endTrigger01.transform.position = endPos01;
+        endTrigger01.gameObject.SetActive(false);
+        endTrigger02.transform.position = endPos02;
+        endTrigger02.gameObject.SetActive(false);
 
         // 設定玩家的位置
         player.transform.position = new Vector3(outSetPos.x,player.transform.position.y,outSetPos.z);
 
-        Maps[randomint[nowMaps]].GetComponent<Map>().endObj.SetActive(false);
 
-        enemyCount =  Maps[randomint[nowMaps]].GetComponent<Map>().EnemyPos.Count;
-        
-        Maps[randomint[nowMaps]].GetComponent<Map>().eventTrigger.gameObject.SetActive(true);
-
-        // 複製要生成敵人的位置給eventTrigger
-        Maps[randomint[nowMaps]].GetComponent<Map>().eventTrigger.GetComponent<EventTrigger>().CopyList(Maps[randomint[nowMaps]].GetComponent<Map>());
-        Debug.Log(Maps[randomint[nowMaps]]);
-    }
-
-    public void EnemyCount()
-    {
-        enemyCount--;
-        Debug.Log(enemyCount);
-        if(enemyCount == 0)
+        if(i == 1)
         {
-            Maps[randomint[nowMaps]].GetComponent<Map>().endObj.SetActive(true);
-        }
+            
 
+            if(ranParmType == EnemyParmType.Hp)
+            {
+                enemyHpAddition += ranParmValue;
+            }else if(ranParmType == EnemyParmType.Damege)
+            {
+                enemyDamegeAddition += ranParmValue;
+            }else if(ranParmType == EnemyParmType.Speed)
+            {
+                enemySpeedAddition += ranParmValue;
+            }
+
+            nowMap.enemyObj.SetParmValue(enemyHpAddition, enemyDamegeAddition, enemySpeedAddition);
+            Debug.Log("trigger");
+        }else if(i == 0)
+        {
+            enemyHpAddition = 0;
+            enemyDamegeAddition = 0;
+            enemySpeedAddition = 0;
+            nowMap.enemyObj.SetParmValue(enemyHpAddition, enemyDamegeAddition, enemySpeedAddition);
+            Debug.Log("enemyHpAddition + enemyDamegeAddition + enemySpeedAddition");
+        }
+        
+        
+        Debug.Log(i);
+        
     }
+
+    public void EnemtCheck()
+    {
+        GameObject[] enemyCount = GameObject.FindGameObjectsWithTag("Enemy");
+
+        if(enemyCount.Length == 0)
+        {
+            EnemyClear();
+        }    
+    }
+
+    public void EnemyClear()
+    {
+        endTrigger01.gameObject.SetActive(true);
+        endTrigger01.RanEnemyParm();
+        endTrigger02.gameObject.SetActive(true);
+        endTrigger02.RanEnemyParm();
+    }
+
 }

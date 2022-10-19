@@ -4,27 +4,19 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    public SkillController skill;
-    //public SkillController skill_01;
-    // public SkillController skill_02;
-    // public SkillController skill_03;
-    // public SkillController skill_04;
+    public SkillControl skill;
+    public SkillControl[] skillList;
+
+    public int level;
 
     void Start()
     {
+        skill = null;
+        skillList = null;
     }
 
     void Update()
     {
-        // if(skill_01)
-        // {
-        //     // skill_01.OnStartCountCD += OnStartCountCD;
-        //     if(Input.GetMouseButtonDown(1))
-        //     {
-        //         skill_01.SkillStart();
-        //     }
-        //     skill_01.SkillUpdate();
-        // }
         if(skill)
         {
             if(Input.GetMouseButtonDown(1))
@@ -36,15 +28,19 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    // void OnStartCountCD(SkillController sender) 
-    // {
-    //     if(sender == skill_01)
-    //     {
-    //     }
-    // }
+    public void ChangeSkill(SkillControl[] _skillList)
+    {
+        skillList = _skillList;
+        level = 0;
+        skill = skillList[level];
+    }
 
-    // public void SetSKill_01(SkillController skill)
-    // {
-    //     skill_01 = skill;
-    // }
+    public void SkillLvUp()
+    {
+        if(skill.SkillName == "FireBall")
+        {
+            level += 1;
+            skill = skillList[level];
+        }
+    }
 }

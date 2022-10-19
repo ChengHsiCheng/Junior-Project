@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-    public List<GameObject>EnemyPos = new List<GameObject>{};
     public GameObject outSetObj;
-    public GameObject endObj;
-    public GameObject eventTrigger;
+    public GameObject endObj01;
+    public GameObject endObj02;
+    public EnemyTrigger enemyObj;
 }

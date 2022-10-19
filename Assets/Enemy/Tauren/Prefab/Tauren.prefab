@@ -364,7 +364,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5095676571353998668}
   m_LocalRotation: {x: 0.5040812, y: -0.49588525, z: 0.5040812, w: -0.49588525}
-  m_LocalPosition: {x: -0.11750037, y: 0.24380621, z: 0.09224588}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children:
   - {fileID: 3139434445422623692}
@@ -626,17 +626,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7156110761563665813}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.019000009}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.664613, y: 0.664613, z: 0.664613}
   m_Children:
   - {fileID: 7156110761829622105}
   - {fileID: 7156110761376828312}
   m_Father: {fileID: 7261251411039029996}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.708343, y: 0.13721561}
+  m_AnchoredPosition: {x: 0, y: -0.236}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7156110761563665815
@@ -756,11 +756,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7156110762398363825}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.429, z: 0.699}
+  m_LocalPosition: {x: 0, y: 0.193, z: 0.684}
   m_LocalScale: {x: 1, y: 1, z: 1.5303}
   m_Children: []
   m_Father: {fileID: 7261251411039029996}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7156110762398363826
 BoxCollider:
@@ -923,8 +923,8 @@ Transform:
   m_Children:
   - {fileID: 4993343274152455742}
   - {fileID: 541605663692965632}
-  - {fileID: 7156110761563665812}
   - {fileID: 7156110762398363824}
+  - {fileID: 7156110761563665812}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -957,7 +957,7 @@ CapsuleCollider:
   m_Radius: 0.32
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: -0.13, y: 0.45, z: 0}
+  m_Center: {x: 0, y: 0.27, z: 0}
 --- !u!95 &7156110761151574410
 Animator:
   serializedVersion: 3
@@ -989,9 +989,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177313d397a646045bd6aab7de7db82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
-  maxHp: 100
-  damege: 10
+  baseHp: 30
+  hp: 30
+  maxHp: 30
+  damege: 5
+  hpAddition: 1
+  damegeAddition: 1
+  speedAddition: 1
 --- !u!114 &8038631779637743696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1004,10 +1008,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bed06f474761be4ba285c52b3db827d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleToHoundDis: 4
-  houndToAttackDis: 1.2
-  attackCD: 4
-  attackMoveSpeed: 2
+  speed: 2
+  idleToHoundDis: 10
+  houndToAttackDis: 2
+  attackCD: 2
+  attackMoveSpeed: 4
 --- !u!195 &8038631779637743699
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1017,7 +1022,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8038631779637743702}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.33
+  m_Radius: 0.3
   m_Speed: 3.5
   m_Acceleration: 300
   avoidancePriority: 50
@@ -1027,6 +1032,6 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0
+  m_BaseOffset: 0.18
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

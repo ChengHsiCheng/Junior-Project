@@ -6,13 +6,13 @@ public class Enemy_Attack_Collision : MonoBehaviour
 {
     Player TargetPlayer;
     public EnemyStatusInfo enemy;
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             TargetPlayer = other.GetComponent<Player>();
             TargetPlayer.PlayerBeAttack(enemy.damege);
-            
+
         }
     }
 }

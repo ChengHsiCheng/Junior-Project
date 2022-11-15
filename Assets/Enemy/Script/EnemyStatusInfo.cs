@@ -1,4 +1,4 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,7 +13,7 @@ public class EnemyStatusInfo : MonoBehaviour
     public float hpAddition;
     public float damegeAddition;
     public float speedAddition;
-    
+
 
     void Start()
     {
@@ -22,13 +22,13 @@ public class EnemyStatusInfo : MonoBehaviour
 
     public void SetParm(float hp, float damege, float speed)
     {
-            hpAddition += hp;
-            maxHp = baseHp * hpAddition;
-            hp = maxHp;
+        hpAddition += hp;
+        maxHp = baseHp * hpAddition;
+        hp = maxHp;
 
-            damegeAddition += damege;
-            speedAddition += speed;
-        
+        damegeAddition += damege;
+        speedAddition += speed;
+
     }
 
 }

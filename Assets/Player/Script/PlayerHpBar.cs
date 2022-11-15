@@ -19,10 +19,11 @@ public class PlayerHpBar : MonoBehaviour
     {
         UpdateBarWidth();
     }
-    
+
     // 更新血條長度
-    void UpdateBarWidth() {
-        float hpScale = player.playerHp  * 0.01f;
+    void UpdateBarWidth()
+    {
+        float hpScale = player.playerHp / player.playetMaxHp;
         Bar.rectTransform.localScale = new Vector3
         (
             hpScale,

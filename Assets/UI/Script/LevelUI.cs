@@ -7,9 +7,10 @@ public class LevelUI : MonoBehaviour
 {
     public Text parmType;
     public Text value;
+    public Text reward;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -17,19 +18,22 @@ public class LevelUI : MonoBehaviour
     {
     }
 
-    public void InTrigger(EnemyParmType type, float _value)
+    public void InTrigger(EnemyParmType type, float _value, LevelRewardType rewardType)
     {
-        if(type == EnemyParmType.Hp)
+        if (type == EnemyParmType.Hp)
         {
             parmType.text = "血量".ToString();
-        }else if(type == EnemyParmType.Damege)
+        }
+        else if (type == EnemyParmType.Damege)
         {
             parmType.text = "傷害".ToString();
-        }else if(type == EnemyParmType.Speed)
+        }
+        else if (type == EnemyParmType.Speed)
         {
             parmType.text = "速度".ToString();
         }
 
         value.text = _value.ToString() + "%";
+        reward.text = rewardType.ToString();
     }
 }

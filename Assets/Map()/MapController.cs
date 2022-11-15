@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapController : MonoBehaviour
 {
     public GameObject map;
-    public List<GameObject> Maps = new List<GameObject>{}; // 儲存地圖
+    public List<GameObject> Maps = new List<GameObject> { }; // 儲存地圖
     int[] randomint;//洗牌用陣列
     int nowMaps = 0;
     public float enemyCount = 0;
@@ -13,12 +13,16 @@ public class MapController : MonoBehaviour
     public EndTrigger endTrigger01;
     public EndTrigger endTrigger02;
 
+    public GameObject goldObj;
+    public GameObject crystalObj;
+    public GameObject skillUpObj;
+
     float enemyHpAddition;
     float enemyDamegeAddition;
     float enemySpeedAddition;
     void Start()
     {
-        for(int i = 0; i < map.transform.childCount; i++)
+        for (int i = 0; i < map.transform.childCount; i++)
         {
             //把地圖放進陣列中
             GameObject gameObject = map.gameObject.transform.GetChild(i).gameObject;
@@ -27,7 +31,7 @@ public class MapController : MonoBehaviour
         // 設定洗牌陣列大小
         randomint = new int[Maps.Count];
 
-        
+
     }
 
     public void RandomInt()// 將地圖洗牌
@@ -56,10 +60,11 @@ public class MapController : MonoBehaviour
     public void SwapMaps(int i, EnemyParmType ranParmType, float ranParmValue) // 紀錄切換地圖
     {
         Map nowMap = Maps[randomint[nowMaps]].GetComponent<Map>();
-        if(nowMaps < (randomint.Length - 1))
+        if (nowMaps < (randomint.Length - 1))
         {
             nowMaps++;
-        }else
+        }
+        else
         {
             nowMaps = 0;
         }
@@ -78,27 +83,29 @@ public class MapController : MonoBehaviour
         endTrigger02.gameObject.SetActive(false);
 
         // 設定玩家的位置
-        player.transform.position = new Vector3(outSetPos.x,player.transform.position.y,outSetPos.z);
+        player.transform.position = new Vector3(outSetPos.x, player.transform.position.y, outSetPos.z);
 
 
-        if(i == 1)
+        if (i == 1)
         {
-            
 
-            if(ranParmType == EnemyParmType.Hp)
+            if (ranParmType == EnemyParmType.Hp)
             {
                 enemyHpAddition += ranParmValue;
-            }else if(ranParmType == EnemyParmType.Damege)
+            }
+            else if (ranParmType == EnemyParmType.Damege)
             {
                 enemyDamegeAddition += ranParmValue;
-            }else if(ranParmType == EnemyParmType.Speed)
+            }
+            else if (ranParmType == EnemyParmType.Speed)
             {
                 enemySpeedAddition += ranParmValue;
             }
 
             nowMap.enemyObj.SetParmValue(enemyHpAddition, enemyDamegeAddition, enemySpeedAddition);
             Debug.Log("trigger");
-        }else if(i == 0)
+        }
+        else if (i == 0)
         {
             enemyHpAddition = 0;
             enemyDamegeAddition = 0;
@@ -106,20 +113,20 @@ public class MapController : MonoBehaviour
             nowMap.enemyObj.SetParmValue(enemyHpAddition, enemyDamegeAddition, enemySpeedAddition);
             Debug.Log("enemyHpAddition + enemyDamegeAddition + enemySpeedAddition");
         }
-        
-        
+
+
         Debug.Log(i);
-        
+
     }
 
     public void EnemtCheck()
     {
         GameObject[] enemyCount = GameObject.FindGameObjectsWithTag("Enemy");
 
-        if(enemyCount.Length == 0)
+        if (enemyCount.Length == 0)
         {
             EnemyClear();
-        }    
+        }
     }
 
     public void EnemyClear()
@@ -128,6 +135,23 @@ public class MapController : MonoBehaviour
         endTrigger01.RanEnemyParm();
         endTrigger02.gameObject.SetActive(true);
         endTrigger02.RanEnemyParm();
+
+        if (player.levelRewardType == LevelRewardType.Gold)
+        {
+            Instantiate(goldObj, player.transform.position, Quaternion.identity);
+        }
+        else if (player.levelRewardType == LevelRewardType.Crystal)
+        {
+            Instantiate(crystalObj, player.transform.position, Quaternion.identity);
+        }
+        else if (player.levelRewardType == LevelRewardType.SkillUp)
+        {
+            Instantiate(skillUpObj, player.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("Null");
+        }
     }
 
 }

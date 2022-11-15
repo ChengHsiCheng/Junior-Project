@@ -17,7 +17,8 @@ public class Enemy : MonoBehaviour
     public float houndToAttackDis;
     public float attackCD; // 攻擊間隔
     public float attackMoveSpeed; // 攻擊移動速度
-    
+    public float beAttackMoveSpeed;
+
     bool attackMove; // 是否需要移動(攻擊)
     bool beAttackMove; // 是否需要移動(被攻擊)
     bool isFace; // 是否要面對玩家
@@ -45,87 +46,89 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         // 玩家位置
-        Vector3 playerPos = player.transform.position; 
+        Vector3 playerPos = player.transform.position;
         // 自身位置
-        Vector3 myPos = transform.position; 
+        Vector3 myPos = transform.position;
         // 取得動畫狀態
         AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if(enemyState == EnemyState.idle)
+        if (enemyState == EnemyState.idle)
         {
             StateIdle();
 
-            if(Vector3.Distance(playerPos,myPos) < idleToHoundDis)
+            if (Vector3.Distance(playerPos, myPos) < idleToHoundDis)
             {
                 enemyState = EnemyState.hound;
             }
         }
-        if(enemyState == EnemyState.hound)
+        if (enemyState == EnemyState.hound)
         {
             StateHound();
 
-            if(Vector3.Distance(playerPos,myPos) >= idleToHoundDis)
+            if (Vector3.Distance(playerPos, myPos) >= idleToHoundDis)
             {
                 enemyState = EnemyState.idle;
             }
-            if(Vector3.Distance(playerPos,myPos) < houndToAttackDis)
+            if (Vector3.Distance(playerPos, myPos) < houndToAttackDis)
             {
                 enemyState = EnemyState.attack;
             }
         }
-        if(enemyState == EnemyState.attack)
+        if (enemyState == EnemyState.attack)
         {
             StateAttack();
-            
-            if(Vector3.Distance(playerPos,myPos) >= houndToAttackDis && !stateinfo.IsName("Attack"))
+
+            if (Vector3.Distance(playerPos, myPos) >= houndToAttackDis && !stateinfo.IsName("Attack"))
             {
                 enemyState = EnemyState.hound;
             }
         }
-        if(enemyState == EnemyState.Died)
+        if (enemyState == EnemyState.Died)
         {
             StateDied();
         }
 
-        if(isFace)
+        if (isFace)
         {
             Face(player);
         }
 
         // 攻擊間隔計時
-        if(attackTimer <= attackCD)
+        if (attackTimer <= attackCD)
         {
             attackTimer += Time.deltaTime;
         }
 
         // 攻擊時移動
-        if(attackMove)
+        if (attackMove)
         {
-            transform.position += transform.forward * attackMoveSpeed * Time.deltaTime;
+            transform.position += transform.forward * attackMoveSpeed * speed * Time.deltaTime;
         }
 
         // 被攻擊時移動
-        if(beAttackMove)
+        if (beAttackMove)
         {
-            transform.position += -transform.forward * attackMoveSpeed * Time.deltaTime;
+            transform.position += -transform.forward * beAttackMoveSpeed * speed * Time.deltaTime;
         }
 
-        if(debuffTable[EnemyDebuffType.Frozen] != null)
+        if (debuffTable[EnemyDebuffType.Frozen] != null)
         {
             speed = 0.5f;
-        }else
+        }
+        else
         {
             speed = 1;
         }
 
-        if(debuffTable[EnemyDebuffType.Burning] != null)
+        if (debuffTable[EnemyDebuffType.Burning] != null)
         {
-            if(Time.time - (float)debuffTable[EnemyDebuffType.Burning] > 5)
+            if (Time.time - (float)debuffTable[EnemyDebuffType.Burning] > 5)
             {
                 RemoveDebuff(EnemyDebuffType.Burning);
-            }else
+            }
+            else
             {
-                if(info.hp > 0)
+                if (info.hp > 0)
                     BeAttacked(0.1f, false);
             }
         }
@@ -157,16 +160,17 @@ public class Enemy : MonoBehaviour
         // 準備進行攻擊
         agent.speed = 0f;
         animator.SetBool("Hount", false);
-        if(attackTimer >= attackCD && !stateinfo.IsName("Hit"))
+        if (attackTimer >= attackCD && !stateinfo.IsName("Hit"))
         {
             animator.SetTrigger("Attack");
             attackTimer = 0;
         }
-        
-        if(stateinfo.IsName("Attack"))
+
+        if (stateinfo.IsName("Attack"))
         {
             isFace = false;
-        }else
+        }
+        else
         {
             isFace = true;
         }
@@ -182,27 +186,27 @@ public class Enemy : MonoBehaviour
     }
 
     // 面對玩家
-    public void Face(GameObject player) 
+    public void Face(GameObject player)
     {
-        float faceAngle = Mathf.Atan2(player.transform.position.x - transform.position.x , player.transform.position.z - transform.position.z) * Mathf.Rad2Deg;
+        float faceAngle = Mathf.Atan2(player.transform.position.x - transform.position.x, player.transform.position.z - transform.position.z) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(0, faceAngle, 0);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
     }
 
     public void BeAttacked(float damege, bool isDriveOff)
-    {   
+    {
         // 取得動畫狀態
         AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
 
         // 扣除血量
         info.hp -= damege;
 
-        if(isDriveOff)
+        if (isDriveOff)
         {
             animator.SetTrigger("Hit");
         }
-        
-        if(info.hp <= 0)
+
+        if (info.hp <= 0)
         {
             enemyState = EnemyState.Died;
             animator.SetTrigger("Die");
@@ -240,7 +244,7 @@ public class Enemy : MonoBehaviour
 
     public void AddDebuff(EnemyDebuffType type)
     {
-        if(debuffTable[type] == null)
+        if (debuffTable[type] == null)
         {
             debuffTable[type] = Time.time;
         }
@@ -250,5 +254,5 @@ public class Enemy : MonoBehaviour
     {
         debuffTable[type] = null;
     }
-    
+
 }

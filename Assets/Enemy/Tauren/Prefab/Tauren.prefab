@@ -1013,6 +1013,7 @@ MonoBehaviour:
   houndToAttackDis: 2
   attackCD: 2
   attackMoveSpeed: 4
+  beAttackMoveSpeed: 1
 --- !u!195 &8038631779637743699
 NavMeshAgent:
   m_ObjectHideFlags: 0

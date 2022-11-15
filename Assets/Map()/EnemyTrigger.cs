@@ -6,7 +6,7 @@ public class EnemyTrigger : MonoBehaviour
 {
     public GameObject[] enemys;
     public MapController controller;
-    public List<GameObject>GeneratePos = new List<GameObject>{};
+    public List<GameObject> GeneratePos = new List<GameObject> { };
 
     public EnemyParmType parmType;
     public float enemyHpAddition;
@@ -15,21 +15,22 @@ public class EnemyTrigger : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 0; i < this.transform.childCount; i++)
+        for (int i = 0; i < this.transform.childCount; i++)
         {
             //把地圖放進陣列中
             GameObject gameObject = this.gameObject.transform.GetChild(i).gameObject;
             GeneratePos.Add(gameObject);
         }
 
-        
+
     }
-    private void OnTriggerEnter(Collider other) {
-        if(other.tag == "Player" || other.transform.parent.tag == "Player")
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player" || other.transform.parent.tag == "Player")
         {
-            for(int i =0;i < GeneratePos.Count;i++)
+            for (int i = 0; i < GeneratePos.Count; i++)
             {
-                GameObject enemyObj = Instantiate(enemys[Random.Range(0,enemys.Length)],GeneratePos[i].transform.position,Quaternion.Euler(0,0,0));
+                GameObject enemyObj = Instantiate(enemys[Random.Range(0, enemys.Length)], GeneratePos[i].transform.position, Quaternion.Euler(0, 0, 0));
 
                 Enemy enemy = enemyObj.GetComponent<Enemy>();
                 EnemyStatusInfo info = enemyObj.GetComponent<EnemyStatusInfo>();
@@ -42,6 +43,7 @@ public class EnemyTrigger : MonoBehaviour
             this.gameObject.SetActive(false);
         }
     }
+
 
     void OnEnemyDie()
     {

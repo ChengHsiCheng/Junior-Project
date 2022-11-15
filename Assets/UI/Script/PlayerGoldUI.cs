@@ -17,6 +17,6 @@ public class PlayerGoldUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        goldQuantity.text = "X " + player.goldQuantity.ToString();
+        goldQuantity.text = "X " + player.goldCount.ToString();
     }
 }

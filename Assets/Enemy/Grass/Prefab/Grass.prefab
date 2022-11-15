@@ -536,6 +536,7 @@ MonoBehaviour:
   houndToAttackDis: 1.5
   attackCD: 1.5
   attackMoveSpeed: 4
+  beAttackMoveSpeed: 1
   audios:
   - {fileID: 8300000, guid: f2571d573ac930341ab5de12fa577227, type: 3}
   - {fileID: 8300000, guid: 39213fe3fcc25654fbc34e5fbb2dde97, type: 3}

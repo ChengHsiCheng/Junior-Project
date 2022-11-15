@@ -12,22 +12,23 @@ public class SkillCDCount : MonoBehaviour
     float skillTimer;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(manager && manager.skill)
+        if (manager && manager.skill)
         {
-            skillTimer = manager.skillList[manager.level].skillTimer;
-            skillCD = manager.skillList[manager.level].skillCD;
+            skillTimer = manager.skillList[manager.count].skillTimer;
+            skillCD = manager.skillList[manager.count].skillCD;
             skillCDBar.fillAmount = skillTimer / skillCD;
-        }else
+        }
+        else
         {
             skillCDBar.fillAmount = 0;
         }
-        
+
     }
 
     public void ChangeSkillImage(Sprite _skillImage, SkillManager _manager)

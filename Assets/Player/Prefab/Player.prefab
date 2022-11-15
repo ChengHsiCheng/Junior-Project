@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 2798563564478384620}
   m_Layer: 9
   m_Name: DashCollider
-  m_TagString: Untagged
+  m_TagString: DashCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,8 +107,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 1, z: 0.36489177}
-  m_Center: {x: 0, y: 0, z: 0.2}
+  m_Size: {x: 0.3, y: 0.8861665, z: 0.36489177}
+  m_Center: {x: 0, y: 0.056916744, z: 0.19999999}
 --- !u!114 &2798563564478384620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,7 +361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b792d12781c854d8217776e118036f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetEnemy: {fileID: 0}
   player: {fileID: 2798563565134949387}
 --- !u!1 &2798563565046759924
 GameObject:
@@ -15522,19 +15521,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3789d488407ba0840bfce5aa11c76250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damege: 5
+  damegeAdd: 1
+  critAdd: 2
   comboStep: 0
-  attackEffects01: {fileID: 1543573111790706836, guid: f6c68ac007822004c98c763bc1d429b3, type: 3}
-  attackEffects02: {fileID: 7312530966426936501, guid: a8403d9919fb749419a79f8acffeb623, type: 3}
+  attackEffects01: {fileID: 8553015180138109674, guid: f59cfbefe4ad34f42b15da814d8c4f13, type: 3}
+  attackEffects02: {fileID: 8553015180138109674, guid: 06e2b379716858a439a8af6426cb3299, type: 3}
   attackEffects03_1: {fileID: 2798563565763230365}
-  attackEffects03_2: {fileID: 1543573111790706836, guid: f6c68ac007822004c98c763bc1d429b3, type: 3}
+  attackEffects03_2: {fileID: 8553015180138109674, guid: f59cfbefe4ad34f42b15da814d8c4f13, type: 3}
   attackAudio01: {fileID: 8300000, guid: c8b8871e0e01fea4b84353abcc727012, type: 3}
   attackAudio02: {fileID: 8300000, guid: 8283643148f2c4243abb87cbc58f0399, type: 3}
   attackAudio03: {fileID: 8300000, guid: 5481e158007b8cc46814741db2c2387b, type: 3}
   beAttackAudio: {fileID: 8300000, guid: f2f71158cce174144bf5b66167397a97, type: 3}
   hitEffecis: {fileID: 57560158243955042, guid: fa44e12e44a2a2441bf8a93943c4de9d, type: 3}
   dashCollider: {fileID: 2798563564478384620}
-  playerHp: 100
+  playerHp: 0
+  playetMaxHp: 100
   speed: 3
+  crystalCount: 0
+  goldCount: 0
+  levelRewardType: 0
 --- !u!114 &2798563564719197323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15565,7 +15571,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 2
 --- !u!136 &2798563565993562005
 CapsuleCollider:

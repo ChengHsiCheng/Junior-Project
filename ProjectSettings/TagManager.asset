@@ -9,6 +9,8 @@ TagManager:
   - EnemyAttackTrigger
   - DashCollider
   - Trigger
+  - Boss
+  - BossSkill
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Enemy
   - PlayerToEnemy
   - PlayerToScenes
-  - W
+  - Drop
   - Floor
   - 
   - 

@@ -4,27 +4,46 @@ using UnityEngine;
 
 public class Attack_Collision : MonoBehaviour
 {
-    public Enemy TargetEnemy;
     public Player player;
-    float damege;
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Enemy")
+        if (other.tag == "Enemy")
         {
-            TargetEnemy = other.GetComponent<Enemy>();
-            
+            Enemy enemy = other.GetComponent<Enemy>();
+
             Instantiate(player.hitEffecis, other.transform.position, Quaternion.identity);
 
-            if(player.comboStep != 3)
+            player.CheckPassiveSkills("OnPlayerAttack");
+
+            Debug.Log(player.damege * player.damegeAdd);
+            if (player.comboStep != 3)
             {
-                damege = 10;
+                enemy.BeAttacked(player.damege * player.damegeAdd, true);
             }
-            if(player.comboStep == 3)
+            if (player.comboStep == 3)
             {
-                damege = 30;
+                enemy.BeAttacked(player.damege * player.damegeAdd * player.critAdd, true);
             }
-            TargetEnemy.BeAttacked(damege, true);
+
+
+        }
+        else if (other.tag == "Boss")
+        {
+            Boss boss = other.GetComponent<Boss>();
+
+            Instantiate(player.hitEffecis, other.transform.position + transform.up * 0.5f, Quaternion.identity);
+
+            player.CheckPassiveSkills("OnPlayerAttack");
+
+            if (player.comboStep != 3)
+            {
+                boss.BeAttack(player.damege * player.damegeAdd);
+            }
+            if (player.comboStep == 3)
+            {
+                boss.BeAttack(player.damege * player.damegeAdd * player.critAdd);
+            }
         }
     }
 }

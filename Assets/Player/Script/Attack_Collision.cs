@@ -16,7 +16,6 @@ public class Attack_Collision : MonoBehaviour
 
             player.CheckPassiveSkills("OnPlayerAttack");
 
-            Debug.Log(player.damege * player.damegeAdd);
             if (player.comboStep != 3)
             {
                 enemy.BeAttacked(player.damege * player.damegeAdd, true);

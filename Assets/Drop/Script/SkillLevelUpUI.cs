@@ -33,7 +33,7 @@ public class SkillLevelUpUI : MonoBehaviour
 
     void Imagetocanvas() //把image放到canvas上
     {
-        canvas = GameObject.Find("Canvas_hpbar");
+        canvas = GameObject.Find("PlayerUI");
         transform.SetParent(canvas.transform);
     }
 }

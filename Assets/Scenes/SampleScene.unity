@@ -779,6 +779,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265746164}
   m_CullTransparentMesh: 1
+--- !u!1001 &275247525
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8325679906822539898, guid: 53706938f1e505a488851539e56c0a43, type: 3}
+      propertyPath: m_Name
+      value: SkillLevelUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325679906822539903, guid: 53706938f1e505a488851539e56c0a43, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325679906822539903, guid: 53706938f1e505a488851539e56c0a43, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.925
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325679906822539903, guid: 53706938f1e505a488851539e56c0a43, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.565
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325679906822539903, guid: 53706938f1e505a488851539e56c0a43, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325679906822539903, guid: 53706938f1e505a488851539e56c0a43, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325679906822539903, guid: 53706938f1e505a488851539e56c0a43, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325679906822539903, guid: 53706938f1e505a488851539e56c0a43, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325679906822539903, guid: 53706938f1e505a488851539e56c0a43, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325679906822539903, guid: 53706938f1e505a488851539e56c0a43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325679906822539903, guid: 53706938f1e505a488851539e56c0a43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325679906822539903, guid: 53706938f1e505a488851539e56c0a43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 53706938f1e505a488851539e56c0a43, type: 3}
 --- !u!1 &336002288
 GameObject:
   m_ObjectHideFlags: 0
@@ -2047,7 +2104,6 @@ GameObject:
   - component: {fileID: 787548567}
   - component: {fileID: 787548566}
   - component: {fileID: 787548565}
-  - component: {fileID: 787548568}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2122,7 +2178,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1492793098}
         m_TargetAssemblyTypeName: BuyPassiveSkill, Assembly-CSharp
         m_MethodName: OnBuyPassiveSkill
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2169,18 +2225,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787548563}
   m_CullTransparentMesh: 1
---- !u!114 &787548568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787548563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acfba55cb39d4f946a73b236536e184b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &793813452
 GameObject:
   m_ObjectHideFlags: 0
@@ -3129,13 +3173,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1492793098}
         m_TargetAssemblyTypeName: BuyPassiveSkill, Assembly-CSharp
         m_MethodName: OnBuyPassiveSkill
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 4
           m_FloatArgument: 0
-          m_StringArgument: LifeSteal
+          m_StringArgument: InitialGold
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1021867759
@@ -4517,13 +4561,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1492793098}
         m_TargetAssemblyTypeName: BuyPassiveSkill, Assembly-CSharp
         m_MethodName: OnBuyPassiveSkill
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: LifeSteal
+          m_StringArgument: NextRoomHealth
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1402345036
@@ -5165,13 +5209,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1492793098}
         m_TargetAssemblyTypeName: BuyPassiveSkill, Assembly-CSharp
         m_MethodName: OnBuyPassiveSkill
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 3
           m_FloatArgument: 0
-          m_StringArgument: LifeSteal
+          m_StringArgument: Berserker
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1589027541
@@ -6629,11 +6673,11 @@ MonoBehaviour:
       - m_Target: {fileID: 1492793098}
         m_TargetAssemblyTypeName: BuyPassiveSkill, Assembly-CSharp
         m_MethodName: OnBuyPassiveSkill
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: IncreaseDamage
           m_BoolArgument: 0
@@ -7313,13 +7357,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1492793098}
         m_TargetAssemblyTypeName: BuyPassiveSkill, Assembly-CSharp
         m_MethodName: OnBuyPassiveSkill
-        m_Mode: 5
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 5
           m_FloatArgument: 0
-          m_StringArgument: LifeSteal
+          m_StringArgument: IncreaseMaxHp
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2128691473
@@ -7504,7 +7548,11 @@ PrefabInstance:
     - target: {fileID: 2798563564719197323, guid: c94b5ce1dc776ce40965d250a047bf86, type: 3}
       propertyPath: skillList.Array.data[0]
       value: 
-      objectReference: {fileID: 2687775049337738055, guid: 3f09b1503d24a544a86df3a396b5fc02, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798563565134949387, guid: c94b5ce1dc776ce40965d250a047bf86, type: 3}
+      propertyPath: crystalCount
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 2798563565993562002, guid: c94b5ce1dc776ce40965d250a047bf86, type: 3}
       propertyPath: m_Name
       value: Player

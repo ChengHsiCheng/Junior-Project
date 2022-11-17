@@ -1110,6 +1110,7 @@ MonoBehaviour:
   walkVFX: {fileID: 6796869502591832903, guid: b84e27e31e8295e4da1e5cceabc5bd1a, type: 3}
   attackVFXPos: {fileID: 7265549609273562856}
   skillVFXPos: {fileID: 2057551547}
+  speed: 2
   maxHp: 100
   hp: 0
   damege: 20
@@ -1117,6 +1118,7 @@ MonoBehaviour:
   attackCD: 2
   attackMoveSpeed: 5
   skillCD: 10
+  dashCD: 3
 --- !u!1 &8004931264105034862
 GameObject:
   m_ObjectHideFlags: 0

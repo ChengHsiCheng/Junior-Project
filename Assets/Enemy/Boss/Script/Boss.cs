@@ -20,6 +20,7 @@ public class Boss : MonoBehaviour
     public GameObject walkVFX;
     public Transform attackVFXPos;
     public Transform skillVFXPos;
+    public float speed;
     public float maxHp;
     public float hp;
     public float damege;
@@ -32,6 +33,9 @@ public class Boss : MonoBehaviour
     public float attackMoveSpeed;
     public float skillCD;
     bool isAttackMoving;
+    bool isDash;
+    public float dashCD;
+    float dashTimer;
 
 
     void Start()
@@ -44,6 +48,7 @@ public class Boss : MonoBehaviour
 
         atttackTimer = attackCD;
         skillTimer = skillCD;
+        dashTimer = dashCD;
     }
 
     // Update is called once per frame
@@ -62,6 +67,8 @@ public class Boss : MonoBehaviour
             if (Vector3.Distance(playerPos, myPos) < houndToAttackDis)
             {
                 state = State.attack;
+                isDash = false;
+                dashTimer = 0;
             }
         }
         if (state == State.attack)
@@ -89,6 +96,11 @@ public class Boss : MonoBehaviour
             skillTimer += Time.deltaTime;
         }
 
+        if (dashTimer < dashCD)
+        {
+            dashTimer += Time.deltaTime;
+        }
+
         if (walkVFXTimer < 0.5f)
         {
             walkVFXTimer += Time.deltaTime;
@@ -102,7 +114,27 @@ public class Boss : MonoBehaviour
 
     void StateHound()
     {
-        agent.speed = 2;
+        if (isDash)
+        {
+            speed = 50;
+            dashTimer -= Time.deltaTime;
+            if (dashTimer <= dashCD - 0.2f)
+            {
+                isDash = false;
+                dashTimer = 0;
+            }
+        }
+        else
+        {
+            speed = 2;
+        }
+
+        if (dashTimer >= dashCD)
+        {
+            isDash = true;
+        }
+
+        agent.speed = speed;
         agent.SetDestination(player.transform.position);
         animator.SetBool("Hount", true);
 

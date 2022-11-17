@@ -47,7 +47,7 @@ MonoBehaviour:
   skillCD: 2
   skillTimer: 0
   damege: 10
-  skill: {fileID: 7254315140174652731, guid: 8662f79b6911e894a86d6f9a4eaa0a75, type: 3}
+  skill: {fileID: 7254315140174652731, guid: a63772d3cf4a0b74e89aacec51b334a4, type: 3}
   SkillName: FireBall
   skillIntroduce: ASD
   image: {fileID: 21300000, guid: f9e16c72efd5f3a4388f2af59bb418ce, type: 3}

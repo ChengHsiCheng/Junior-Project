@@ -55,25 +55,33 @@ public class SkillManager : MonoBehaviour
         {
             count = 2;
         }
-        else if (result01 == 0 && result02 == 1)
+        else if (result01 == 3 && result02 == 0)
         {
             count = 3;
         }
-        else if (result01 == 0 && result02 == 2)
+        else if (result01 == 0 && result02 == 1)
         {
             count = 4;
         }
-        else if (result01 == 1 && result02 == 1)
+        else if (result01 == 0 && result02 == 2)
         {
             count = 5;
         }
-        else if (result01 == 2 && result02 == 1)
+        else if (result01 == 0 && result02 == 3)
         {
             count = 6;
         }
-        else if (result01 == 1 && result02 == 2)
+        else if (result01 == 1 && result02 == 1)
         {
             count = 7;
+        }
+        else if (result01 == 2 && result02 == 1)
+        {
+            count = 8;
+        }
+        else if (result01 == 1 && result02 == 2)
+        {
+            count = 9;
         }
 
         skill = skillList[count];

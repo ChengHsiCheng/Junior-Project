@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7128726268614779942}
   - component: {fileID: 7128726268614779936}
   - component: {fileID: 7128726268614779943}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Spike02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4900,7 +4900,7 @@ GameObject:
   - component: {fileID: 7128726268662311859}
   - component: {fileID: 7128726268662311858}
   - component: {fileID: 7128726268662311857}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Spike01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9789,7 +9789,7 @@ GameObject:
   - component: {fileID: 7128726269078525088}
   - component: {fileID: 7128726269078525090}
   - component: {fileID: 7128726269078525089}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Spike04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14680,7 +14680,7 @@ GameObject:
   - component: {fileID: 7128726269660425668}
   - component: {fileID: 3785090984335476139}
   - component: {fileID: 8784632134159813780}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: IceSpike 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19567,7 +19567,7 @@ GameObject:
   - component: {fileID: 7128726270044365452}
   - component: {fileID: 7128726270044365454}
   - component: {fileID: 7128726270044365453}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Spike03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

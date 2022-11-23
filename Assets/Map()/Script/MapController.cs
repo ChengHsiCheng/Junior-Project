@@ -121,9 +121,11 @@ public class MapController : MonoBehaviour
 
     public void EnemtCheck()
     {
-        GameObject[] enemyCount = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemysCount = GameObject.FindGameObjectsWithTag("Enemy");
 
-        if (enemyCount.Length == 0)
+        Debug.Log(enemysCount.Length);
+
+        if (enemysCount.Length == 0)
         {
             EnemyClear();
         }

@@ -238,9 +238,11 @@ public class Enemy : MonoBehaviour
 
     public void Destroy()
     {
+
         gameObject.SetActive(false);
-        Destroy(gameObject);
         OnEnemyDie();
+        Destroy(gameObject);
+
     }
 
     public void AddDebuff(EnemyDebuffType type)

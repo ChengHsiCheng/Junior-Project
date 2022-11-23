@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5817764440612004184
 Transform:
   m_ObjectHideFlags: 0
@@ -13515,8 +13515,8 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 0
-    ratio: 0.54
+    enabled: 1
+    ratio: 1
     light: {fileID: 9102462612340713110}
     randomDistribution: 1
     color: 1

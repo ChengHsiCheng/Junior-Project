@@ -2345,7 +2345,7 @@
     "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget",
     "m_ObjectId": "57b0b3163b684fb8b01f113cf858b32d",
     "m_ActiveSubTarget": {
-        "m_Id": "7f0763bc344a4d4896b727e7f2024665"
+        "m_Id": "759803db9a574c3bb2e4255711ef533b"
     },
     "m_SurfaceType": 1,
     "m_AlphaMode": 0,
@@ -2485,10 +2485,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -747.3333129882813,
-            "y": -166.0,
+            "x": -768.9999389648438,
+            "y": -131.00003051757813,
             "width": 208.0,
-            "height": 302.0
+            "height": 301.9999694824219
         }
     },
     "m_Slots": [
@@ -2816,6 +2816,12 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
+    "m_ObjectId": "759803db9a574c3bb2e4255711ef533b"
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.TangentMaterialSlot",
     "m_ObjectId": "76c9339e26d54229993e488e904e1db3",
     "m_Id": 0,
@@ -2990,12 +2996,6 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
-    "m_ObjectId": "7f0763bc344a4d4896b727e7f2024665"
 }
 
 {

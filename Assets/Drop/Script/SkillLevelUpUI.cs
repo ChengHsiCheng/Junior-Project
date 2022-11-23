@@ -22,6 +22,11 @@ public class SkillLevelUpUI : MonoBehaviour
             result01.text = "增加傷害";
             result02.text = "追加火球(數量+2)";
         }
+        else if (skillManager.skill.SkillName == "IceSpike")
+        {
+            result01.text = "增加傷害";
+            result02.text = "增加範圍";
+        }
     }
 
     public void OnSkillLevelUp(int i)

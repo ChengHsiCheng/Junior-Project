@@ -60,7 +60,7 @@ Transform:
   - {fileID: 7287933671862876712}
   m_Father: {fileID: 3139434445422623692}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -81.47359, y: -163.72734, z: -84.38629}
 --- !u!1 &408205040528113504
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +153,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8033103972746035241}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 28.031536, y: 80.01984, z: -99.93804}
+  m_LocalEulerAnglesHint: {x: 18.289404, y: 68.9529, z: -102.01148}
 --- !u!1 &1560502762489122288
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +185,7 @@ Transform:
   - {fileID: 3471430193017520}
   m_Father: {fileID: 1605856417623385762}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 2.8351299e-13, y: 7.643685e-15, z: 1.5443555}
 --- !u!1 &1679518959905081572
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,7 +309,7 @@ Transform:
   - {fileID: 8033103972746035241}
   m_Father: {fileID: 3139434445422623692}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 79.47179, y: 161.74448, z: -85.47591}
 --- !u!1 &4808616471514659147
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +403,7 @@ Transform:
   - {fileID: 2865162957446920613}
   m_Father: {fileID: 4176362171216829771}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 84.21067, y: -2.0456893, z: -56.16642}
 --- !u!1 &5763499714684586338
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +495,7 @@ Transform:
   - {fileID: 2053684373837787278}
   m_Father: {fileID: 4176362171216829771}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 84.426865, y: 176.71198, z: -126.60232}
 --- !u!1 &6445024410716920116
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,7 +525,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7713646113449046781}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.000008651877, y: -0.0002466998, z: 48.772736}
 --- !u!1 &7156110761376828313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,6 +1014,7 @@ MonoBehaviour:
   attackCD: 2
   attackMoveSpeed: 4
   beAttackMoveSpeed: 1
+  high: 0.5
 --- !u!195 &8038631779637743699
 NavMeshAgent:
   m_ObjectHideFlags: 0

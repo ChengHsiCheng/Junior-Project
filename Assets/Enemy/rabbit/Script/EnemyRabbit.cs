@@ -36,66 +36,66 @@ public class EnemyRabbit : EnemyStatusInfo
     void Update()
     {
         // 玩家位置
-        Vector3 playerPos = player.transform.position; 
+        Vector3 playerPos = player.transform.position;
         // 自身位置
-        Vector3 myPos = transform.position; 
+        Vector3 myPos = transform.position;
         // 取得動畫狀態
         AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if(enemyState == EnemyState.idle)
+        if (enemyState == EnemyState.idle)
         {
             StateIdle();
 
-            if(Vector3.Distance(playerPos,myPos) < 4f)
+            if (Vector3.Distance(playerPos, myPos) < 4f)
             {
                 enemyState = EnemyState.hound;
             }
         }
-        if(enemyState == EnemyState.hound)
+        if (enemyState == EnemyState.hound)
         {
             StateHound();
 
-            if(Vector3.Distance(playerPos,myPos) >= 4f)
+            if (Vector3.Distance(playerPos, myPos) >= 4f)
             {
                 enemyState = EnemyState.idle;
             }
-            if(Vector3.Distance(playerPos,myPos) < 1.5f)
+            if (Vector3.Distance(playerPos, myPos) < 1.5f)
             {
                 enemyState = EnemyState.attack;
             }
         }
-        if(enemyState == EnemyState.attack)
+        if (enemyState == EnemyState.attack)
         {
             StateAttack();
-            
-            if(Vector3.Distance(playerPos,myPos) >= 1.5f && !stateinfo.IsName("Attack"))
+
+            if (Vector3.Distance(playerPos, myPos) >= 1.5f && !stateinfo.IsName("Attack"))
             {
                 enemyState = EnemyState.hound;
             }
         }
-        if(enemyState == EnemyState.Died)
+        if (enemyState == EnemyState.died)
         {
             StateDied();
         }
 
-        if(isFace)
+        if (isFace)
         {
             Face(player);
         }
 
-        if(attackTimer <= attackCD)
+        if (attackTimer <= attackCD)
         {
             attackTimer += Time.deltaTime;
         }
 
         // 攻擊時移動
-        if(attackMove)
+        if (attackMove)
         {
             transform.position += transform.forward * attackMoveSpeed * Time.deltaTime;
         }
 
         // 被攻擊時移動
-        if(beAttackMove)
+        if (beAttackMove)
         {
             transform.position += -transform.forward * beAttackMoveSpeed * Time.deltaTime;
         }
@@ -125,16 +125,17 @@ public class EnemyRabbit : EnemyStatusInfo
         // 準備進行攻擊
         agent.speed = 0f;
         animator.SetBool("Hount", false);
-        if(attackTimer >= attackCD && !stateinfo.IsName("Hit"))
+        if (attackTimer >= attackCD && !stateinfo.IsName("Hit"))
         {
             animator.SetTrigger("Attack");
             attackTimer = 0;
         }
-        
-        if(stateinfo.IsName("Attack"))
+
+        if (stateinfo.IsName("Attack"))
         {
             isFace = false;
-        }else
+        }
+        else
         {
             isFace = true;
         }
@@ -151,7 +152,7 @@ public class EnemyRabbit : EnemyStatusInfo
     }
 
     public void BeAttacked(float damege)
-    {   
+    {
         // 取得動畫狀態
         AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
 
@@ -160,13 +161,13 @@ public class EnemyRabbit : EnemyStatusInfo
 
         animator.SetTrigger("Hit");
 
-        if(hp <= 0)
+        if (hp <= 0)
         {
-            enemyState = EnemyState.Died;
+            enemyState = EnemyState.died;
             animator.SetTrigger("Die");
         }
     }
-    
+
     public void AttackMoveOn()
     {
         attackMove = true;
@@ -194,9 +195,9 @@ public class EnemyRabbit : EnemyStatusInfo
         Destroy(gameObject);
     }
 
-    public void Face(GameObject player) 
+    public void Face(GameObject player)
     {
-        float faceAngle = Mathf.Atan2(player.transform.position.x - transform.position.x , player.transform.position.z - transform.position.z) * Mathf.Rad2Deg;
+        float faceAngle = Mathf.Atan2(player.transform.position.x - transform.position.x, player.transform.position.z - transform.position.z) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(0, faceAngle, 0);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
     }

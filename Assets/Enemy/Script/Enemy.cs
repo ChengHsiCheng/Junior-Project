@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    EnemyStatusInfo info;
+    protected EnemyStatusInfo info;
     EnemyState enemyState;
     NavMeshAgent agent;
     Animator animator;
@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     public float attackCD; // 攻擊間隔
     public float attackMoveSpeed; // 攻擊移動速度
     public float beAttackMoveSpeed;
+    public float high;
 
     bool attackMove; // 是否需要移動(攻擊)
     bool beAttackMove; // 是否需要移動(被攻擊)
@@ -37,7 +38,6 @@ public class Enemy : MonoBehaviour
         debuffTable.Add(EnemyDebuffType.Burning, null);
         debuffTable.Add(EnemyDebuffType.Frozen, null);
 
-        attackTimer = attackCD;
 
         //設定參數
         info = GetComponent<EnemyStatusInfo>();
@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
                 enemyState = EnemyState.hound;
             }
         }
-        if (enemyState == EnemyState.Died)
+        if (enemyState == EnemyState.died)
         {
             StateDied();
         }
@@ -176,6 +176,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
     void StateDied()
     {
         // 重製移動 && 停止追蹤
@@ -208,7 +209,7 @@ public class Enemy : MonoBehaviour
 
         if (info.hp <= 0)
         {
-            enemyState = EnemyState.Died;
+            enemyState = EnemyState.died;
             animator.SetTrigger("Die");
         }
     }

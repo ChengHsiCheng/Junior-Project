@@ -5,11 +5,13 @@ using UnityEngine;
 public class DashCollider : MonoBehaviour
 {
     public bool isCollision;
+    public string _other;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Enemy" && other.gameObject.tag != "EnemyAttackTrigger" && other.gameObject.tag != "Trigger" && other.gameObject.tag != "Boss")
+        if (other.gameObject.tag != "Enemy" && other.gameObject.tag != "EnemyAttackTrigger" && other.gameObject.tag != "Trigger" && other.gameObject.tag != "Boss" && other.gameObject.tag != "Player")
         {
             isCollision = true;
+            _other = other.name;
         }
     }
 
@@ -18,6 +20,7 @@ public class DashCollider : MonoBehaviour
         if (other.gameObject.tag != "Enemy")
         {
             isCollision = false;
+            _other = other.name;
         }
     }
 }

@@ -174,7 +174,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3333827173772902869}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.18900001}
   m_LocalScale: {x: 0.664613, y: 0.664613, z: 0.664613}
   m_Children:
@@ -203,4 +203,4 @@ MonoBehaviour:
   TargetEnemy: {fileID: 0}
   Bar: {fileID: 3333827173653114373}
   canvas: {fileID: 0}
-  high: 100
+  high: 50

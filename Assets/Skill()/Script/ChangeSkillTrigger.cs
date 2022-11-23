@@ -12,7 +12,7 @@ public class ChangeSkillTrigger : MonoBehaviour
     bool inTrigger;
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" || other.transform.parent.tag == "Player")
+        if (other.tag == "Player")
         {
             skillName.gameObject.SetActive(true);
             skillIntroduce.gameObject.SetActive(true);
@@ -38,7 +38,7 @@ public class ChangeSkillTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player" || other.transform.parent.tag == "Player")
+        if (other.tag == "Player")
         {
             skillName.gameObject.SetActive(false);
             skillIntroduce.gameObject.SetActive(false);

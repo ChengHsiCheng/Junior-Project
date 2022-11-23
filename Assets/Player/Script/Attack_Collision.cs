@@ -12,7 +12,7 @@ public class Attack_Collision : MonoBehaviour
         {
             Enemy enemy = other.GetComponent<Enemy>();
 
-            Instantiate(player.hitEffecis, other.transform.position, Quaternion.identity);
+            Instantiate(player.hitEffecis, other.transform.position + transform.up * enemy.high, Quaternion.identity);
 
             player.CheckPassiveSkills("OnPlayerAttack");
 

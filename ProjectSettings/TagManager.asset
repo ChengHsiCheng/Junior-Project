@@ -11,6 +11,7 @@ TagManager:
   - Trigger
   - Boss
   - BossSkill
+  - Test
   layers:
   - Default
   - TransparentFX
@@ -42,8 +43,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Crystal
+  - Test
   m_SortingLayers:
   - name: Default
     uniqueID: 0

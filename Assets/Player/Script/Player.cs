@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
     Material[] materials;
     Animator animator;
     Rigidbody rb;
+    CharacterController character;
     AudioSource audioSource;
     public GameObject hitEffecis;
     public DashCollider dashCollider;
@@ -65,6 +66,7 @@ public class Player : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         materials = GetComponent<MeshRenderer>().sharedMaterials;
         rb = GetComponent<Rigidbody>();
+        character = GetComponent<CharacterController>();
 
         playerHp = playetMaxHp;
         ResetPlayerMaterials();
@@ -119,7 +121,7 @@ public class Player : MonoBehaviour
     // 玩家移動
     void Move()
     {
-        if (isAtteck && attackMove)
+        if (isAtteck && attackMove && !dashCollider.isCollision)
         {
             //攻擊時向前移動
             transform.position += transform.forward * speed * Time.deltaTime;
@@ -138,7 +140,8 @@ public class Player : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
             }
             animator.SetFloat("dir", dir.magnitude);
-            transform.position += dir * speed * Time.deltaTime;
+            //transform.position += dir * speed * Time.deltaTime;
+            character.Move(dir * speed * Time.deltaTime);
         }
     }
 
@@ -312,7 +315,7 @@ public class Player : MonoBehaviour
         enemy = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < enemy.Length; i++)
         {
-            // enemy[i].GetComponent<EnemyStatusInfo>().Damege(100,false);
+            enemy[i].GetComponent<Enemy>().BeAttacked(1000, false);
         }
     }
 

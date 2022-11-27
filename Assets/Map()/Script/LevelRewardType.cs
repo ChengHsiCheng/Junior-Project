@@ -4,5 +4,5 @@ using UnityEngine;
 
 public enum LevelRewardType
 {
-    Gold, Crystal, SkillUp, Null
+    Gold, Crystal, Heal, SkillUp, Null
 }

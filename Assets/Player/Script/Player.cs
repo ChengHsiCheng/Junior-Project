@@ -90,8 +90,6 @@ public class Player : MonoBehaviour
         {
             ChangePlayerMaterials();
         }
-
-
     }
 
     private void FixedUpdate()
@@ -309,6 +307,8 @@ public class Player : MonoBehaviour
         playerHp = 100;
         goldCount = 0;
         this.transform.position = new Vector3(0, transform.position.y, -2f);
+
+        levelRewardType = LevelRewardType.Null;
 
         //刪除所有敵人
         GameObject[] enemy;

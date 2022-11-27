@@ -17,12 +17,12 @@ public class IceSpike : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Enemy")
+        if (other.tag == "Enemy")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
@@ -31,21 +31,26 @@ public class IceSpike : MonoBehaviour
                 enteredEnemys.Add(enemy);
                 enemy.AddDebuff(EnemyDebuffType.Frozen);
             }
-            
         }
+
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.tag == "Enemy")
+        if (other.tag == "Enemy")
         {
             other.GetComponent<Enemy>().BeAttacked(damege, false);
+        }
+        else if (other.tag == "Boss")
+        {
+            Boss boss = other.gameObject.GetComponent<Boss>();
+            boss.BeAttack(damege);
         }
     }
 
     void DestroySkill()
     {
-        foreach(Enemy enemy in enteredEnemys)
+        foreach (Enemy enemy in enteredEnemys)
         {
             enemy.RemoveDebuff(EnemyDebuffType.Frozen);
         }
@@ -55,11 +60,11 @@ public class IceSpike : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Enemy")
+        if (other.tag == "Enemy")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
-            if(enteredEnemys.Contains(enemy))
+            if (enteredEnemys.Contains(enemy))
             {
                 enteredEnemys.Remove(enemy);
                 enemy.RemoveDebuff(EnemyDebuffType.Frozen);

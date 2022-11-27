@@ -8,8 +8,11 @@ public class MapController : MonoBehaviour
     public List<GameObject> Maps = new List<GameObject> { }; // 儲存地圖
     int[] randomint;//洗牌用陣列
     int nowMaps = 0;
+    public int mapsCount = 0;
     public float enemyCount = 0;
     public Player player;
+    public Map shotMap;
+    public Map bossMap;
     public EndTrigger endTrigger01;
     public EndTrigger endTrigger02;
 
@@ -60,14 +63,28 @@ public class MapController : MonoBehaviour
     public void SwapMaps(int i, EnemyParmType ranParmType, float ranParmValue) // 紀錄切換地圖
     {
         Map nowMap = Maps[randomint[nowMaps]].GetComponent<Map>();
-        if (nowMaps < (randomint.Length - 1))
+
+        if (mapsCount == 0)
         {
-            nowMaps++;
+            nowMap = shotMap;
+        }
+        else if (mapsCount == 5)
+        {
+            nowMap = bossMap;
         }
         else
         {
-            nowMaps = 0;
+            if (nowMaps == Maps.Count - 1)
+            {
+                nowMaps = 0;
+            }
+            else
+            {
+                nowMaps++;
+            }
         }
+        mapsCount++;
+
 
         // 起始點位置
         Vector3 outSetPos = nowMap.outSetObj.transform.position;
@@ -84,6 +101,11 @@ public class MapController : MonoBehaviour
 
         // 設定玩家的位置
         player.transform.position = new Vector3(outSetPos.x, player.transform.position.y, outSetPos.z);
+
+        if (nowMap == shotMap)
+        {
+            EnemyClear();
+        }
 
 
         if (i == 1)
@@ -122,8 +144,6 @@ public class MapController : MonoBehaviour
     public void EnemtCheck()
     {
         GameObject[] enemysCount = GameObject.FindGameObjectsWithTag("Enemy");
-
-        Debug.Log(enemysCount.Length);
 
         if (enemysCount.Length == 0)
         {

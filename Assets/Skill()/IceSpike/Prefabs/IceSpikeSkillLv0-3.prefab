@@ -50,7 +50,7 @@ MonoBehaviour:
   skill: {fileID: 7128726269660425675, guid: 0379ced636aaacc4bbf518fc67feaf1a, type: 3}
   SkillName: IceSpike
   skillIntroduce: 
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: d65aa46302d85c04ba7c427cfe9ddf36, type: 3}
   sizeX: 1
   sizeY: 1
   sizeZ: 1

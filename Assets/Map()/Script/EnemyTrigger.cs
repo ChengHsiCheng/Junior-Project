@@ -26,21 +26,28 @@ public class EnemyTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" || other.transform.parent.tag == "Player")
+        if (other.tag == "Player")
         {
             for (int i = 0; i < GeneratePos.Count; i++)
             {
                 GameObject enemyObj = Instantiate(enemys[Random.Range(0, enemys.Length)], GeneratePos[i].transform.position, Quaternion.Euler(0, 0, 0));
 
                 Enemy enemy = enemyObj.GetComponent<Enemy>();
-                EnemyStatusInfo info = enemyObj.GetComponent<EnemyStatusInfo>();
 
-                info.SetParm(enemyHpAddition, enemyDamegeAddition, enemySpeedAddition);
 
-                enemy.OnEnemyDie += OnEnemyDie;//註冊事件:效果結束
+                if (enemy)
+                {
+                    EnemyStatusInfo info = enemyObj.GetComponent<EnemyStatusInfo>();
+                    info.SetParm(enemyHpAddition, enemyDamegeAddition, enemySpeedAddition);
+                    enemy.OnEnemyDie += OnEnemyDie;//註冊事件:效果結束
+                }
+
+
+
             }
 
             this.gameObject.SetActive(false);
+            Debug.Log("A");
         }
     }
 

@@ -12,6 +12,9 @@ public class Boss : MonoBehaviour
 {
     NavMeshAgent agent;
     Animator animator;
+    AudioSource audioSource;
+
+    public AudioClip[] audios;
 
     public State state;
     GameObject player; // 玩家 
@@ -34,6 +37,7 @@ public class Boss : MonoBehaviour
     public float skillCD;
     bool isAttackMoving;
     bool isDash;
+    bool isCollision;
     public float dashCD;
     float dashTimer;
 
@@ -43,6 +47,7 @@ public class Boss : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         player = GameObject.FindWithTag("Player");
+        audioSource = GetComponent<AudioSource>();
 
         hp = maxHp;
 
@@ -106,7 +111,7 @@ public class Boss : MonoBehaviour
             walkVFXTimer += Time.deltaTime;
         }
 
-        if (isAttackMoving)
+        if (isAttackMoving && !isCollision)
         {
             transform.position += transform.forward * attackMoveSpeed * Time.deltaTime;
         }
@@ -116,7 +121,7 @@ public class Boss : MonoBehaviour
     {
         if (isDash)
         {
-            speed = 50;
+            speed = 20;
             dashTimer -= Time.deltaTime;
             if (dashTimer <= dashCD - 0.2f)
             {
@@ -199,7 +204,7 @@ public class Boss : MonoBehaviour
     void StateDie()
     {
         agent.speed = 0f;
-
+        isAttackMoving = false;
     }
 
     public void Face(GameObject player)
@@ -257,5 +262,26 @@ public class Boss : MonoBehaviour
     public void Destroy()
     {
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            isCollision = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            isCollision = false;
+        }
+    }
+
+    public void PlayAudio(int i)
+    {
+        audioSource.PlayOneShot(audios[i]);
     }
 }

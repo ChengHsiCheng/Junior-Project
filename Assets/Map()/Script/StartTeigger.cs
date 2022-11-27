@@ -25,6 +25,7 @@ public class StartTeigger : MonoBehaviour
             {
                 mapController.RandomInt();
                 mapController.SwapMaps(0, EnemyParmType.Null, 0);
+                mapController.mapsCount = 0;
 
                 player.levelRewardType = LevelRewardType.Null;
                 player.CheckPassiveSkills("OnStart");

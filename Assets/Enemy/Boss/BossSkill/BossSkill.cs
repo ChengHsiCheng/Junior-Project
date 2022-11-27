@@ -12,7 +12,7 @@ public class BossSkill : MonoBehaviour
     int[] skillTimer = { 1, 2, 3 };
     void Start()
     {
-        boss = GameObject.Find("Boss").GetComponent<Boss>();
+        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     void Update()

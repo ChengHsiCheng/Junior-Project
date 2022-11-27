@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    public AudioClip[] audios;
     protected EnemyStatusInfo info;
     EnemyState enemyState;
     NavMeshAgent agent;
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
     bool attackMove; // 是否需要移動(攻擊)
     bool beAttackMove; // 是否需要移動(被攻擊)
     bool isFace; // 是否要面對玩家
+    bool isCollision;
     Hashtable debuffTable;
 
     public delegate void EnemuDieEventArgs();
@@ -100,7 +102,7 @@ public class Enemy : MonoBehaviour
         }
 
         // 攻擊時移動
-        if (attackMove)
+        if (attackMove && !isCollision)
         {
             transform.position += transform.forward * attackMoveSpeed * speed * Time.deltaTime;
         }
@@ -258,4 +260,25 @@ public class Enemy : MonoBehaviour
         debuffTable[type] = null;
     }
 
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            isCollision = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            isCollision = false;
+        }
+    }
+
+    public void PlayerAttackAudio(int i)
+    {
+        audioSource.PlayOneShot(audios[i]);
+    }
 }

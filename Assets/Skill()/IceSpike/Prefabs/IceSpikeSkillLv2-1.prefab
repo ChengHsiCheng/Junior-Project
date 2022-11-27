@@ -50,7 +50,7 @@ MonoBehaviour:
   skill: {fileID: 7128726269660425675, guid: 7acc4ba420dbec84ab952bc81bac0d0e, type: 3}
   SkillName: 
   skillIntroduce: 
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: d65aa46302d85c04ba7c427cfe9ddf36, type: 3}
   sizeX: 1
   sizeY: 1
   sizeZ: 0.7

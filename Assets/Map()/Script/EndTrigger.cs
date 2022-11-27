@@ -78,7 +78,7 @@ public class EndTrigger : MonoBehaviour
         ranParmType = (EnemyParmType)Random.Range(0, 3);
         ranParmValue = Random.Range(1, 10);
 
-        ranLevelRewardType = (LevelRewardType)Random.Range(0, 3);
+        ranLevelRewardType = (LevelRewardType)Random.Range(0, 1);
 
         Debug.Log(ranParmType + " " + ranParmValue);
     }

@@ -8,9 +8,16 @@ public class BossFireBall : MonoBehaviour
     float damege;
     float explodeDamege;
     public Vector3 playerPos;
+
+    public AudioClip boom;
+    public AudioClip shoot;
+    AudioSource audioSource;
     void Start()
     {
         transform.GetComponent<Collider>().enabled = false;
+        audioSource = GetComponent<AudioSource>();
+
+        audioSource.PlayOneShot(shoot);
 
     }
 
@@ -43,6 +50,7 @@ public class BossFireBall : MonoBehaviour
 
         }
 
+        audioSource.PlayOneShot(boom);
         transform.GetComponent<Collider>().enabled = true;
         Invoke("ClosureTrigger", 0.1f);
     }

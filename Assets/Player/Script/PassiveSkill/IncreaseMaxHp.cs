@@ -14,7 +14,7 @@ public class IncreaseMaxHp : PassiveSkill
 
     public override void OnStart(Player player)
     {
-        player.playetMaxHp = 150;
+        player.playetMaxHp += 50;
         player.playerHp = player.playetMaxHp;
     }
 }

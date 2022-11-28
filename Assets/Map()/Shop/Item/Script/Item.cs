@@ -7,6 +7,9 @@ public class Item : MonoBehaviour
     public string itemEffect;
     public GameObject ShopUI;
     public GameObject obj;
+    public bool isEnter;
+
+    Player player;
 
     void Start()
     {
@@ -15,6 +18,14 @@ public class Item : MonoBehaviour
     void Update()
     {
         obj.transform.Rotate(0, 20 * Time.deltaTime, 0);
+
+        if (isEnter)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                BuyItem(player);
+            }
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -23,6 +34,9 @@ public class Item : MonoBehaviour
         {
             ShopUI.gameObject.SetActive(true);
             ShopUI.GetComponent<ShopUI>().SetText(itemEffect);
+            player = other.GetComponent<Player>();
+
+            isEnter = true;
         }
 
     }
@@ -32,7 +46,14 @@ public class Item : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             ShopUI.gameObject.SetActive(false);
+
+            isEnter = false;
         }
+
+    }
+
+    public virtual void BuyItem(Player player)
+    {
 
     }
 

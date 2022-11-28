@@ -6,7 +6,7 @@ public class IncreaseDamage : PassiveSkill
 {
     public override void OnPlayerAttack(Player player)
     {
-        player.damege = 15;
+        player.damege += 5;
     }
 
     public override void OnNextRoom(Player player)

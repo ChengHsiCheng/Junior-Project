@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     bool isDash = false;//是否在衝刺
     #endregion
     #region Attack
+    public float baseDamege;
     public float damege;
     public float damegeAdd = 1;
     public float critAdd = 2;
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour
     public GameObject hitEffecis;
     public DashCollider dashCollider;
     #endregion
+    public float baseHp;
     public float playerHp;
     public float playetMaxHp;
     bool isPressLeftMouse = false;//是否按下滑鼠左鍵
@@ -68,6 +70,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         character = GetComponent<CharacterController>();
 
+        damege = baseDamege;
+        playetMaxHp = baseHp;
         playerHp = playetMaxHp;
         ResetPlayerMaterials();
     }
@@ -304,9 +308,13 @@ public class Player : MonoBehaviour
     // 角色死亡
     void PlayerDie()
     {
-        playerHp = 100;
+        playerHp = playetMaxHp;
         goldCount = 0;
         this.transform.position = new Vector3(0, transform.position.y, -2f);
+
+        damege = baseDamege;
+        playetMaxHp = baseHp;
+        playerHp = playetMaxHp;
 
         levelRewardType = LevelRewardType.Null;
 

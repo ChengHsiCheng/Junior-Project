@@ -47,7 +47,6 @@ public class EnemyTrigger : MonoBehaviour
             }
 
             this.gameObject.SetActive(false);
-            Debug.Log("A");
         }
     }
 

@@ -7,33 +7,62 @@ public class LevelUI : MonoBehaviour
 {
     public Text parmType;
     public Text value;
-    public Text reward;
-    void Start()
-    {
 
-    }
+    public Image image;
+    public Image rewardImage;
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    public Sprite attack;
+    public Sprite hp;
+    public Sprite speed;
 
-    public void InTrigger(EnemyParmType type, float _value, LevelRewardType rewardType)
+    public Sprite gold;
+    public Sprite cristle;
+    public Sprite heal;
+    public Sprite fireSkill;
+    public Sprite iceSkill;
+
+    public void InTrigger(EnemyParmType type, float _value, LevelRewardType rewardType, GameObject player)
     {
         if (type == EnemyParmType.Hp)
         {
             parmType.text = "血量".ToString();
+            image.sprite = hp;
         }
         else if (type == EnemyParmType.Damege)
         {
             parmType.text = "傷害".ToString();
+            image.sprite = attack;
         }
         else if (type == EnemyParmType.Speed)
         {
             parmType.text = "速度".ToString();
+            image.sprite = speed;
+        }
+
+        if (rewardType == LevelRewardType.Gold)
+        {
+            rewardImage.sprite = gold;
+        }
+        else if (rewardType == LevelRewardType.Crystal)
+        {
+            rewardImage.sprite = cristle;
+        }
+        else if (rewardType == LevelRewardType.Heal)
+        {
+            rewardImage.sprite = heal;
+        }
+        else if (rewardType == LevelRewardType.SkillUp)
+        {
+            if (player.GetComponent<SkillManager>().skill.SkillName == "FireBall")
+            {
+                rewardImage.sprite = fireSkill;
+            }
+            else
+            {
+                rewardImage.sprite = iceSkill;
+            }
         }
 
         value.text = _value.ToString() + "%";
-        reward.text = rewardType.ToString();
     }
 }

@@ -15607,7 +15607,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3789d488407ba0840bfce5aa11c76250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damege: 5
+  baseDamege: 5
+  damege: 0
   damegeAdd: 1
   critAdd: 2
   comboStep: 0
@@ -15621,8 +15622,10 @@ MonoBehaviour:
   beAttackAudio: {fileID: 8300000, guid: f2f71158cce174144bf5b66167397a97, type: 3}
   hitEffecis: {fileID: 57560158243955042, guid: fa44e12e44a2a2441bf8a93943c4de9d, type: 3}
   dashCollider: {fileID: 2798563564478384620}
+  baseHp: 100
   playerHp: 0
-  playetMaxHp: 100
+  playetMaxHp: 0
+  baseSpeed: 3
   speed: 3
   crystalCount: 1000
   goldCount: 0
@@ -15685,7 +15688,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1
-  m_Radius: 0.12
+  m_Radius: 0.18
   m_SlopeLimit: 45
   m_StepOffset: 0
   m_SkinWidth: 0.08

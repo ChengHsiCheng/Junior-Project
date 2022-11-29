@@ -12,20 +12,11 @@ public class ShopUI : MonoBehaviour
 
     void Start()
     {
-        Imagetocanvas();
         gameObject.SetActive(false);
-        rect = GetComponent<RectTransform>();
-        //rect.position = new Vector3(0, 0, 0);
     }
 
     public void SetText(string _itemEffect)
     {
         itemEffect.text = _itemEffect;
-    }
-
-    void Imagetocanvas() //把image放到canvas上
-    {
-        canvas = GameObject.Find("PlayerUI");
-        transform.SetParent(canvas.transform);
     }
 }

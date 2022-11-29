@@ -56,7 +56,7 @@ public class EndTrigger : MonoBehaviour
         if (other.tag == "Player")
         {
             isTrigger = true;
-            ui.InTrigger(ranParmType, ranParmValue, ranLevelRewardType);
+            ui.InTrigger(ranParmType, ranParmValue, ranLevelRewardType, player.gameObject);
         }
     }
 
@@ -78,9 +78,8 @@ public class EndTrigger : MonoBehaviour
         ranParmType = (EnemyParmType)Random.Range(0, 3);
         ranParmValue = Random.Range(1, 10);
 
-        ranLevelRewardType = (LevelRewardType)Random.Range(0, 1);
+        ranLevelRewardType = (LevelRewardType)Random.Range(0, 2);
 
-        Debug.Log(ranParmType + " " + ranParmValue);
     }
 
 }

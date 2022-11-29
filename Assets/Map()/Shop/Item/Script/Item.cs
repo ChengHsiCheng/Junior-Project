@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     public GameObject ShopUI;
     public GameObject obj;
     public bool isEnter;
+    public float price;
 
     Player player;
 
@@ -19,11 +20,15 @@ public class Item : MonoBehaviour
     {
         obj.transform.Rotate(0, 20 * Time.deltaTime, 0);
 
-        if (isEnter)
+        if (isEnter && player.goldCount >= price)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 BuyItem(player);
+
+                player.goldCount -= price;
+
+                Destroy(gameObject);
             }
         }
     }

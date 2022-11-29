@@ -64,9 +64,13 @@ public class MapController : MonoBehaviour
     {
         Map nowMap = Maps[randomint[nowMaps]].GetComponent<Map>();
 
+
+
         if (mapsCount == 0)
         {
             nowMap = shotMap;
+
+            nowMap.GetComponent<Shop>().AddItem();
         }
         else if (mapsCount == 5)
         {
@@ -83,7 +87,10 @@ public class MapController : MonoBehaviour
                 nowMaps++;
             }
         }
+
         mapsCount++;
+
+        Debug.Log(mapsCount);
 
 
         // 起始點位置
@@ -125,7 +132,7 @@ public class MapController : MonoBehaviour
             }
 
             nowMap.enemyObj.SetParmValue(enemyHpAddition, enemyDamegeAddition, enemySpeedAddition);
-            Debug.Log("trigger");
+
         }
         else if (i == 0)
         {
@@ -136,8 +143,6 @@ public class MapController : MonoBehaviour
             Debug.Log("enemyHpAddition + enemyDamegeAddition + enemySpeedAddition");
         }
 
-
-        Debug.Log(i);
 
     }
 
@@ -170,10 +175,7 @@ public class MapController : MonoBehaviour
         {
             Instantiate(skillUpObj, player.transform.position, Quaternion.identity);
         }
-        else
-        {
-            Debug.Log("Null");
-        }
+        Debug.Log(player.levelRewardType);
     }
 
 }

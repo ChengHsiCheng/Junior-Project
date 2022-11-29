@@ -53,7 +53,8 @@ public class Player : MonoBehaviour
     public float playerHp;
     public float playetMaxHp;
     bool isPressLeftMouse = false;//是否按下滑鼠左鍵
-    public float speed = 3;//移動速度
+    public float baseSpeed = 3;
+    public float speed;//移動速度
 
     public float crystalCount = 0;
     public float goldCount = 0;
@@ -73,6 +74,7 @@ public class Player : MonoBehaviour
         damege = baseDamege;
         playetMaxHp = baseHp;
         playerHp = playetMaxHp;
+        speed = baseSpeed;
         ResetPlayerMaterials();
     }
 
@@ -315,6 +317,7 @@ public class Player : MonoBehaviour
         damege = baseDamege;
         playetMaxHp = baseHp;
         playerHp = playetMaxHp;
+        speed = baseSpeed;
 
         levelRewardType = LevelRewardType.Null;
 

@@ -6,9 +6,6 @@ public class PlayerMenu : MonoBehaviour
 {
     public GameObject settingMenu;
     bool isSettingMenu = false;
-
-    public GameObject passiveMenu;
-    bool isPassiveMenu = false;
     void Start()
     {
 
@@ -22,19 +19,6 @@ public class PlayerMenu : MonoBehaviour
             isSettingMenu = !isSettingMenu;
             settingMenu.SetActive(isSettingMenu);
             if (isSettingMenu)
-            {
-                Time.timeScale = 0;
-            }
-            else
-            {
-                Time.timeScale = 1;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            isPassiveMenu = !isPassiveMenu;
-            passiveMenu.SetActive(isPassiveMenu);
-            if (isPassiveMenu)
             {
                 Time.timeScale = 0;
             }

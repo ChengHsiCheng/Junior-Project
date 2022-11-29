@@ -23,12 +23,15 @@ public class StartTeigger : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                mapController.RandomInt();
-                mapController.SwapMaps(0, EnemyParmType.Null, 0);
-                mapController.mapsCount = 0;
-
                 player.levelRewardType = LevelRewardType.Null;
                 player.CheckPassiveSkills("OnStart");
+
+                mapController.RandomInt();
+                mapController.mapsCount = 0;
+                mapController.SwapMaps(0, EnemyParmType.Null, 0);
+
+
+
 
                 //刪除場上所有掉落物
                 GameObject[] FlopItem;

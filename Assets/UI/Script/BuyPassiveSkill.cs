@@ -51,4 +51,11 @@ public class BuyPassiveSkill : MonoBehaviour
         EventSystem.current.currentSelectedGameObject.SetActive(false);
     }
 
+    public void ExitButton()
+    {
+        gameObject.SetActive(false);
+
+        Time.timeScale = 1;
+    }
+
 }

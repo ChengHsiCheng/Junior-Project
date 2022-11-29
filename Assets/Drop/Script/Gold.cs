@@ -13,6 +13,7 @@ public class Gold : MonoBehaviour
         if (other.tag == "Player")
         {
             other.gameObject.GetComponent<Player>().goldCount += Random.Range(10, 51);
+            Debug.Log("A");
 
             Destroy(gameObject);
         }

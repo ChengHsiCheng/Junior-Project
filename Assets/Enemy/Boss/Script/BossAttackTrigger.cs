@@ -13,6 +13,13 @@ public class BossAttackTrigger : MonoBehaviour
             TargetPlayer = other.GetComponent<Player>();
             TargetPlayer.PlayerBeAttack(boss.damege);
 
+            if (TargetPlayer.playerHp <= 0)
+            {
+                Destroy(gameObject);
+            }
+
+
+
         }
     }
 }

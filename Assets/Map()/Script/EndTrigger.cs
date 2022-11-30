@@ -78,7 +78,15 @@ public class EndTrigger : MonoBehaviour
         ranParmType = (EnemyParmType)Random.Range(0, 3);
         ranParmValue = Random.Range(1, 10);
 
-        ranLevelRewardType = (LevelRewardType)Random.Range(0, 2);
+        if (mapController.mapsCount != 0 && mapController.mapsCount % 3 == 0)
+        {
+            ranLevelRewardType = LevelRewardType.SkillUp;
+        }
+        else
+        {
+            ranLevelRewardType = (LevelRewardType)Random.Range(0, 3);
+        }
+
 
     }
 

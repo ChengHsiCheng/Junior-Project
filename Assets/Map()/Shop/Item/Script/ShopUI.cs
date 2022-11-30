@@ -8,6 +8,9 @@ public class ShopUI : MonoBehaviour
     GameObject canvas;
     RectTransform rect;
     public Text itemEffect;
+    public Text itemPrice;
+
+    public int price;
 
 
     void Start()
@@ -15,8 +18,9 @@ public class ShopUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void SetText(string _itemEffect)
+    public void SetText(string _itemEffect, int _price)
     {
         itemEffect.text = _itemEffect;
+        itemPrice.text = _price.ToString() + "元";
     }
 }

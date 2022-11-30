@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillPos: {fileID: 0}
-  skillCD: 2
+  skillCD: 10
   skillTimer: 0
   damege: 10
   skill: {fileID: 7254315140174652731, guid: a63772d3cf4a0b74e89aacec51b334a4, type: 3}

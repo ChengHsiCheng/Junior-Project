@@ -9,12 +9,13 @@ public class Player : MonoBehaviour
     #region 宣告
 
     #region Dash
-    float dashDuration = 0.2f;//衝刺時間
-    float dashTime = 0.2f;//衝刺的時間
+    float dashDuration = 0.15f;//衝刺時間
+    float dashTime = 0.15f;//衝刺的時間
     float dashSpeed = 200f;//衝刺速度
-    float dashCD = 0.5f;//衝刺的冷卻時間
+    float dashCD = 0.2f;//衝刺的冷卻時間
     float dashElapsedTime = 0;//衝刺後經過的時間
     bool isDash = false;//是否在衝刺
+    public GameObject dashVFX;
     #endregion
     #region Attack
     public float baseDamege;
@@ -96,6 +97,16 @@ public class Player : MonoBehaviour
         {
             ChangePlayerMaterials();
         }
+
+        if (transform.position.y > 0)
+        {
+            character.Move(new Vector3(0, -1f, 0) * Time.deltaTime);
+        }
+        if (transform.position.y < 0)
+        {
+            character.Move(new Vector3(0, 1f, 0) * Time.deltaTime);
+        }
+
     }
 
     private void FixedUpdate()
@@ -114,7 +125,7 @@ public class Player : MonoBehaviour
             {
                 dashTime -= Time.deltaTime;
 
-                if (!dashCollider.isCollision)
+                if (dashCollider.isCollision == 0)
                 {
                     transform.position += transform.forward * dashTime * dashSpeed * Time.deltaTime;
                 }
@@ -125,7 +136,7 @@ public class Player : MonoBehaviour
     // 玩家移動
     void Move()
     {
-        if (isAtteck && attackMove && !dashCollider.isCollision)
+        if (isAtteck && attackMove && dashCollider.isCollision == 0)
         {
             //攻擊時向前移動
             transform.position += transform.forward * speed * Time.deltaTime;
@@ -221,6 +232,8 @@ public class Player : MonoBehaviour
                         isDash = true;
                         dashElapsedTime = 0;
                         animator.SetTrigger("Dash");
+
+                        Instantiate(dashVFX, transform.position - transform.up * 0.3f, transform.rotation);
                     }
                 }
                 else
@@ -321,6 +334,9 @@ public class Player : MonoBehaviour
 
         levelRewardType = LevelRewardType.Null;
 
+        MapController controller = GameObject.Find("MapController").GetComponent<MapController>();
+        controller.mapsCount = 0;
+
         //刪除所有敵人
         GameObject[] enemy;
         enemy = GameObject.FindGameObjectsWithTag("Enemy");
@@ -333,9 +349,13 @@ public class Player : MonoBehaviour
     // 角色回血
     public void PlayerHeal(float heal)
     {
-        if (playerHp < 100)
+        if (playerHp < playetMaxHp - heal)
         {
             playerHp += heal;
+        }
+        else
+        {
+            playerHp = playetMaxHp;
         }
     }
 

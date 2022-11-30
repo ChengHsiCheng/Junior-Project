@@ -8,7 +8,7 @@ public class Item : MonoBehaviour
     public GameObject ShopUI;
     public GameObject obj;
     public bool isEnter;
-    public float price;
+    public int price;
 
     Player player;
 
@@ -38,7 +38,7 @@ public class Item : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             ShopUI.gameObject.SetActive(true);
-            ShopUI.GetComponent<ShopUI>().SetText(itemEffect);
+            ShopUI.GetComponent<ShopUI>().SetText(itemEffect, price);
             player = other.GetComponent<Player>();
 
             isEnter = true;

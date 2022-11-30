@@ -56,7 +56,6 @@ public class FireBallSkill02 : SkillControl
         {
             shootTimer += Time.deltaTime;
 
-            Debug.Log(shootTimer);
 
             if (shootTimer > 0.2f)
             {
@@ -84,6 +83,7 @@ public class FireBallSkill02 : SkillControl
     void ShootFireBall(bool end)
     {
         float val = chargeTimer / 2;
+        pos = skillPos.transform.position + skillPos.transform.forward * 0.5f;
         skillObj = Instantiate(skill, pos, skillPos.transform.rotation);
         fireBall = skillObj.GetComponent<FireBall>();
         fireBall.damege = damege;

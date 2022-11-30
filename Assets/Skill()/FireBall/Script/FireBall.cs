@@ -9,10 +9,12 @@ public class FireBall : MonoBehaviour
     public float damege;
     public float ExpAdd;
 
+    bool test;
+
     public AudioClip fireAudio;
     public AudioClip shoot;
     public AudioClip boom;
-    AudioSource audioSource;
+    public AudioSource audioSource;
 
     private void Start()
     {
@@ -29,7 +31,16 @@ public class FireBall : MonoBehaviour
         {
             transform.position += transform.forward * speed * Time.deltaTime;
 
+            if (test)
+            {
+
+                audioSource.Stop();
+                audioSource.PlayOneShot(shoot);
+                test = false;
+            }
         }
+
+        Debug.Log(audioSource);
     }
 
     public void Charge(Vector3 pos, Quaternion rotate, Vector3 scale)
@@ -43,8 +54,8 @@ public class FireBall : MonoBehaviour
     public void Shoot(float _damege)
     {
         isShoot = true;
-        audioSource.Stop();
-        audioSource.PlayOneShot(shoot);
+        test = true;
+
         damege = _damege;
         Destroy(gameObject, 10);
     }
@@ -77,4 +88,5 @@ public class FireBall : MonoBehaviour
     {
         transform.GetComponent<Collider>().enabled = false;
     }
+
 }

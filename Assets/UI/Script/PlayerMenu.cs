@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMenu : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class PlayerMenu : MonoBehaviour
     bool isSettingMenu = false;
     void Start()
     {
-
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
@@ -35,5 +36,15 @@ public class PlayerMenu : MonoBehaviour
         settingMenu.SetActive(isSettingMenu);
 
         Time.timeScale = 1;
+    }
+
+    public void OnBackMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void OnExit()
+    {
+        Application.Quit();
     }
 }

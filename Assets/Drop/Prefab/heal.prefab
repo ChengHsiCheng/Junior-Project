@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5561941539449330029}
   m_Layer: 0
   m_Name: heal
-  m_TagString: FlopItem
+  m_TagString: Trigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

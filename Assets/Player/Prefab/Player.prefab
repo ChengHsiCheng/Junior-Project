@@ -49,7 +49,7 @@ Light:
   m_InnerSpotAngle: 0
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -82,7 +82,7 @@ Light:
     serializedVersion: 2
     m_Bits: 268439479
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 2
@@ -124,7 +124,7 @@ Transform:
   - {fileID: 2798563565854174830}
   m_Father: {fileID: 2798563564532277086}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: -17.188887, y: -101.887535, z: 7.714553}
+  m_LocalEulerAnglesHint: {x: 0.064840704, y: -170.00023, z: 38.594147}
 --- !u!1 &2798563564452139792
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +156,7 @@ Transform:
   - {fileID: 2798563566455749636}
   m_Father: {fileID: 2798563564532277086}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -0.8352105, y: -0.026745746, z: 1.8338777}
+  m_LocalEulerAnglesHint: {x: 0.00046808887, y: 0.0000005063905, z: 0.65067106}
 --- !u!1 &2798563564478384618
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,8 +200,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.8861665, z: 0.36489177}
-  m_Center: {x: 0, y: 0.056916744, z: 0.19999999}
+  m_Size: {x: 0.5, y: 1, z: 0.5}
+  m_Center: {x: 0, y: 0.02, z: 0.3}
 --- !u!114 &2798563564478384620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ Transform:
   - {fileID: 2798563565236824862}
   m_Father: {fileID: 2404015934252862445}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 1.0454577, y: 21.128386, z: 91.53451}
+  m_LocalEulerAnglesHint: {x: -0.0000031912875, y: -0.00018309504, z: 89.62552}
 --- !u!1 &2798563564630184219
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +286,7 @@ Transform:
   - {fileID: 2798563566428311619}
   m_Father: {fileID: 2798563564532277086}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 14.126191, y: -27.903332, z: 74.692055}
+  m_LocalEulerAnglesHint: {x: -0.06472587, y: 9.999766, z: 39.33179}
 --- !u!1 &2798563564899700138
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,7 +486,7 @@ Transform:
   - {fileID: 2798563566306123379}
   m_Father: {fileID: 2798563564532277086}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 29.126627, y: 13.948463, z: 15.834918}
+  m_LocalEulerAnglesHint: {x: 0.032771293, y: -4.9998965, z: 1.4963533}
 --- !u!1 &2798563565124541768
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,7 +548,7 @@ Transform:
   - {fileID: 2798563566162482986}
   m_Father: {fileID: 2798563564532277086}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: -0.24984881, y: 179.06201, z: -4.655093}
+  m_LocalEulerAnglesHint: {x: -0.032990687, y: 175.00014, z: 0.75031376}
 --- !u!1 &2798563565245032171
 GameObject:
   m_ObjectHideFlags: 0
@@ -15607,6 +15607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3789d488407ba0840bfce5aa11c76250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashVFX: {fileID: 6307175465420906632, guid: 5296e5da9d27c5841b25706d7ccfc847, type: 3}
   baseDamege: 5
   damege: 0
   damegeAdd: 1

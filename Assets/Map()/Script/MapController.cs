@@ -13,12 +13,14 @@ public class MapController : MonoBehaviour
     public Player player;
     public Map shotMap;
     public Map bossMap;
+    Map nowMap;
     public EndTrigger endTrigger01;
     public EndTrigger endTrigger02;
 
     public GameObject goldObj;
     public GameObject crystalObj;
     public GameObject skillUpObj;
+    public GameObject healObj;
 
     float enemyHpAddition;
     float enemyDamegeAddition;
@@ -62,11 +64,11 @@ public class MapController : MonoBehaviour
 
     public void SwapMaps(int i, EnemyParmType ranParmType, float ranParmValue) // 紀錄切換地圖
     {
-        Map nowMap = Maps[randomint[nowMaps]].GetComponent<Map>();
+        nowMap = Maps[randomint[nowMaps]].GetComponent<Map>();
 
 
 
-        if (mapsCount == 0)
+        if (mapsCount == 4)
         {
             nowMap = shotMap;
 
@@ -90,7 +92,6 @@ public class MapController : MonoBehaviour
 
         mapsCount++;
 
-        Debug.Log(mapsCount);
 
 
         // 起始點位置
@@ -163,19 +164,25 @@ public class MapController : MonoBehaviour
         endTrigger02.gameObject.SetActive(true);
         endTrigger02.RanEnemyParm();
 
-        if (player.levelRewardType == LevelRewardType.Gold)
+        if (nowMap != shotMap && nowMap != bossMap)
         {
-            Instantiate(goldObj, player.transform.position, Quaternion.identity);
+            if (player.levelRewardType == LevelRewardType.Gold)
+            {
+                Instantiate(goldObj, player.transform.position, Quaternion.identity);
+            }
+            else if (player.levelRewardType == LevelRewardType.Crystal)
+            {
+                Instantiate(crystalObj, player.transform.position, Quaternion.identity);
+            }
+            else if (player.levelRewardType == LevelRewardType.SkillUp)
+            {
+                Instantiate(skillUpObj, player.transform.position, Quaternion.identity);
+            }
+            else if (player.levelRewardType == LevelRewardType.Heal)
+            {
+                Instantiate(healObj, player.transform.position, Quaternion.identity);
+            }
         }
-        else if (player.levelRewardType == LevelRewardType.Crystal)
-        {
-            Instantiate(crystalObj, player.transform.position, Quaternion.identity);
-        }
-        else if (player.levelRewardType == LevelRewardType.SkillUp)
-        {
-            Instantiate(skillUpObj, player.transform.position, Quaternion.identity);
-        }
-        Debug.Log(player.levelRewardType);
     }
 
 }

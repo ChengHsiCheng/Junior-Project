@@ -9,7 +9,6 @@ public class BossHpBar : MonoBehaviour
     public Image hpBar;
     void Start()
     {
-        Imagetocanvas();
     }
 
     // Update is called once per frame
@@ -23,9 +22,4 @@ public class BossHpBar : MonoBehaviour
         }
     }
 
-    void Imagetocanvas() //把image放到canvas上
-    {
-        canvas = GameObject.Find("Canvas_hpbar");
-        transform.SetParent(canvas.transform);
-    }
 }

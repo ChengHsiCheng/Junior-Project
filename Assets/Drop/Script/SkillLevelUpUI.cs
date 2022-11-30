@@ -9,14 +9,17 @@ public class SkillLevelUpUI : MonoBehaviour
     SkillManager skillManager;
 
     public Text result01;
+    public GameObject circle01;
     public Text result02;
+    public GameObject circle02;
+
+
 
     private void Start()
     {
         skillManager = GameObject.Find("Player").GetComponent<SkillManager>();
         Imagetocanvas();
 
-        Debug.Log(skillManager.skill.SkillName);
         if (skillManager.skill.SkillName == "FireBall")
         {
             result01.text = "增加傷害";
@@ -35,6 +38,31 @@ public class SkillLevelUpUI : MonoBehaviour
         Time.timeScale = 1;
         Destroy(gameObject);
     }
+
+    public void OnShowCircle(int i)
+    {
+        if (i == 1)
+        {
+            circle01.SetActive(true);
+        }
+        else if (i == 2)
+        {
+            circle02.SetActive(true);
+        }
+    }
+
+    public void OnHideCircle(int i)
+    {
+        if (i == 1)
+        {
+            circle01.SetActive(false);
+        }
+        else if (i == 2)
+        {
+            circle02.SetActive(false);
+        }
+    }
+
 
     void Imagetocanvas() //把image放到canvas上
     {

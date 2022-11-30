@@ -18,7 +18,7 @@ public class Cat : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        ran = Random.Range(10, 15);
+        ran = Random.Range(5, 10);
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class Cat : MonoBehaviour
         if (timer >= ran)
         {
             animator.SetTrigger("Roar");
-            ran = Random.Range(1, 2);
+            ran = Random.Range(5, 10);
             timer = 0;
         }
     }

@@ -21,7 +21,7 @@ public class StartTeigger : MonoBehaviour
         {
             ui.gameObject.SetActive(true);
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && player.gameObject.GetComponent<SkillManager>().skill)
             {
                 player.levelRewardType = LevelRewardType.Null;
                 player.CheckPassiveSkills("OnStart");

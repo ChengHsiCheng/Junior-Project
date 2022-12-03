@@ -20,12 +20,10 @@ public class SkillControl : MonoBehaviour
     void Start()
     {
         skillPos = GameObject.Find("SkillPos");
-
-        skillTimer = skillCD;
     }
 
-    public virtual void SkillStart(){}
+    public virtual void SkillStart() { }
 
-    public virtual void SkillUpdate(){}
+    public virtual void SkillUpdate() { }
 
 }

@@ -9,6 +9,8 @@ public class StartTeigger : MonoBehaviour
     public GameObject ui;
     bool isTrigger;
 
+    public FungusControl fungusControl;
+
 
     private void Start()
     {
@@ -21,28 +23,36 @@ public class StartTeigger : MonoBehaviour
         {
             ui.gameObject.SetActive(true);
 
-            if (Input.GetKeyDown(KeyCode.E) && player.gameObject.GetComponent<SkillManager>().skill)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                player.levelRewardType = LevelRewardType.Null;
-                player.CheckPassiveSkills("OnStart");
-
-                mapController.RandomInt();
-                mapController.mapsCount = 0;
-                mapController.SwapMaps(0, EnemyParmType.Null, 0);
-
-
-
-
-                //刪除場上所有掉落物
-                GameObject[] FlopItem;
-                FlopItem = GameObject.FindGameObjectsWithTag("FlopItem");
-                for (int i = 0; i < FlopItem.Length; i++)
+                if (player.gameObject.GetComponent<SkillManager>().skill)
                 {
-                    Destroy(FlopItem[i].gameObject);
+                    player.levelRewardType = LevelRewardType.Null;
+                    player.CheckPassiveSkills("OnStart");
+
+                    mapController.RandomInt();
+                    mapController.mapsCount = 0;
+                    mapController.SwapMaps(0, EnemyParmType.Null, 0);
+
+
+
+
+                    //刪除場上所有掉落物
+                    GameObject[] FlopItem;
+                    FlopItem = GameObject.FindGameObjectsWithTag("FlopItem");
+                    for (int i = 0; i < FlopItem.Length; i++)
+                    {
+                        Destroy(FlopItem[i].gameObject);
+                    }
+                    isTrigger = false;
+                    ui.gameObject.SetActive(false);
                 }
-                isTrigger = false;
-                ui.gameObject.SetActive(false);
+                else
+                {
+                    fungusControl.OnPlayerNoSkillSelected();
+                }
             }
+
         }
     }
     private void OnTriggerEnter(Collider other)

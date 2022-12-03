@@ -80,7 +80,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 268439479
+    m_Bits: 268438711
   m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
@@ -15607,6 +15607,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3789d488407ba0840bfce5aa11c76250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fungusControl: {fileID: 0}
+  flowchart: {fileID: 0}
   dashVFX: {fileID: 6307175465420906632, guid: 5296e5da9d27c5841b25706d7ccfc847, type: 3}
   baseDamege: 5
   damege: 0

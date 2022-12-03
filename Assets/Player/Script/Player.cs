@@ -2,11 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Fungus;
+using UnityEngine.Assertions;
+
 
 
 public class Player : MonoBehaviour
 {
     #region 宣告
+
+    public FungusControl fungusControl;
+
+    public Flowchart startFlowchart;
+    string fungusBoolName = "isStart";
+    public bool fungusBool
+    {
+        get
+        {
+            return startFlowchart.GetBooleanVariable(fungusBoolName);
+        }
+        set
+        {
+            startFlowchart.SetBooleanVariable(fungusBoolName, value);
+        }
+    }
+
+    bool isFirstDie = true;
 
     #region Dash
     float dashDuration = 0.15f;//衝刺時間
@@ -81,15 +102,34 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        UpdateAttack();
-        Dash();
+        if (fungusBool)
+        {
+            UpdateAttack();
+            Dash();
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            isPressLeftMouse = true;
+            if (Input.GetMouseButtonDown(0))
+            {
+                isPressLeftMouse = true;
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                isPressLeftMouse = false;
+            }
+
+
+
+            if (transform.position.y > 0)
+            {
+                character.Move(new Vector3(0, -1f, 0) * Time.deltaTime);
+            }
+            if (transform.position.y < 0)
+            {
+                character.Move(new Vector3(0, 1f, 0) * Time.deltaTime);
+            }
         }
-        if (Input.GetMouseButtonUp(0))
+        else
         {
+            animator.SetFloat("dir", 0);
             isPressLeftMouse = false;
         }
 
@@ -97,37 +137,32 @@ public class Player : MonoBehaviour
         {
             ChangePlayerMaterials();
         }
-
-        if (transform.position.y > 0)
-        {
-            character.Move(new Vector3(0, -1f, 0) * Time.deltaTime);
-        }
-        if (transform.position.y < 0)
-        {
-            character.Move(new Vector3(0, 1f, 0) * Time.deltaTime);
-        }
+        Debug.Log(fungusBool);
 
     }
 
     private void FixedUpdate()
     {
-        Move();
-
-        if (isDash)
+        if (fungusBool)
         {
-            if (dashTime <= 0)
-            {
-                isDash = false;
-                rb.velocity = Vector3.zero;
-                dashTime = dashDuration;
-            }
-            else
-            {
-                dashTime -= Time.deltaTime;
+            Move();
 
-                if (dashCollider.isCollision == 0)
+            if (isDash)
+            {
+                if (dashTime <= 0)
                 {
-                    transform.position += transform.forward * dashTime * dashSpeed * Time.deltaTime;
+                    isDash = false;
+                    rb.velocity = Vector3.zero;
+                    dashTime = dashDuration;
+                }
+                else
+                {
+                    dashTime -= Time.deltaTime;
+
+                    if (dashCollider.isCollision == 0)
+                    {
+                        transform.position += transform.forward * dashTime * dashSpeed * Time.deltaTime;
+                    }
                 }
             }
         }
@@ -343,6 +378,12 @@ public class Player : MonoBehaviour
         for (int i = 0; i < enemy.Length; i++)
         {
             enemy[i].GetComponent<Enemy>().BeAttacked(1000, false);
+        }
+
+        if (isFirstDie)
+        {
+            fungusControl.OnPlayerFirstDie();
+            isFirstDie = false;
         }
     }
 

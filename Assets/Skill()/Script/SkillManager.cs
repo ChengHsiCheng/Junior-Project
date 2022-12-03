@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Fungus;
+
 public class SkillManager : MonoBehaviour
 {
     public SkillControl skill;
@@ -11,6 +13,20 @@ public class SkillManager : MonoBehaviour
     float result01;
     float result02;
 
+    public Flowchart startFlowchart;
+    string fungusBoolName = "isStart";
+    public bool fungusBool
+    {
+        get
+        {
+            return startFlowchart.GetBooleanVariable(fungusBoolName);
+        }
+        set
+        {
+            startFlowchart.SetBooleanVariable(fungusBoolName, value);
+        }
+    }
+
     void Start()
     {
         skill = null;
@@ -19,7 +35,7 @@ public class SkillManager : MonoBehaviour
 
     void Update()
     {
-        if (skill)
+        if (skill && fungusBool)
         {
             if (Input.GetMouseButtonDown(1))
             {

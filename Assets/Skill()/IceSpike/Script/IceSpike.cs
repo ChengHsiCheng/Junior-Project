@@ -8,9 +8,15 @@ public class IceSpike : MonoBehaviour
 
     List<Enemy> enteredEnemys;
 
+    AudioSource source;
+    public AudioClip audioClip;
+
     void Start()
     {
         enteredEnemys = new List<Enemy>();
+        source = GetComponent<AudioSource>();
+
+        source.PlayOneShot(audioClip);
         Invoke("DestroySkill", 2.5f);
     }
 

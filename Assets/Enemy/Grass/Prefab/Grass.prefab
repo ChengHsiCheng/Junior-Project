@@ -531,15 +531,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd46009c635b8604ebc775a4b14cace0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audios:
+  - {fileID: 8300000, guid: f2571d573ac930341ab5de12fa577227, type: 3}
+  - {fileID: 8300000, guid: 39213fe3fcc25654fbc34e5fbb2dde97, type: 3}
   speed: 2
   idleToHoundDis: 10
   houndToAttackDis: 1.5
   attackCD: 1.5
   attackMoveSpeed: 4
   beAttackMoveSpeed: 1
-  audios:
-  - {fileID: 8300000, guid: f2571d573ac930341ab5de12fa577227, type: 3}
-  - {fileID: 8300000, guid: 39213fe3fcc25654fbc34e5fbb2dde97, type: 3}
+  high: 0
 --- !u!114 &9131168671602602049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177313d397a646045bd6aab7de7db82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHp: 50
+  baseHp: 70
   hp: 50
   maxHp: 50
   damege: 3

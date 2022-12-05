@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class Crystal : MonoBehaviour
 {
+    AudioSource source;
+    public AudioClip audioClip;
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            other.gameObject.GetComponent<Player>().crystalCount += Random.Range(10, 51);
+            other.gameObject.GetComponent<Player>().crystalCount += Random.Range(5, 11);
 
-            Destroy(gameObject);
+            source.PlayOneShot(audioClip);
+
+            transform.position += new Vector3(0, 10, 0);
+
+            Destroy(gameObject, 2f);
         }
     }
 }

@@ -62,6 +62,10 @@ public class SkillManager : MonoBehaviour
         {
             result02 += 1;
         }
+        else if (i == 3)
+        {
+            count = 0;
+        }
 
         if (result01 == 1 && result02 == 0)
         {

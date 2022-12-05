@@ -16,6 +16,7 @@ public class BossHpBar : MonoBehaviour
     {
         hpBar.fillAmount = boss.hp / boss.maxHp;
 
+
         if (boss.hp <= 0)
         {
             Destroy(gameObject);

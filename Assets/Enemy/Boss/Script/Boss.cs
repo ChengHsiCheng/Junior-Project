@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+using Fungus;
+
 public enum State
 {
-    hound, attack, skill, die
+    hound, attack, skill, die, Idle
 }
 
 public class Boss : MonoBehaviour
@@ -17,7 +19,7 @@ public class Boss : MonoBehaviour
     public AudioClip[] audios;
 
     public State state;
-    GameObject player; // 玩家 
+    Player player; // 玩家 
     public GameObject attackVFX;
     public GameObject skillVFX;
     public GameObject walkVFX;
@@ -37,17 +39,37 @@ public class Boss : MonoBehaviour
     public float skillCD;
     bool isAttackMoving;
     bool isDash;
-    bool isCollision;
+    public bool isCollision;
     public float dashCD;
     float dashTimer;
 
+    public GameObject endProtal;
+    public GameObject bossDieFungus;
+
+
+    public Flowchart startFlowchart;
+    string fungusBoolName = "isStart";
+    public bool fungusBool
+    {
+        get
+        {
+            return startFlowchart.GetBooleanVariable(fungusBoolName);
+        }
+        set
+        {
+            startFlowchart.SetBooleanVariable(fungusBoolName, value);
+        }
+    }
+    bool isStartMove = true;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
         audioSource = GetComponent<AudioSource>();
+        startFlowchart = GameObject.Find("Var").GetComponent<Flowchart>();
+
 
         hp = maxHp;
 
@@ -59,62 +81,87 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 玩家位置
-        Vector3 playerPos = player.transform.position;
-        // 自身位置
-        Vector3 myPos = transform.position;
-        AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (fungusBool && !player.isDying)
+        { // 玩家位置
+            Vector3 playerPos = player.transform.position;
+            // 自身位置
+            Vector3 myPos = transform.position;
+            AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (state == State.hound)
-        {
-            StateHound();
-
-            if (Vector3.Distance(playerPos, myPos) < houndToAttackDis)
+            if (state == State.hound)
             {
-                state = State.attack;
-                isDash = false;
-                dashTimer = 0;
+                StateHound();
+
+                if (Vector3.Distance(playerPos, myPos) < houndToAttackDis)
+                {
+                    state = State.attack;
+                    isDash = false;
+                    dashTimer = 0;
+                }
+            }
+            if (state == State.attack)
+            {
+                StateAttack(Vector3.Distance(playerPos, myPos));
+
+                if (Vector3.Distance(playerPos, myPos) >= houndToAttackDis && !stateinfo.IsName("Attack"))
+                {
+                    state = State.hound;
+                }
+            }
+            if (state == State.skill)
+            {
+                StateSkill();
+            }
+
+
+            if (atttackTimer < attackCD)
+            {
+                atttackTimer += Time.deltaTime;
+            }
+
+            if (skillTimer < skillCD)
+            {
+                skillTimer += Time.deltaTime;
+            }
+
+            if (dashTimer < dashCD)
+            {
+                dashTimer += Time.deltaTime;
+            }
+
+            if (walkVFXTimer < 0.5f)
+            {
+                walkVFXTimer += Time.deltaTime;
+            }
+
+            if (isAttackMoving && !isCollision)
+            {
+                transform.position += transform.forward * attackMoveSpeed * Time.deltaTime;
             }
         }
-        if (state == State.attack)
+        else
         {
-            StateAttack(Vector3.Distance(playerPos, myPos));
-
-            if (Vector3.Distance(playerPos, myPos) >= houndToAttackDis && !stateinfo.IsName("Attack"))
+            if (isStartMove)
             {
-                state = State.hound;
+                agent.SetDestination(new Vector3(transform.position.x, transform.position.y, -100));
+                animator.SetBool("Hount", true);
+                agent.speed = 1;
+                animator.SetFloat("speed", 1);
+
+                if (transform.position == new Vector3(transform.position.x, transform.position.y, -100))
+                {
+                    isStartMove = false;
+                }
+            }
+            else
+            {
+                animator.SetBool("Hount", false);
+                agent.speed = 0;
             }
         }
-        if (state == State.skill)
-        {
-            StateSkill();
-        }
 
 
-        if (atttackTimer < attackCD)
-        {
-            atttackTimer += Time.deltaTime;
-        }
 
-        if (skillTimer < skillCD)
-        {
-            skillTimer += Time.deltaTime;
-        }
-
-        if (dashTimer < dashCD)
-        {
-            dashTimer += Time.deltaTime;
-        }
-
-        if (walkVFXTimer < 0.5f)
-        {
-            walkVFXTimer += Time.deltaTime;
-        }
-
-        if (isAttackMoving && !isCollision)
-        {
-            transform.position += transform.forward * attackMoveSpeed * Time.deltaTime;
-        }
     }
 
     void StateHound()
@@ -140,6 +187,7 @@ public class Boss : MonoBehaviour
         }
 
         agent.speed = speed;
+        animator.SetFloat("speed", 1.5f);
         agent.SetDestination(player.transform.position);
         animator.SetBool("Hount", true);
 
@@ -147,13 +195,13 @@ public class Boss : MonoBehaviour
         {
             if (walkVFXDir == 0)
             {
-                Instantiate(walkVFX, transform.position + transform.up * 0.05f + transform.right * 0.1f, transform.rotation * Quaternion.Euler(90, 0, 0));
+                Instantiate(walkVFX, transform.position + transform.up * 0.2f + transform.right * 0.1f, transform.rotation * Quaternion.Euler(90, 0, 0));
                 walkVFXDir = 1;
                 walkVFXTimer = 0;
             }
             else if (walkVFXDir == 1)
             {
-                Instantiate(walkVFX, transform.position + transform.up * 0.05f + -transform.right * 0.1f, transform.rotation * Quaternion.Euler(90, 0, 0));
+                Instantiate(walkVFX, transform.position + transform.up * 0.2f + -transform.right * 0.1f, transform.rotation * Quaternion.Euler(90, 0, 0));
                 walkVFXDir = 0;
                 walkVFXTimer = 0;
             }
@@ -207,7 +255,7 @@ public class Boss : MonoBehaviour
         isAttackMoving = false;
     }
 
-    public void Face(GameObject player)
+    public void Face(Player player)
     {
         float faceAngle = Mathf.Atan2(player.transform.position.x - transform.position.x, player.transform.position.z - transform.position.z) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(0, faceAngle, 0);
@@ -221,6 +269,9 @@ public class Boss : MonoBehaviour
         if (hp <= 0)
         {
             state = State.die;
+            player.isTheEnd = true;
+            endProtal.SetActive(true);
+            bossDieFungus.SetActive(true);
             animator.SetTrigger("Die");
         }
     }
@@ -264,7 +315,7 @@ public class Boss : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(UnityEngine.Collision other)
     {
         if (other.gameObject.tag == "Player")
         {
@@ -272,7 +323,7 @@ public class Boss : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision other)
+    private void OnCollisionExit(UnityEngine.Collision other)
     {
         if (other.gameObject.tag == "Player")
         {

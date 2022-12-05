@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillPos: {fileID: 0}
-  skillCD: 0
+  skillCD: 8
   skillTimer: 0
-  damege: 0
+  damege: 0.2
   skill: {fileID: 7128726269660425675, guid: 0379ced636aaacc4bbf518fc67feaf1a, type: 3}
   SkillName: IceSpike
   skillIntroduce: 

@@ -8,7 +8,7 @@ public class DashCollider : MonoBehaviour
     public string _other;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Enemy" && other.gameObject.tag != "EnemyAttackTrigger" && other.gameObject.tag != "Trigger" && other.gameObject.tag != "Boss" && other.gameObject.tag != "Player")
+        if (other.gameObject.tag != "EnemyAttackTrigger" && other.gameObject.tag != "Trigger" && other.gameObject.tag != "Player" && other.tag != "Enemy" && other.tag != "Boss")
         {
             isCollision += 1;
             _other = other.name;
@@ -17,7 +17,7 @@ public class DashCollider : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag != "Enemy" && other.gameObject.tag != "EnemyAttackTrigger" && other.gameObject.tag != "Trigger" && other.gameObject.tag != "Boss" && other.gameObject.tag != "Player")
+        if (other.gameObject.tag != "EnemyAttackTrigger" && other.gameObject.tag != "Trigger" && other.gameObject.tag != "Player" && other.tag != "Enemy" && other.tag != "Boss")
         {
             isCollision -= 1;
             _other = other.name;

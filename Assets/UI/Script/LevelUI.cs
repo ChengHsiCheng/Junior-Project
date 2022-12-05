@@ -20,6 +20,7 @@ public class LevelUI : MonoBehaviour
     public Sprite heal;
     public Sprite fireSkill;
     public Sprite iceSkill;
+    public Sprite nullImage;
 
     public void InTrigger(EnemyParmType type, float _value, LevelRewardType rewardType, GameObject player)
     {
@@ -61,6 +62,10 @@ public class LevelUI : MonoBehaviour
             {
                 rewardImage.sprite = iceSkill;
             }
+        }
+        else
+        {
+            rewardImage.sprite = nullImage;
         }
 
         value.text = _value.ToString() + "%";

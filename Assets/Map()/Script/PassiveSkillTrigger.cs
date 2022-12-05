@@ -7,9 +7,11 @@ public class PassiveSkillTrigger : MonoBehaviour
     public GameObject passiveSkillUI;
     public GameObject text;
     bool isEnter;
+
+    public Player player;
     void Start()
     {
-
+        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -18,6 +20,10 @@ public class PassiveSkillTrigger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && isEnter)
         {
             passiveSkillUI.SetActive(true);
+
+            //passiveSkillUI.GetComponent<BuyPassiveSkill>().Open();
+
+            player.StopAudio();
 
             Time.timeScale = 0;
         }

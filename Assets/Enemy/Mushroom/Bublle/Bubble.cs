@@ -7,9 +7,18 @@ public class Bubble : MonoBehaviour
     public float speed;
     Enemy enemy;
     float damege;
+
+    AudioSource source;
+    public AudioClip bubbleFlying;
+    public AudioClip bubbleTouch;
+
+    bool isCollision;
     void Start()
     {
         Destroy(gameObject, 10);
+        source = GetComponent<AudioSource>();
+        source.clip = bubbleFlying;
+        source.Play();
     }
 
     // Update is called once per frame
@@ -24,6 +33,13 @@ public class Bubble : MonoBehaviour
         {
             other.GetComponent<Player>().PlayerBeAttack(damege);
         }
+        if (!isCollision)
+        {
+            source.PlayOneShot(bubbleTouch);
+            isCollision = true;
+            source.Stop();
+        }
+
     }
 
     public void SteDamege(float _damege)

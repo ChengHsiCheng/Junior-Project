@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillPos: {fileID: 0}
-  skillCD: 10
+  skillCD: 7
   skillTimer: -0.0050074514
-  damege: 15
+  damege: 7
   skill: {fileID: 7254315140174652731, guid: a63772d3cf4a0b74e89aacec51b334a4, type: 3}
   SkillName: FireBall
   skillIntroduce: S

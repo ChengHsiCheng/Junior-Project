@@ -124,7 +124,7 @@ Transform:
   - {fileID: 2798563565854174830}
   m_Father: {fileID: 2798563564532277086}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0.064840704, y: -170.00023, z: 38.594147}
+  m_LocalEulerAnglesHint: {x: -0.26055565, y: 175.75386, z: 39.308823}
 --- !u!1 &2798563564452139792
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1, z: 0.5}
+  m_Size: {x: 0.4, y: 1, z: 0.5}
   m_Center: {x: 0, y: 0.02, z: 0.3}
 --- !u!114 &2798563564478384620
 MonoBehaviour:
@@ -253,7 +253,7 @@ Transform:
   - {fileID: 2798563565236824862}
   m_Father: {fileID: 2404015934252862445}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.0000031912875, y: -0.00018309504, z: 89.62552}
+  m_LocalEulerAnglesHint: {x: 1.8559903, y: 1.8283324, z: 89.986786}
 --- !u!1 &2798563564630184219
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +286,7 @@ Transform:
   - {fileID: 2798563566428311619}
   m_Father: {fileID: 2798563564532277086}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: -0.06472587, y: 9.999766, z: 39.33179}
+  m_LocalEulerAnglesHint: {x: -0.20458551, y: -4.2491436, z: 40.055656}
 --- !u!1 &2798563564899700138
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 2798563564987567266}
   m_Layer: 8
   m_Name: AttackCollider
-  m_TagString: Untagged
+  m_TagString: Trigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15608,7 +15608,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fungusControl: {fileID: 0}
-  flowchart: {fileID: 0}
+  startFlowchart: {fileID: 0}
+  isDied: 0
+  isDying: 0
+  diedUI: {fileID: 0}
+  dashAudio: {fileID: 8300000, guid: 42c6cd954512c754aa6bb5986927f60d, type: 3}
   dashVFX: {fileID: 6307175465420906632, guid: 5296e5da9d27c5841b25706d7ccfc847, type: 3}
   baseDamege: 5
   damege: 0
@@ -15623,6 +15627,7 @@ MonoBehaviour:
   attackAudio02: {fileID: 8300000, guid: 8283643148f2c4243abb87cbc58f0399, type: 3}
   attackAudio03: {fileID: 8300000, guid: 5481e158007b8cc46814741db2c2387b, type: 3}
   beAttackAudio: {fileID: 8300000, guid: f2f71158cce174144bf5b66167397a97, type: 3}
+  walkAudio: {fileID: 8300000, guid: 573211b5d3847a146a504b6e7d3ab19a, type: 3}
   hitEffecis: {fileID: 57560158243955042, guid: fa44e12e44a2a2441bf8a93943c4de9d, type: 3}
   dashCollider: {fileID: 2798563564478384620}
   baseHp: 100
@@ -15630,7 +15635,7 @@ MonoBehaviour:
   playetMaxHp: 0
   baseSpeed: 3
   speed: 3
-  crystalCount: 1000
+  crystalCount: 0
   goldCount: 0
   levelRewardType: 0
 --- !u!114 &2798563564719197323
@@ -15649,6 +15654,7 @@ MonoBehaviour:
   skillList:
   - {fileID: 0}
   count: 0
+  startFlowchart: {fileID: 0}
 --- !u!54 &2798563565993562004
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15664,7 +15670,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 2
+  m_CollisionDetection: 3
 --- !u!136 &2798563565993562005
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15674,7 +15680,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2798563565993562002}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.2
   m_Height: 1
   m_Direction: 1

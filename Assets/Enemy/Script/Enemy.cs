@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     NavMeshAgent agent;
     Animator animator;
     protected AudioSource audioSource;
-    GameObject player; // 玩家 
+    Player player; // 玩家 
     float attackTimer; // 攻擊計時器
     public float speed;
     public float idleToHoundDis;
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
         debuffTable = new Hashtable();
         debuffTable.Add(EnemyDebuffType.Burning, null);
@@ -47,95 +47,97 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        // 玩家位置
-        Vector3 playerPos = player.transform.position;
-        // 自身位置
-        Vector3 myPos = transform.position;
-        // 取得動畫狀態
-        AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (!player.isDying)
+        {// 玩家位置
+            Vector3 playerPos = player.transform.position;
+            // 自身位置
+            Vector3 myPos = transform.position;
+            // 取得動畫狀態
+            AnimatorStateInfo stateinfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (enemyState == EnemyState.idle)
-        {
-            StateIdle();
-
-            if (Vector3.Distance(playerPos, myPos) < idleToHoundDis)
+            if (enemyState == EnemyState.idle)
             {
-                enemyState = EnemyState.hound;
+                StateIdle();
+
+                if (Vector3.Distance(playerPos, myPos) < idleToHoundDis)
+                {
+                    enemyState = EnemyState.hound;
+                }
             }
-        }
-        if (enemyState == EnemyState.hound)
-        {
-            StateHound();
-
-            if (Vector3.Distance(playerPos, myPos) >= idleToHoundDis)
+            if (enemyState == EnemyState.hound)
             {
-                enemyState = EnemyState.idle;
+                StateHound();
+
+                if (Vector3.Distance(playerPos, myPos) >= idleToHoundDis)
+                {
+                    enemyState = EnemyState.idle;
+                }
+                if (Vector3.Distance(playerPos, myPos) < houndToAttackDis)
+                {
+                    enemyState = EnemyState.attack;
+                }
             }
-            if (Vector3.Distance(playerPos, myPos) < houndToAttackDis)
+            if (enemyState == EnemyState.attack)
             {
-                enemyState = EnemyState.attack;
+                StateAttack();
+
+                if (Vector3.Distance(playerPos, myPos) >= houndToAttackDis && !stateinfo.IsName("Attack"))
+                {
+                    enemyState = EnemyState.hound;
+                }
             }
-        }
-        if (enemyState == EnemyState.attack)
-        {
-            StateAttack();
-
-            if (Vector3.Distance(playerPos, myPos) >= houndToAttackDis && !stateinfo.IsName("Attack"))
+            if (enemyState == EnemyState.died)
             {
-                enemyState = EnemyState.hound;
+                StateDied();
             }
-        }
-        if (enemyState == EnemyState.died)
-        {
-            StateDied();
-        }
 
-        if (isFace)
-        {
-            Face(player);
-        }
-
-        // 攻擊間隔計時
-        if (attackTimer <= attackCD)
-        {
-            attackTimer += Time.deltaTime;
-        }
-
-        // 攻擊時移動
-        if (attackMove && !isCollision)
-        {
-            transform.position += transform.forward * attackMoveSpeed * speed * Time.deltaTime;
-        }
-
-        // 被攻擊時移動
-        if (beAttackMove)
-        {
-            transform.position += -transform.forward * beAttackMoveSpeed * speed * Time.deltaTime;
-        }
-
-        if (debuffTable[EnemyDebuffType.Frozen] != null)
-        {
-            speed = 0.5f;
-        }
-        else
-        {
-            speed = 1;
-        }
-
-        if (debuffTable[EnemyDebuffType.Burning] != null)
-        {
-            if (Time.time - (float)debuffTable[EnemyDebuffType.Burning] > 5)
+            if (isFace)
             {
-                RemoveDebuff(EnemyDebuffType.Burning);
+                Face(player);
+            }
+
+            // 攻擊間隔計時
+            if (attackTimer <= attackCD)
+            {
+                attackTimer += Time.deltaTime;
+            }
+
+            // 攻擊時移動
+            if (attackMove && Vector3.Distance(playerPos, myPos) > 0.8f)
+            {
+                transform.position += transform.forward * attackMoveSpeed * speed * Time.deltaTime;
+            }
+
+            // 被攻擊時移動
+            if (beAttackMove)
+            {
+                transform.position += -transform.forward * beAttackMoveSpeed * speed * Time.deltaTime;
+            }
+
+            if (debuffTable[EnemyDebuffType.Frozen] != null)
+            {
+                speed = 0.5f;
             }
             else
             {
-                if (info.hp > 0)
-                    BeAttacked(0.1f, false);
+                speed = 1;
             }
-        }
 
-        animator.SetFloat("Speed", speed);
+            if (debuffTable[EnemyDebuffType.Burning] != null)
+            {
+                if (Time.time - (float)debuffTable[EnemyDebuffType.Burning] > 5)
+                {
+                    RemoveDebuff(EnemyDebuffType.Burning);
+                }
+                else
+                {
+                    if (info.hp > 0)
+                        BeAttacked(0.1f, false);
+                }
+            }
+
+            animator.SetFloat("Speed", speed);
+        }
     }
 
     void StateIdle()
@@ -189,7 +191,7 @@ public class Enemy : MonoBehaviour
     }
 
     // 面對玩家
-    public void Face(GameObject player)
+    public void Face(Player player)
     {
         float faceAngle = Mathf.Atan2(player.transform.position.x - transform.position.x, player.transform.position.z - transform.position.z) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(0, faceAngle, 0);

@@ -12,6 +12,7 @@ TagManager:
   - Boss
   - BossSkill
   - Test
+  - FungusTrigger
   layers:
   - Default
   - TransparentFX

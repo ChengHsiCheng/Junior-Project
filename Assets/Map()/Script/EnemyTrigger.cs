@@ -13,6 +13,9 @@ public class EnemyTrigger : MonoBehaviour
     public float enemyDamegeAddition;
     public float enemySpeedAddition;
 
+    public GameObject endProtal;
+    public GameObject bossDieFungus;
+
     private void Start()
     {
         for (int i = 0; i < this.transform.childCount; i++)
@@ -30,9 +33,18 @@ public class EnemyTrigger : MonoBehaviour
         {
             for (int i = 0; i < GeneratePos.Count; i++)
             {
-                GameObject enemyObj = Instantiate(enemys[Random.Range(0, enemys.Length)], GeneratePos[i].transform.position, Quaternion.Euler(0, 0, 0));
+                GameObject enemyObj = Instantiate(enemys[Random.Range(0, enemys.Length)], GeneratePos[i].transform.position, Quaternion.Euler(0, 180, 0));
 
                 Enemy enemy = enemyObj.GetComponent<Enemy>();
+
+
+
+                if (enemyObj.GetComponent<Boss>())
+                {
+                    Boss boss = enemyObj.GetComponent<Boss>();
+                    boss.endProtal = endProtal;
+                    boss.bossDieFungus = bossDieFungus;
+                }
 
 
                 if (enemy)

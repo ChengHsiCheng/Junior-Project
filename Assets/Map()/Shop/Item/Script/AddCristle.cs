@@ -6,6 +6,6 @@ public class AddCristle : Item
 {
     public override void BuyItem(Player player)
     {
-        player.crystalCount += 20;
+        player.crystalCount += 5;
     }
 }

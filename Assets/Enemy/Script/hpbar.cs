@@ -22,7 +22,7 @@ public class hpbar : MonoBehaviour
     {
         UpdatePosition();
         UpdateBarWidth();
-        if(TargetEnemy.hp <= 0)
+        if (TargetEnemy.hp <= 0)
         {
             Destroy(gameObject);
         }
@@ -47,7 +47,9 @@ public class hpbar : MonoBehaviour
     }
     void imagetocanvas() //把image放到canvas上
     {
-        canvas=GameObject.Find("Canvas_hpbar");
+        canvas = GameObject.Find("Canvas_hpbar");
         transform.SetParent(canvas.transform);
+
+        transform.rotation = Quaternion.identity;
     }
 }

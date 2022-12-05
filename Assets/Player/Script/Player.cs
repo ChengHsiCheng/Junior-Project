@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 using Fungus;
 using UnityEngine.Assertions;
@@ -10,6 +11,8 @@ using UnityEngine.Assertions;
 public class Player : MonoBehaviour
 {
     #region 宣告
+
+    Save save;
 
     public FungusControl fungusControl;
 
@@ -27,7 +30,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    bool isFirstDie = true;
+
+
+    public bool isDied;
+    public bool isDying;
+    public PlayerDieUI diedUI;
 
     #region Dash
     float dashDuration = 0.15f;//衝刺時間
@@ -36,6 +43,7 @@ public class Player : MonoBehaviour
     float dashCD = 0.2f;//衝刺的冷卻時間
     float dashElapsedTime = 0;//衝刺後經過的時間
     bool isDash = false;//是否在衝刺
+    public AudioClip dashAudio;
     public GameObject dashVFX;
     #endregion
     #region Attack
@@ -56,6 +64,7 @@ public class Player : MonoBehaviour
     public AudioClip attackAudio02;
     public AudioClip attackAudio03;
     public AudioClip beAttackAudio;
+    public AudioClip walkAudio;
     #endregion
     #region 材質
     bool isChangePlayerMaterials = false; // 是否切換材質
@@ -81,6 +90,9 @@ public class Player : MonoBehaviour
     public float crystalCount = 0;
     public float goldCount = 0;
     public LevelRewardType levelRewardType;
+    public bool isTheEnd;
+
+    SkillManager skillManager;
 
     public List<PassiveSkill> passiveSkills = new List<PassiveSkill>();
     #endregion
@@ -92,17 +104,23 @@ public class Player : MonoBehaviour
         materials = GetComponent<MeshRenderer>().sharedMaterials;
         rb = GetComponent<Rigidbody>();
         character = GetComponent<CharacterController>();
+        skillManager = GetComponent<SkillManager>();
+        save = GetComponent<Save>();
 
         damege = baseDamege;
         playetMaxHp = baseHp;
         playerHp = playetMaxHp;
         speed = baseSpeed;
         ResetPlayerMaterials();
+
+        audioSource.Play();
+
+        LoadGame();
     }
 
     void Update()
     {
-        if (fungusBool)
+        if (fungusBool && !isDying)
         {
             UpdateAttack();
             Dash();
@@ -130,6 +148,7 @@ public class Player : MonoBehaviour
         else
         {
             animator.SetFloat("dir", 0);
+            StopAudio();
             isPressLeftMouse = false;
         }
 
@@ -137,13 +156,25 @@ public class Player : MonoBehaviour
         {
             ChangePlayerMaterials();
         }
-        Debug.Log(fungusBool);
 
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            crystalCount += 100;
+        }
+        else if (Input.GetKeyDown(KeyCode.F2))
+        {
+            damege = 10000;
+            playerHp = 10000;
+        }
+        else if (Input.GetKeyDown(KeyCode.F3))
+        {
+            Debug.Log(passiveSkills[0]);
+        }
     }
 
     private void FixedUpdate()
     {
-        if (fungusBool)
+        if (fungusBool && !isDying)
         {
             Move();
 
@@ -161,7 +192,7 @@ public class Player : MonoBehaviour
 
                     if (dashCollider.isCollision == 0)
                     {
-                        transform.position += transform.forward * dashTime * dashSpeed * Time.deltaTime;
+                        character.Move(transform.forward * dashTime * dashSpeed * Time.deltaTime);
                     }
                 }
             }
@@ -188,10 +219,23 @@ public class Player : MonoBehaviour
                 float faceAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
                 Quaternion targetRotation = Quaternion.Euler(0, faceAngle, 0);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.2f);
+                audioSource.clip = walkAudio;
+
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+
+            }
+            else
+            {
+                audioSource.clip = null;
             }
             animator.SetFloat("dir", dir.magnitude);
             //transform.position += dir * speed * Time.deltaTime;
             character.Move(dir * speed * Time.deltaTime);
+
+
         }
     }
 
@@ -267,6 +311,7 @@ public class Player : MonoBehaviour
                         isDash = true;
                         dashElapsedTime = 0;
                         animator.SetTrigger("Dash");
+                        audioSource.PlayOneShot(dashAudio);
 
                         Instantiate(dashVFX, transform.position - transform.up * 0.3f, transform.rotation);
                     }
@@ -313,14 +358,21 @@ public class Player : MonoBehaviour
     // 被攻擊時計算傷害
     public void PlayerBeAttack(float damege)
     {
-        playerHp -= damege;
-        isChangePlayerMaterials = true;
-
-        audioSource.PlayOneShot(beAttackAudio);
-
-        if (playerHp <= 0)
+        if (!isTheEnd)
         {
-            PlayerDie();
+            playerHp -= damege;
+            isChangePlayerMaterials = true;
+
+            audioSource.PlayOneShot(beAttackAudio);
+
+
+            if (playerHp <= 0)
+            {
+                diedUI.gameObject.SetActive(true);
+
+                isPressLeftMouse = false;
+                isDying = true;
+            }
         }
     }
 
@@ -356,9 +408,9 @@ public class Player : MonoBehaviour
     }
 
     // 角色死亡
-    void PlayerDie()
+    public void PlayerDie()
     {
-        playerHp = playetMaxHp;
+
         goldCount = 0;
         this.transform.position = new Vector3(0, transform.position.y, -2f);
 
@@ -367,10 +419,16 @@ public class Player : MonoBehaviour
         playerHp = playetMaxHp;
         speed = baseSpeed;
 
+        Debug.Log(playerHp);
+
         levelRewardType = LevelRewardType.Null;
 
         MapController controller = GameObject.Find("MapController").GetComponent<MapController>();
         controller.mapsCount = 0;
+
+        skillManager.SkillLvUp(3);
+
+
 
         //刪除所有敵人
         GameObject[] enemy;
@@ -380,10 +438,18 @@ public class Player : MonoBehaviour
             enemy[i].GetComponent<Enemy>().BeAttacked(1000, false);
         }
 
-        if (isFirstDie)
+        GameObject boss;
+        boss = GameObject.FindWithTag("Boss");
+        if (boss)
+        {
+            Destroy(boss.gameObject);
+        }
+
+
+        if (!isDied)
         {
             fungusControl.OnPlayerFirstDie();
-            isFirstDie = false;
+            isDied = true;
         }
     }
 
@@ -438,4 +504,56 @@ public class Player : MonoBehaviour
             s.GetType().GetMethod(n).Invoke(s, new object[] { this });
         }
     }
+
+    public void SaveGame()
+    {
+        save.SaveGame(goldCount, crystalCount, isDied);
+
+        for (int i = 0; i < passiveSkills.Count; i++)
+        {
+            save.SavePassiveSkil(passiveSkills[i].ToString());
+        }
+
+
+    }
+
+    void LoadGame()
+    {
+        goldCount = save.goldCount;
+        crystalCount = save.crystalCount;
+        isDied = Convert.ToBoolean(PlayerPrefs.GetFloat("isDied"));
+
+        if (PlayerPrefs.HasKey("LifeSteal"))
+        {
+            addPositiveSkill(new LifeSteal());
+        }
+        if (PlayerPrefs.HasKey("NextRoomHealth"))
+        {
+            addPositiveSkill(new NextRoomHealth());
+        }
+        if (PlayerPrefs.HasKey("Berserker"))
+        {
+            addPositiveSkill(new Berserker());
+        }
+        if (PlayerPrefs.HasKey("InitialGold"))
+        {
+            addPositiveSkill(new InitialGold());
+        }
+        if (PlayerPrefs.HasKey("IncreaseMaxHp"))
+        {
+            addPositiveSkill(new IncreaseMaxHp());
+        }
+        if (PlayerPrefs.HasKey("IncreaseDamage"))
+        {
+            addPositiveSkill(new IncreaseDamage());
+        }
+
+    }
+
+    public void StopAudio()
+    {
+        audioSource.Stop();
+    }
+
+
 }

@@ -10,15 +10,9 @@ public class BossAttackTrigger : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            Debug.Log(other.name);
             TargetPlayer = other.GetComponent<Player>();
             TargetPlayer.PlayerBeAttack(boss.damege);
-
-            if (TargetPlayer.playerHp <= 0)
-            {
-                Destroy(gameObject);
-            }
-
-
 
         }
     }

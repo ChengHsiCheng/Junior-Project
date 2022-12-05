@@ -42,7 +42,7 @@ public class FireBallSkill01 : SkillControl
             {
                 // 發射
                 isCharge = false;
-                fireBall.Shoot(damege * chargeTimer);
+                fireBall.Shoot(damege * chargeTimer / 2);
                 skillTimer = skillCD;
                 chargeTimer = 0;
             }

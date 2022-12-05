@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class Gold : MonoBehaviour
 {
-    /// <summary>
-    /// OnTriggerEnter is called when the Collider other enters the trigger.
-    /// </summary>
-    /// <param name="other">The other Collider involved in this collision.</param>
+    AudioSource source;
+    public AudioClip audioClip;
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            other.gameObject.GetComponent<Player>().goldCount += Random.Range(10, 51);
+            other.gameObject.GetComponent<Player>().goldCount += Random.Range(5, 11);
 
-            Destroy(gameObject);
+            source.PlayOneShot(audioClip);
+
+            transform.position += new Vector3(0, 10, 0);
+
+            Destroy(gameObject, 2f);
         }
     }
 }

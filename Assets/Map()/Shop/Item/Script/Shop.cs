@@ -23,7 +23,8 @@ public class Shop : MonoBehaviour
     {
         for (int i = 0; i < itemPos.Count; i++)
         {
-            Destroy(itemPos[i].gameObject.transform.GetChild(0).gameObject);
+            if (itemPos[i].gameObject.transform.childCount != 0)
+                Destroy(itemPos[i].gameObject.transform.GetChild(0).gameObject);
         }
     }
 }

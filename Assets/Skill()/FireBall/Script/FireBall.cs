@@ -65,10 +65,9 @@ public class FireBall : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             other.GetComponent<Enemy>().BeAttacked(damege, true);
-            transform.GetComponent<Collider>().enabled = true;
             Invoke("ClosureTrigger", 0.1f);
         }
-
+        transform.GetComponent<Collider>().enabled = true;
         audioSource.PlayOneShot(boom);
         Destroy(gameObject, 2);
     }
@@ -80,6 +79,11 @@ public class FireBall : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             enemy.BeAttacked(damege * ExpAdd, true);
             enemy.AddDebuff(EnemyDebuffType.Burning);
+        }
+        else if (other.tag == "Boss")
+        {
+            Boss boss = other.gameObject.GetComponent<Boss>();
+            boss.BeAttack(damege);
         }
         Debug.Log(other.name);
     }

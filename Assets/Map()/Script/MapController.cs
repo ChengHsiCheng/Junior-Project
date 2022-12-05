@@ -12,8 +12,10 @@ public class MapController : MonoBehaviour
     public float enemyCount = 0;
     public Player player;
     public Map shotMap;
+    public GameObject shopFungus;
     public Map bossMap;
-    Map nowMap;
+    public GameObject bossFungus;
+    public Map nowMap;
     public EndTrigger endTrigger01;
     public EndTrigger endTrigger02;
 
@@ -25,6 +27,11 @@ public class MapController : MonoBehaviour
     float enemyHpAddition;
     float enemyDamegeAddition;
     float enemySpeedAddition;
+
+    AudioSource source;
+    public AudioClip normalBGM;
+    public AudioClip bossBGM;
+    public AudioClip shopBGM;
     void Start()
     {
         for (int i = 0; i < map.transform.childCount; i++)
@@ -36,6 +43,10 @@ public class MapController : MonoBehaviour
         // 設定洗牌陣列大小
         randomint = new int[Maps.Count];
 
+        source = GetComponent<AudioSource>();
+
+        source.clip = normalBGM;
+        source.Play();
 
     }
 
@@ -64,17 +75,23 @@ public class MapController : MonoBehaviour
 
     public void SwapMaps(int i, EnemyParmType ranParmType, float ranParmValue) // 紀錄切換地圖
     {
+
+        if (nowMap == shotMap)
+        {
+            Shop shop = GameObject.Find("ShopMap").GetComponent<Shop>();
+            shop.DestroyItem();
+        }
+
         nowMap = Maps[randomint[nowMaps]].GetComponent<Map>();
 
 
-
-        if (mapsCount == 4)
+        if (mapsCount == 5 || mapsCount == 11)
         {
             nowMap = shotMap;
 
             nowMap.GetComponent<Shop>().AddItem();
         }
-        else if (mapsCount == 5)
+        else if (mapsCount == 12)
         {
             nowMap = bossMap;
         }
@@ -91,6 +108,7 @@ public class MapController : MonoBehaviour
         }
 
         mapsCount++;
+        Debug.Log(mapsCount);
 
 
 
@@ -113,6 +131,32 @@ public class MapController : MonoBehaviour
         if (nowMap == shotMap)
         {
             EnemyClear();
+            source.clip = shopBGM;
+            source.loop = true;
+            if (!source.isPlaying && !player.isDying)
+            {
+                source.Play();
+            }
+            shopFungus.SetActive(true);
+        }
+        else if (nowMap == bossMap)
+        {
+            source.clip = bossBGM;
+            source.loop = true;
+            if (!source.isPlaying && !player.isDying)
+            {
+                source.Play();
+            }
+            bossFungus.SetActive(true);
+        }
+        else
+        {
+            source.clip = normalBGM;
+            source.loop = true;
+            if (!source.isPlaying && !player.isDying)
+            {
+                source.Play();
+            }
         }
 
 

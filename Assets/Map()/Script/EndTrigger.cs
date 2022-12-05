@@ -13,10 +13,6 @@ public class EndTrigger : MonoBehaviour
     EnemyParmType ranParmType;
     float ranParmValue;
 
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods is called the first time.
-    /// </summary>
     private void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -76,11 +72,15 @@ public class EndTrigger : MonoBehaviour
     public void RanEnemyParm()
     {
         ranParmType = (EnemyParmType)Random.Range(0, 3);
-        ranParmValue = Random.Range(1, 10);
+        ranParmValue = Random.Range(10, 21);
 
         if (mapController.mapsCount != 0 && mapController.mapsCount % 3 == 0)
         {
             ranLevelRewardType = LevelRewardType.SkillUp;
+        }
+        else if (mapController.mapsCount == 5 || mapController.mapsCount == 10)
+        {
+            ranLevelRewardType = LevelRewardType.Null;
         }
         else
         {

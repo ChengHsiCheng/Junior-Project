@@ -7,17 +7,25 @@ public class BuyPassiveSkill : MonoBehaviour
 {
     Player player;
 
+    public GameObject lifeStealButtle;
+    public GameObject nextRoomHealthButtle;
+    public GameObject berserkerButtle;
+    public GameObject initialGoldButtle;
+    public GameObject increaseMaxHpButtle;
+    public GameObject increaseDamageButtle;
+
+
     private void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+        Open();
     }
     public void OnBuyPassiveSkill(int n)
     {
-        Debug.Log(n);
         if (n == 1 && 25 <= player.crystalCount)
         {
             player.addPositiveSkill(new LifeSteal());
-            player.crystalCount -= 25;
+            player.crystalCount -= 45;
         }
         else if (n == 2 && 25 <= player.crystalCount)
         {
@@ -56,6 +64,39 @@ public class BuyPassiveSkill : MonoBehaviour
         gameObject.SetActive(false);
 
         Time.timeScale = 1;
+    }
+
+    public void Open()
+    {
+        for (int i = 0; i < player.passiveSkills.Count; i++)
+        {
+            Debug.Log(player.passiveSkills[i].ToString());
+            if (player.passiveSkills[i].ToString() == "LifeSteal")
+            {
+                Debug.Log(player.passiveSkills[i].ToString());
+                lifeStealButtle.gameObject.SetActive(false);
+            }
+            else if (player.passiveSkills[i].ToString() == "NextRoomHealth")
+            {
+                nextRoomHealthButtle.SetActive(false);
+            }
+            else if (player.passiveSkills[i].ToString() == "Berserker")
+            {
+                berserkerButtle.SetActive(false);
+            }
+            else if (player.passiveSkills[i].ToString() == "InitialGold")
+            {
+                initialGoldButtle.SetActive(false);
+            }
+            else if (player.passiveSkills[i].ToString() == "IncreaseMaxHp")
+            {
+                increaseMaxHpButtle.SetActive(false);
+            }
+            else if (player.passiveSkills[i].ToString() == "IncreaseDamage")
+            {
+                increaseDamageButtle.SetActive(false);
+            }
+        }
     }
 
 }

@@ -8,6 +8,7 @@ public class Attack_Collision : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name);
         if (other.tag == "Enemy")
         {
             Enemy enemy = other.GetComponent<Enemy>();

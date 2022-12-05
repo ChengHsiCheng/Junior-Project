@@ -990,8 +990,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177313d397a646045bd6aab7de7db82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHp: 30
-  hp: 30
+  baseHp: 50
+  hp: 50
   maxHp: 30
   damege: 5
   hpAddition: 1

@@ -82,7 +82,7 @@ public class FireBallSkill02 : SkillControl
 
     void ShootFireBall(bool end)
     {
-        float val = chargeTimer / 2;
+        float val = chargeTimer / 1.5f;
         pos = skillPos.transform.position + skillPos.transform.forward * 0.5f;
         skillObj = Instantiate(skill, pos, skillPos.transform.rotation);
         fireBall = skillObj.GetComponent<FireBall>();

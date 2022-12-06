@@ -49,6 +49,6 @@ MonoBehaviour:
   damege: 5
   skill: {fileID: 7254315140174652731, guid: fa432f3b7d554174fb8e10849b658684, type: 3}
   SkillName: FireBall
-  skillIntroduce: ASD
+  skillIntroduce: "\u706B\u7403\u6280\u80FD:\u6848\u4F4F\u84C4\u529B\uFF0C\u84C4\u529B\u8D8A\u4E45\u50B7\u5BB3\u8D8A\u9AD8"
   image: {fileID: 21300000, guid: 41404aa4624b26a44a95727e36d8c8f2, type: 3}
   maxChargeTime: 3

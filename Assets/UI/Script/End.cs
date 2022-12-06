@@ -21,18 +21,19 @@ public class End : MonoBehaviour
         }
     }
     public Image black;
+    public Text thx;
     float timer;
     void Start()
     {
-
+        thx.color = new Color(1, 1, 1, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!fungusBool && timer < 2)
+        if (!fungusBool && timer < 4)
         {
-            black.color = new Color(0, 0, 0, 1 - timer / 2);
+            black.color = new Color(0, 0, 0, 1 - timer / 4);
             timer += Time.deltaTime;
         }
 
@@ -40,8 +41,16 @@ public class End : MonoBehaviour
         {
             if (timer > 0)
             {
-                black.color = new Color(0, 0, 0, 1 - timer / 2);
+                black.color = new Color(0, 0, 0, 1 - timer / 4);
+                thx.color = new Color(1, 1, 1, 0 + (4 - timer));
                 timer -= Time.deltaTime;
+            }
+            if (timer > -3)
+            {
+                timer -= Time.deltaTime;
+            }
+            else
+            {
                 SceneManager.LoadScene(0);
             }
 

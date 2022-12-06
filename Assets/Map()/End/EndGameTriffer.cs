@@ -7,6 +7,8 @@ public class EndGameTriffer : MonoBehaviour
     public Map endMap;
     public GameObject UI;
 
+    public MapController mapController;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -28,5 +30,10 @@ public class EndGameTriffer : MonoBehaviour
     {
         if (other.tag == "Player")
             UI.SetActive(false);
+    }
+
+    public void bossDie()
+    {
+        mapController.source.Stop();
     }
 }

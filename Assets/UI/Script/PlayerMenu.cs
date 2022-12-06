@@ -29,10 +29,15 @@ public class PlayerMenu : MonoBehaviour
 
     public Image black;
     float blackTimer;
+
+    AudioSource source;
+    public AudioClip click;
     void Start()
     {
         Time.timeScale = 1;
         player = GameObject.Find("Player").GetComponent<Player>();
+
+        source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -78,6 +83,7 @@ public class PlayerMenu : MonoBehaviour
     {
         isSettingMenu = false;
         settingMenu.SetActive(isSettingMenu);
+        source.PlayOneShot(click);
 
         Time.timeScale = 1;
     }
@@ -86,6 +92,7 @@ public class PlayerMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         PlayerPrefs.DeleteAll();
+        source.PlayOneShot(click);
 
         SceneManager.LoadScene(1);
     }
@@ -93,12 +100,14 @@ public class PlayerMenu : MonoBehaviour
     public void OnBackMainMenu()
     {
         Time.timeScale = 1;
+        source.PlayOneShot(click);
         player.SaveGame();
         SceneManager.LoadScene(0);
     }
 
     public void OnExit()
     {
+        source.PlayOneShot(click);
         player.SaveGame();
         Application.Quit();
     }

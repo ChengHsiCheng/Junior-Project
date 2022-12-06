@@ -28,7 +28,7 @@ public class MapController : MonoBehaviour
     float enemyDamegeAddition;
     float enemySpeedAddition;
 
-    AudioSource source;
+    public AudioSource source;
     public AudioClip normalBGM;
     public AudioClip bossBGM;
     public AudioClip shopBGM;

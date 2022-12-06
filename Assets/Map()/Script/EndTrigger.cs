@@ -78,7 +78,7 @@ public class EndTrigger : MonoBehaviour
         {
             ranLevelRewardType = LevelRewardType.SkillUp;
         }
-        else if (mapController.mapsCount == 5 || mapController.mapsCount == 10)
+        else if (mapController.mapsCount == 5 || mapController.mapsCount == 11)
         {
             ranLevelRewardType = LevelRewardType.Null;
         }

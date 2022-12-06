@@ -13,10 +13,13 @@ public class MenuController : MonoBehaviour
     public bool onStart;
     public float timer;
 
+    AudioSource source;
+    public AudioClip click;
+
     private void Start()
     {
         black.color = new Color(0, 0, 0, 0);
-
+        source = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -49,11 +52,13 @@ public class MenuController : MonoBehaviour
 
     public void OnStartGame()
     {
+        source.PlayOneShot(click);
         onStart = true;
     }
 
     public void OnExitGame()
     {
+        source.PlayOneShot(click);
         Application.Quit();
     }
 

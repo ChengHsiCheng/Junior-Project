@@ -49,7 +49,7 @@ MonoBehaviour:
   damege: 0.2
   skill: {fileID: 7128726269660425675, guid: 0379ced636aaacc4bbf518fc67feaf1a, type: 3}
   SkillName: IceSpike
-  skillIntroduce: "\u4F7F\u7528\u51B0\u523A\u653B\u64CA\u5C0D\u624B"
+  skillIntroduce: "\u51B0\u523A\u6280\u80FD:\u4F7F\u7528\u51B0\u523A\u653B\u64CA\u5C0D\u624B"
   image: {fileID: 21300000, guid: d65aa46302d85c04ba7c427cfe9ddf36, type: 3}
   sizeX: 0.7
   sizeY: 1

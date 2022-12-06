@@ -14,14 +14,20 @@ public class BuyPassiveSkill : MonoBehaviour
     public GameObject increaseMaxHpButtle;
     public GameObject increaseDamageButtle;
 
+    AudioSource source;
+    public AudioClip click;
+
 
     private void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+        source = GetComponent<AudioSource>();
         Open();
     }
     public void OnBuyPassiveSkill(int n)
     {
+
+        source.PlayOneShot(click);
         if (n == 1 && 25 <= player.crystalCount)
         {
             player.addPositiveSkill(new LifeSteal());
@@ -62,6 +68,7 @@ public class BuyPassiveSkill : MonoBehaviour
     public void ExitButton()
     {
         gameObject.SetActive(false);
+        source.PlayOneShot(click);
 
         Time.timeScale = 1;
     }
